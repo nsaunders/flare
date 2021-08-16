@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
-    "flare": "^0.0.0",
     "css-loader": "^5.2.6",
+    "flare": "^0.0.0",
     "fp-ts": "^2.10.5",
     "fp-ts-std": "^0.10.0",
     "highlight.js": "^11.0.1",
