@@ -1,0 +1,63 @@
+@import "highlight.js/styles/github.css" screen;
+@import "highlight.js/styles/github-dark.css" screen and (prefers-color-scheme: dark);
+
+:root {
+  color-scheme: light dark;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  a {
+    color: #09f;
+  }
+
+  a:visited {
+    color: #66c;
+  }
+
+  a:active {
+    color: #c66;
+  }
+}
+
+.hljs {
+  background: transparent;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.example + .example {
+  margin-top: 32px;
+}
+
+.example h3 {
+  margin: 0;
+}
+
+.code-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.controls, .target-wrap {
+  margin-top: 16px;
+}
+
+.target-title {
+  color: FieldText;
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+.target {
+  padding: 16px;
+  box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  .target {
+    background: rgba(255, 255, 255, 0.05);
+  }
+}

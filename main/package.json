@@ -1,0 +1,52 @@
+{
+  "name": "flare",
+  "version": "0.0.0",
+  "description": "Applicative-style UIs",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "unpkg": "umd/flare.min.js",
+  "typings": "types/index.d.ts",
+  "style": "css/flare.css",
+  "scripts": {
+    "check": "tsc",
+    "clean": "node -e \"['cjs', 'css', 'esm', 'types'].forEach(x => {try{require('fs').rmSync(x, { recursive: true })}catch(_){}})\"",
+    "dev": "npm run prepublishOnly",
+    "prepublishOnly": "npm run clean && tsc --project tsconfig.types.json && tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && rollup -c && cpy ../core/css/flare-core.css css --rename=flare.css",
+    "site": "npm run prepublishOnly",
+    "test": "echo \"You should add some tests.\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nsaunders/flare.git"
+  },
+  "keywords": [
+    "flare",
+    "applicative",
+    "ui",
+    "fp",
+    "functional",
+    "knobs",
+    "controls"
+  ],
+  "author": "Nick Saunders",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nsaunders/flare/issues"
+  },
+  "homepage": "https://github.com/nsaunders/flare#readme",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "flare-core": "^0.0.0",
+    "@rollup/plugin-typescript": "^8.2.1",
+    "@types/react": "^17.0.11",
+    "@types/react-dom": "^17.0.7",
+    "cpy-cli": "^3.1.1",
+    "rollup": "^2.52.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.5"
+  }
+}
