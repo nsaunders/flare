@@ -489,6 +489,21 @@ export const toggle = /*#__PURE__*/ makeFlare<LabelProp, boolean>((props) => {
   return <Toggle {...props} />;
 });
 
+const ResizableListView: Components["ResizableList"] = props => {
+  const { ResizableList } = useContext(Components);
+  return <ResizableList {...props} />;
+};
+
+const ResizableListItemView: Components["ResizableListItem"] = props => {
+  const { ResizableListItem } = useContext(Components);
+  return <ResizableListItem {...props} />;
+};
+
+const ButtonView: Components["Button"] = props => {
+  const { Button } = useContext(Components);
+  return <Button {...props} />;
+};
+
 export function resizableList<A>({
   item,
   defaultItems,
@@ -514,10 +529,8 @@ export function resizableList<A>({
       return {
         query: () => itemFlares.map((flare) => flare.query()),
         render: ({ onChange }) => {
-          const { Button, ResizableList, ResizableListItem } =
-            useContext(Components);
           return (
-            <ResizableList
+            <ResizableListView
               addButton={
                 (maxLength === undefined || itemFlares.length < maxLength) && (
                   <Button
@@ -532,7 +545,7 @@ export function resizableList<A>({
               }
             >
               {itemFlares.map((flare, key) => (
-                <ResizableListItem
+                <ResizableListItemView
                   key={key}
                   addButton={
                     <Button
@@ -549,7 +562,7 @@ export function resizableList<A>({
                     </Button>
                   }
                   removeButton={
-                    <Button
+                    <ButtonView
                       disabled={minLength >= itemFlares.length}
                       onClick={() => {
                         itemFlares.splice(key, 1);
@@ -557,13 +570,13 @@ export function resizableList<A>({
                       }}
                     >
                       -
-                    </Button>
+                    </ButtonView>
                   }
                 >
                   {flare.render({ onChange })}
-                </ResizableListItem>
+                </ResizableListItemView>
               ))}
-            </ResizableList>
+            </ResizableListView>
           );
         },
       };
