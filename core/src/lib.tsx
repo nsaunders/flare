@@ -533,14 +533,14 @@ export function resizableList<A>({
             <ResizableListView
               addButton={
                 (maxLength === undefined || itemFlares.length < maxLength) && (
-                  <Button
+                  <ButtonView
                     onClick={() => {
                       itemFlares.push(item.make());
                       onChange();
                     }}
                   >
                     +
-                  </Button>
+                  </ButtonView>
                 )
               }
             >
@@ -548,7 +548,7 @@ export function resizableList<A>({
                 <ResizableListItemView
                   key={key}
                   addButton={
-                    <Button
+                    <ButtonView
                       disabled={
                         maxLength !== undefined &&
                         maxLength <= itemFlares.length
@@ -559,7 +559,7 @@ export function resizableList<A>({
                       }}
                     >
                       +
-                    </Button>
+                    </ButtonView>
                   }
                   removeButton={
                     <ButtonView
