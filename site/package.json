@@ -1,10 +1,10 @@
 {
   "name": "site",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "devDependencies": {
     "css-loader": "^5.2.6",
-    "flare": "^0.0.1",
+    "flare": "^0.0.2",
     "fp-ts": "^2.10.5",
     "fp-ts-std": "^0.10.0",
     "highlight.js": "^11.0.1",
