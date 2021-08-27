@@ -7,17 +7,17 @@ export const styles = css({
     display: "flex",
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "#fff",
+    borderColor: "rgb(var(--light))",
     borderRadius: 4,
     paddingRight: 0,
     paddingLeft: 7,
     "&:focus-within": {
-      boxShadow: "0 0 0.166em 0.083em rgba(255,255,255,0.5)",
+      boxShadow: "0 0 0.166em 0.083em rgba(var(--light),0.5)",
     },
   },
   containerActive: {
-    background: "#fff",
-    color: "#000",
+    background: "rgb(var(--light))",
+    color: "rgb(var(--dark))",
   },
   buttonWrap: {
     marginRight: 8,

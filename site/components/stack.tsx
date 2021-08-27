@@ -13,6 +13,9 @@ export const styles = /*#__PURE__*/ css({
   container: {
     display: "inline-flex",
   },
+  containerBlock: {
+    display: "flex",
+  },
   containerAlignItemsStart: {
     alignItems: "flex-start",
   },
@@ -66,8 +69,9 @@ export const styles = /*#__PURE__*/ css({
 const stackDefaultElement = "div";
 
 type StackOwnProps = {
-  direction?: "row" | "row-reverse" | "column" | "column-reverse";
   alignItems?: "start" | "center" | "end";
+  block?: boolean;
+  direction?: "row" | "row-reverse" | "column" | "column-reverse";
   spacing?: 0 | 8 | 16 | 48 | 64;
 };
 
@@ -83,6 +87,7 @@ export const Stack: <E extends ElementType = typeof stackDefaultElement>(
 >(
   {
     alignItems,
+    block,
     className,
     direction,
     spacing = 0,
@@ -95,6 +100,7 @@ export const Stack: <E extends ElementType = typeof stackDefaultElement>(
       <Box
         as={stackDefaultElement}
         className={cx(className, styles.container, {
+          [styles.containerBlock]: block,
           [styles.containerAlignItemsStart]: alignItems === "start",
           [styles.containerAlignItemsCenter]: alignItems === "center",
           [styles.containerAlignItemsEnd]: alignItems === "end",

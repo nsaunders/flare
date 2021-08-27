@@ -1,11 +1,13 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { css } from "demitasse";
 import { useMeasure } from "react-use";
-import cx from "clsx";
 import { Button } from "../components/button";
+import { Logo } from "../components/logo";
 import { Install } from "../components/install";
 import { Item, Stack } from "../components/stack";
+import { Tagline } from "../components/tagline";
 
 export const styles = /*#__PURE__*/ css({
   page: {
@@ -15,29 +17,17 @@ export const styles = /*#__PURE__*/ css({
     right: 0,
     bottom: 0,
     left: 0,
-    background: "#000",
-    color: "#fff",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-  },
-  name: {
-    fontFamily: "Gruppo",
-    fontSize: "48px",
-    lineHeight: 1,
-    textTransform: "uppercase",
-    letterSpacing: "0.5em",
-    "&::after": {
-      content: "",
-      marginRight: "-0.5em",
-    },
-  },
-  nameLarge: {
-    fontSize: 64,
+    background: "rgb(var(--dark))",
+    color: "rgb(var(--light))",
   },
   tagline: {
+    margin: 0,
     fontFamily: "Lato",
+    fontWeight: "normal",
     fontSize: 14,
     lineHeight: 1,
     letterSpacing: 1,
@@ -63,23 +53,16 @@ const Home: NextPage = () => {
           name="description"
           content="Applicative-style UIs in TypeScript"
         />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.page} ref={(el: HTMLDivElement) => pageRef(el)}>
         <Stack spacing={large ? 64 : 48} direction="column" alignItems="center">
           <Item>
             <Stack spacing={8} direction="column" alignItems="center">
-              <Item
-                as="h1"
-                className={cx(styles.name, large && styles.nameLarge)}
-              >
-                Flare
+              <Item>
+                <Logo as="h1" width={large ? 325 : 244} />
               </Item>
-              <Item
-                as="h2"
-                className={cx(styles.tagline, large && styles.taglineLarge)}
-              >
-                Applicative-style UIs in TypeScript
+              <Item>
+                <Tagline as="h2" width={large ? 310 : 242} />
               </Item>
             </Stack>
           </Item>
@@ -90,9 +73,11 @@ const Home: NextPage = () => {
               alignItems="center"
             >
               <Item>
-                <Button as="a" href="#" size="large" grow motif="primary">
-                  Get started
-                </Button>
+                <Link href="./getting-started">
+                  <Button as="a" href="./getting-started" size="large" grow motif="primary">
+                    Get started
+                  </Button>
+                </Link>
               </Item>
               <Item>
                 <Install packageName="flare" />

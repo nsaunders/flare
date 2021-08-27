@@ -1,3 +1,15 @@
+.dark {
+  --dark: 0, 0, 0;
+  --light: 255, 255, 255;
+}
+
+.light {
+  --dark: 255, 255, 255;
+  --light: 0, 0, 0;
+}
+
 body {
-  background: #000;
+  margin: 0;
+  background: rgb(var(--dark));
+  color: rgb(var(--light));
 }

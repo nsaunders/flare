@@ -7,6 +7,9 @@ if (!(".ts" in require.extensions)) {
     },
   });
 }
+if (!(".mdx" in require.extensions)) {
+  require.extensions[".mdx"] = function() {};
+}
 const redirect = () => {
   const { css } = require("demitasse");
   require("demitasse").css = require("demitasse/extract").css;

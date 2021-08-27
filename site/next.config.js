@@ -1,3 +1,4 @@
+const withMDX = require("@next/mdx")();
 const {
   getGlobalCssLoader,
 } = require("next/dist/build/webpack/config/blocks/css/loaders");
@@ -58,4 +59,4 @@ function withDemitasse(nextConfig = {}) {
   };
 }
 
-module.exports = withDemitasse();
+module.exports = withDemitasse(withMDX());

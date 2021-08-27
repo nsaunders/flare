@@ -1,28 +1,32 @@
-import {ElementType, ReactElement, forwardRef} from "react";
+import {ElementType, ReactElement, forwardRef, FC} from "react";
 import { PolymorphicComponentProps, Box } from "react-polymorphic-box";
 import cx from "clsx";
 import {css} from "demitasse";
 
 export const styles = css({
   base: {
+    display: "inline-flex",
+    alignItems: "center",
     appearance: "none",
     outline: "none",
     textDecoration: "none",
-    display: "inline-block",
     margin: 0,
     borderWidth: 1,
     borderStyle: "solid",
-    borderColor: "#fff",
+    borderColor: "rgb(var(--light))",
     borderRadius: 4,
     fontFamily: "Lato",
     lineHeight: 1,
-    background: "#000",
-    color: "#fff",
+    background: "var(rgb(--dark))",
+    color: "var(rgb(--light))",
     paddingTop: 0,
     paddingBottom: 0,
     "&:focus,&:active": {
-      boxShadow: "0 0 0.166em 0.083em rgba(255,255,255,0.5)",
+      boxShadow: "0 0 0.166em 0.083em rgba(var(--light),0.5)",
     },
+  },
+  icon: {
+    display: "inline-flex",
   },
   medium: {
     fontSize: 12,
@@ -33,6 +37,10 @@ export const styles = css({
     paddingTop: 5,
     paddingBottom: 5,
   },
+  mediumIcon: {
+    paddingTop: 1,
+    paddingBottom: 1,
+  },
   large: {
     fontSize: 16,
     paddingRight: 11,
@@ -42,20 +50,24 @@ export const styles = css({
     paddingTop: 7,
     paddingBottom: 7,
   },
+  largeIcon: {
+    paddingTop: 3,
+    paddingBottom: 3,
+  },
   basic: {
-    background: "#000",
-    color: "#fff",
+    background: "rgb(var(--dark))",
+    color: "rgb(var(--light))",
     "&:active": {
-      background: "#fff",
-      color: "#000",
+      background: "rgb(var(--light))",
+      color: "rgb(var(--dark))",
     }
   },
   primary: {
-    background: "#fff",
-    color: "#000",
+    background: "rgb(var(--light))",
+    color: "rgb(var(--dark))",
     "&:active": {
-      background: "#000",
-      color: "#fff",
+      background: "rgb(var(--dark))",
+      color: "rgb(var(--light))",
     },
   },
   grow: {
@@ -70,15 +82,39 @@ export const styles = css({
 type ButtonOwnProps = {
   grow?: boolean;
   motif?: "primary" | "basic";
-  size?: "medium" | "large";
-};
+}  & ({
+  children: string;
+} | {
+  icon: any;
+}) & ({
+  size?: "medium";
+  icon?: FC<{ fontSize: "small"; }>;
+} | {
+  size: "large";
+  icon?: FC<{ fontSize: "medium"; }>;
+});
 
 const defaultElement = "button";
 
 type ButtonProps<E extends ElementType = typeof defaultElement> = PolymorphicComponentProps<E, ButtonOwnProps>;
 
 export const Button: <E extends ElementType = typeof defaultElement>(props: ButtonProps<E>) => ReactElement | null = forwardRef(
-  <E extends ElementType = typeof defaultElement>({ className, children, grow, motif = "basic", size = "medium", ...restProps }: ButtonProps<E>, ref: typeof restProps.ref) => (
+  <E extends ElementType = typeof defaultElement>({ className, children, grow, icon: Icon, motif = "basic", size = "medium", ...restProps }: ButtonProps<E>, ref: typeof restProps.ref) => {
+  const iconContent = Icon ? (
+    <div className={cx(styles.icon, {
+      [styles.mediumIcon]: size === "medium",
+      [styles.largeIcon]: size === "large",
+    })}><Icon fontSize="small" /></div>
+  ) : null;
+
+  const textContent = children ? (
+    <div className={cx({
+      [styles.mediumText]: size === "medium",
+      [styles.largeText]: size === "large",
+    })}>{children}</div>
+  ) : null;
+
+  return (
     <Box
       as={defaultElement}
       className={cx(className, styles.base, {
@@ -90,10 +126,8 @@ export const Button: <E extends ElementType = typeof defaultElement>(props: Butt
       })}
       {...restProps}
       ref={ref}>
-      <div className={cx({
-        [styles.mediumText]: size === "medium",
-        [styles.largeText]: size === "large",
-      })}>{children}</div>
+      {iconContent}
+      {textContent}
     </Box>
-  ),
-);
+  );
+});
