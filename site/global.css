@@ -13,3 +13,45 @@ body {
   background: rgb(var(--dark));
   color: rgb(var(--light));
 }
+
+#__next {
+  position: fixed;
+}
+
+#__next, .shell {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.shell {
+  position: absolute;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.content {
+  position: absolute;
+  top: 52px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  transition-property: opacity;
+  transition-duration: 500ms;
+}
+
+.transitioning {
+  opacity: 0;
+}

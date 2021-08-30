@@ -22,6 +22,7 @@
     "css-loader": "^6.2.0",
     "cssnano": "^5.0.8",
     "demitasse": "^0.5.3",
+    "framer-motion": "^4.1.17",
     "next": "11.1.0",
     "postcss": "^8.3.6",
     "postcss-font-magician": "^3.0.0",

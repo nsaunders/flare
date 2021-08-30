@@ -1,19 +1,29 @@
-import {ElementType, ReactElement, forwardRef, FC} from "react";
+import { ElementType, ReactElement, forwardRef, FC } from "react";
 import { PolymorphicComponentProps, Box } from "react-polymorphic-box";
 import cx from "clsx";
-import {css} from "demitasse";
+import { css } from "demitasse";
 
-export const styles = css({
+const border = {
+  borderWidth: 1,
+  borderStyle: "solid",
+  borderColor: "rgb(var(--light))",
+} as const;
+
+const focusShadow = {
+  "&:focus,&:active": {
+    boxShadow: "0 0 0.166em 0.083em rgba(var(--light),0.5)",
+  },
+} as const;
+
+export const styles = /*#__PURE__*/ css({
   base: {
     display: "inline-flex",
     alignItems: "center",
+    justifyContent: "center",
     appearance: "none",
     outline: "none",
     textDecoration: "none",
     margin: 0,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "rgb(var(--light))",
     borderRadius: 4,
     fontFamily: "Lato",
     lineHeight: 1,
@@ -21,9 +31,6 @@ export const styles = css({
     color: "var(rgb(--light))",
     paddingTop: 0,
     paddingBottom: 0,
-    "&:focus,&:active": {
-      boxShadow: "0 0 0.166em 0.083em rgba(var(--light),0.5)",
-    },
   },
   icon: {
     display: "inline-flex",
@@ -55,19 +62,31 @@ export const styles = css({
     paddingBottom: 3,
   },
   basic: {
+    ...border,
+    ...focusShadow,
     background: "rgb(var(--dark))",
     color: "rgb(var(--light))",
     "&:active": {
       background: "rgb(var(--light))",
       color: "rgb(var(--dark))",
-    }
+    },
   },
   primary: {
+    ...border,
+    ...focusShadow,
     background: "rgb(var(--light))",
     color: "rgb(var(--dark))",
     "&:active": {
       background: "rgb(var(--dark))",
       color: "rgb(var(--light))",
+    },
+  },
+  tertiary: {
+    background: "transparent",
+    color: "rgb(var(--light))",
+    border: 0,
+    "&:focus,&:active": {
+      background: "rgba(var(--light),0.1)",
     },
   },
   grow: {
@@ -81,37 +100,67 @@ export const styles = css({
 
 type ButtonOwnProps = {
   grow?: boolean;
-  motif?: "primary" | "basic";
-}  & ({
-  children: string;
-} | {
-  icon: any;
-}) & ({
-  size?: "medium";
-  icon?: FC<{ fontSize: "small"; }>;
-} | {
-  size: "large";
-  icon?: FC<{ fontSize: "medium"; }>;
-});
+  motif?: "primary" | "basic" | "tertiary";
+} & (
+  | {
+      children: string;
+    }
+  | {
+      icon: unknown;
+    }
+) &
+  (
+    | {
+        size?: "medium";
+        icon?: FC<{ fontSize: "small" }>;
+      }
+    | {
+        size: "large";
+        icon?: FC<{ fontSize: "medium" }>;
+      }
+  );
 
 const defaultElement = "button";
 
-type ButtonProps<E extends ElementType = typeof defaultElement> = PolymorphicComponentProps<E, ButtonOwnProps>;
+type ButtonProps<E extends ElementType = typeof defaultElement> =
+  PolymorphicComponentProps<E, ButtonOwnProps>;
 
-export const Button: <E extends ElementType = typeof defaultElement>(props: ButtonProps<E>) => ReactElement | null = forwardRef(
-  <E extends ElementType = typeof defaultElement>({ className, children, grow, icon: Icon, motif = "basic", size = "medium", ...restProps }: ButtonProps<E>, ref: typeof restProps.ref) => {
+export const Button: <E extends ElementType = typeof defaultElement>(
+  props: ButtonProps<E>,
+) => ReactElement | null = forwardRef(function Button<
+  E extends ElementType = typeof defaultElement,
+>(
+  {
+    className,
+    children,
+    grow,
+    icon: Icon,
+    motif = "basic",
+    size = "medium",
+    ...restProps
+  }: ButtonProps<E>,
+  ref: typeof restProps.ref,
+) {
   const iconContent = Icon ? (
-    <div className={cx(styles.icon, {
-      [styles.mediumIcon]: size === "medium",
-      [styles.largeIcon]: size === "large",
-    })}><Icon fontSize="small" /></div>
+    <div
+      className={cx(styles.icon, {
+        [styles.mediumIcon]: size === "medium",
+        [styles.largeIcon]: size === "large",
+      })}
+    >
+      <Icon fontSize="small" />
+    </div>
   ) : null;
 
   const textContent = children ? (
-    <div className={cx({
-      [styles.mediumText]: size === "medium",
-      [styles.largeText]: size === "large",
-    })}>{children}</div>
+    <div
+      className={cx({
+        [styles.mediumText]: size === "medium",
+        [styles.largeText]: size === "large",
+      })}
+    >
+      {children}
+    </div>
   ) : null;
 
   return (
@@ -121,11 +170,13 @@ export const Button: <E extends ElementType = typeof defaultElement>(props: Butt
         [styles.grow]: grow,
         [styles.basic]: motif === "basic",
         [styles.primary]: motif === "primary",
+        [styles.tertiary]: motif === "tertiary",
         [styles.medium]: size === "medium",
         [styles.large]: size === "large",
       })}
       {...restProps}
-      ref={ref}>
+      ref={ref}
+    >
       {iconContent}
       {textContent}
     </Box>

@@ -1,28 +1,26 @@
+import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { css } from "demitasse";
 import { useMeasure } from "react-use";
 import { Button } from "../components/button";
-import { Logo } from "../components/logo";
 import { Install } from "../components/install";
 import { Item, Stack } from "../components/stack";
 import { Tagline } from "../components/tagline";
+import { ImprintZone } from "../components/imprint";
 
 export const styles = /*#__PURE__*/ css({
   page: {
     position: "absolute",
-    overflow: "hidden",
     top: 0,
     right: 0,
     bottom: 0,
     left: 0,
     display: "flex",
-    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    background: "rgb(var(--dark))",
-    color: "rgb(var(--light))",
   },
   tagline: {
     margin: 0,
@@ -43,8 +41,18 @@ export const styles = /*#__PURE__*/ css({
 });
 
 const Home: NextPage = () => {
-  const [pageRef, { width: pageWidth }] = useMeasure();
+  const [pageRef, { width: pageWidth }] = useMeasure<HTMLDivElement>();
   const large = pageWidth >= 400;
+
+  const { asPath } = useRouter();
+  const [leaving, setLeaving] = useState(false);
+
+  useEffect(() => {
+    if (asPath !== "/") {
+      setLeaving(true);
+    }
+  }, [asPath]);
+
   return (
     <>
       <Head>
@@ -54,12 +62,16 @@ const Home: NextPage = () => {
           content="Applicative-style UIs in TypeScript"
         />
       </Head>
-      <div className={styles.page} ref={(el: HTMLDivElement) => pageRef(el)}>
+      <div className={styles.page} ref={pageRef}>
         <Stack spacing={large ? 64 : 48} direction="column" alignItems="center">
           <Item>
             <Stack spacing={8} direction="column" alignItems="center">
               <Item>
-                <Logo as="h1" width={large ? 325 : 244} />
+                {leaving ? (
+                  <div style={{ height: large ? 64 : 48 }} />
+                ) : (
+                  <ImprintZone size={large ? "large" : "medium"} />
+                )}
               </Item>
               <Item>
                 <Tagline as="h2" width={large ? 310 : 242} />
@@ -73,8 +85,8 @@ const Home: NextPage = () => {
               alignItems="center"
             >
               <Item>
-                <Link href="./getting-started">
-                  <Button as="a" href="./getting-started" size="large" grow motif="primary">
+                <Link href="./getting-started" passHref>
+                  <Button as="a" size="large" grow motif="primary">
                     Get started
                   </Button>
                 </Link>

@@ -1,8 +1,10 @@
 export { styles as button } from "./components/button";
-export { styles as doc } from "./components/doc";
+export { styles as header } from "./components/header";
+export { styles as imprint } from "./components/imprint";
 export { styles as install } from "./components/install";
 export { styles as index } from "./pages/index";
 export { styles as logo } from "./components/logo";
+export { styles as menu } from "./components/menu";
 export { styles as mode } from "./components/mode";
 export { styles as space } from "./components/space";
 export { styles as stack } from "./components/stack";
