@@ -18,22 +18,47 @@ body {
   position: fixed;
 }
 
-#__next, .shell {
-  top: 0;
+.shell, .menu, .content, .header, .main {
+  position: absolute;
+}
+
+#__next, .shell, .content, .header, .menu {
   right: 0;
-  bottom: 0;
   left: 0;
+}
+
+#__next, .shell, .menu, .content, .header {
+  top: 0;
+}
+
+#__next, .shell, .menu, .content, .main {
+  bottom: 0;
 }
 
 .shell {
-  position: absolute;
+  --menu-offset: 0.01px;
+}
+
+.shell.menu-expanded {
+  --menu-offset: 200px;
+}
+
+.menu {
+  width: var(--menu-offset, 0);
+  transition-property: width;
+}
+
+.content {
+  right: calc(var(--menu-offset, 0) * -1);
+  left: var(--menu-offset, 0);
+  transition-property: left, right;
+}
+
+.menu, .content {
+  transition-duration: 250ms;
 }
 
 .header {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
   height: 52px;
   display: flex;
   align-items: center;
@@ -42,16 +67,8 @@ body {
   padding-right: 8px;
 }
 
-.content {
-  position: absolute;
+.main {
   top: 52px;
   right: 0;
-  left: 0;
-  bottom: 0;
-  transition-property: opacity;
-  transition-duration: 500ms;
-}
-
-.transitioning {
-  opacity: 0;
+  width: 100%;
 }

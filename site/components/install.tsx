@@ -4,7 +4,7 @@ import cx from "clsx";
 
 export const styles = css({
   container: {
-    display: "flex",
+    display: "inline-flex",
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: "rgb(var(--light))",

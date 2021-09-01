@@ -86,7 +86,7 @@ export const styles = /*#__PURE__*/ css({
     color: "rgb(var(--light))",
     border: 0,
     "&:focus,&:active": {
-      background: "rgba(var(--light),0.1)",
+      background: "rgba(var(--light),0.05)",
     },
   },
   grow: {

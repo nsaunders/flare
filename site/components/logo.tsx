@@ -1,4 +1,6 @@
 import { ElementType, ReactElement, forwardRef } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { PolymorphicComponentProps, Box } from "react-polymorphic-box";
 import cx from "clsx";
 import { css } from "demitasse";
@@ -24,6 +26,12 @@ export const styles = /*#__PURE__*/ css({
   large: {
     fontSize: 64,
   },
+  link: {
+    display: "inline-block",
+    outline: "none",
+    color: "rgb(var(--light))",
+    textDecoration: "none",
+  },
 });
 
 export type LogoOwnProps = { size?: "medium" | "large"; children?: undefined };
@@ -38,7 +46,8 @@ export const Logo: <E extends ElementType = typeof defaultElement>(
 ) => ReactElement | null = /*#__PURE__*/ forwardRef(function Logo<
   E extends ElementType = typeof defaultElement,
 >({ className, size, ...restProps }: LogoProps<E>, ref: typeof restProps.ref) {
-  return (
+  const { asPath } = useRouter();
+  const content = (
     <Box
       as={defaultElement}
       className={cx(className, styles.base, {
@@ -50,5 +59,14 @@ export const Logo: <E extends ElementType = typeof defaultElement>(
     >
       Flare
     </Box>
+  );
+  return asPath === "/" ? (
+    content
+  ) : (
+    <Link href="./">
+      <a className={styles.link} tabIndex={-1}>
+        {content}
+      </a>
+    </Link>
   );
 });
