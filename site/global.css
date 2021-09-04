@@ -71,4 +71,5 @@ body {
   top: 52px;
   right: 0;
   width: 100%;
+  overflow-y: auto;
 }

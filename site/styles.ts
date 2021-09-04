@@ -1,5 +1,7 @@
 export { styles as button } from "./components/button";
+export { styles as code } from "./components/code";
 export { styles as doc } from "./components/doc";
+export { styles as example } from "./components/example";
 export { styles as header } from "./components/header";
 export { styles as imprint } from "./components/imprint";
 export { styles as install } from "./components/install";

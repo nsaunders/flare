@@ -140,6 +140,7 @@ importers:
       '@mdx-js/loader': ^1.6.22
       '@next/mdx': ^11.1.0
       '@tsconfig/next': ^1.0.0
+      '@types/highlightjs': ^9.12.2
       '@types/react': 17.0.19
       autoprefixer: ^10.3.1
       clsx: ^1.1.1
@@ -160,6 +161,7 @@ importers:
       fp-ts: ^2.11.1
       fp-ts-std: ^0.11.0
       framer-motion: ^4.1.17
+      highlight.js: ^11.2.0
       next: 11.1.0
       postcss: ^8.3.6
       postcss-font-magician: ^3.0.0
@@ -183,6 +185,7 @@ importers:
       '@mdx-js/loader': 1.6.22_react@17.0.2
       '@next/mdx': 11.1.2_@mdx-js+loader@1.6.22
       '@tsconfig/next': 1.0.0
+      '@types/highlightjs': 9.12.2
       '@types/react': 17.0.19
       autoprefixer: 10.3.4_postcss@8.3.6
       clsx: 1.1.1
@@ -203,6 +206,7 @@ importers:
       fp-ts: 2.11.1
       fp-ts-std: 0.11.0_fp-ts@2.11.1
       framer-motion: 4.1.17_react-dom@17.0.2+react@17.0.2
+      highlight.js: 11.2.0
       next: 11.1.0_f31b35bdaa3b7c2fce82404f09d2dac4
       postcss: 8.3.6
       postcss-font-magician: 3.0.0_postcss@8.3.6
@@ -1797,6 +1801,10 @@ packages:
     resolution: {integrity: sha512-wLEm0QvaoawEDoTRwzTXp4b4jpwiJDvR5KMnFnVodm3scufTlBOWRD6N1OBf9TZMhjlNsSfcO5V+7AF4+Vy+9g==}
     dependencies:
       '@types/unist': 2.0.6
+    dev: true
+
+  /@types/highlightjs/9.12.2:
+    resolution: {integrity: sha512-oW2pEKwshxwBW1nVUizWQg/tnhboRtKrUKnF2hd6l4BZ0shr5ZjQ4ra/82+NEH6uWeM8JjrMGCux5enQXOQbTA==}
     dev: true
 
   /@types/js-cookie/2.2.7:
@@ -4863,6 +4871,11 @@ packages:
 
   /hey-listen/1.0.8:
     resolution: {integrity: sha512-COpmrF2NOg4TBWUJ5UVyaCU2A88wEMkUPK4hNqyCkqHbxT92BbvfjoSozkAIIm6XhicGlJHhFdullInrdhwU8Q==}
+    dev: true
+
+  /highlight.js/11.2.0:
+    resolution: {integrity: sha512-JOySjtOEcyG8s4MLR2MNbLUyaXqUunmSnL2kdV/KuGJOmHZuAR5xC54Ko7goAXBWNhf09Vy3B+U7vR62UZ/0iw==}
+    engines: {node: '>=12.0.0'}
     dev: true
 
   /hmac-drbg/1.0.1:

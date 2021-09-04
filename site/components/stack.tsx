@@ -41,7 +41,7 @@ export const styles = /*#__PURE__*/ css({
     margin: -4,
   },
   containerSpacing16: {
-    margin: -16,
+    margin: -8,
   },
   containerSpacing48: {
     margin: -24,
