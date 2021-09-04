@@ -6,7 +6,7 @@ export const styles = /*#__PURE__*/ css({
   surface: {
     background: "rgba(var(--light), 0.05)",
     borderRadius: 4,
-    padding: 8,
+    padding: 16,
     overflow: "auto",
   },
   pre: {
