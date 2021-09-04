@@ -1,4 +1,9 @@
 packages:
+  - eslint-config-flare-prettier
+  - eslint-config-flare-react
+  - eslint-config-flare-react-typescript
+  - eslint-config-flare-typescript
   - core
   - main
+  - prettier-config-flare
   - site

@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "name": "eslint-config-flare-react-typescript",
+  "main": "index.json",
+  "peerDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.25.1"
+  }
+}

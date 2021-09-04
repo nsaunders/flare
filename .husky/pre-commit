@@ -1,5 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx lint-staged
-npx lerna run check
+pnpm run precommit -C core
+pnpm run precommit -C main
+pnpm run precommit -C site

@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "name": "prettier-config-flare",
+  "main": "index.json"
+}

@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "eslint-config-flare-typescript",
+  "main": "index.json",
+  "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "eslint": "^7.32.0"
+  }
+}

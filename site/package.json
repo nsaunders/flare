@@ -4,12 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "static": "next export",
-    "lint": "next lint"
+    "build": "next build && next export",
+    "precommit": "lint-staged"
   },
-  "dependencies": {
+  "devDependencies": {
     "@fontsource/courier-prime": "^4.5.0",
     "@fontsource/gruppo": "^4.5.0",
     "@fontsource/lato": "^4.5.0",
@@ -17,11 +15,23 @@
     "@material-ui/icons": "^4.11.2",
     "@mdx-js/loader": "^1.6.22",
     "@next/mdx": "^11.1.0",
+    "@tsconfig/next": "^1.0.0",
+    "@types/react": "17.0.19",
     "autoprefixer": "^10.3.1",
     "clsx": "^1.1.1",
     "css-loader": "^6.2.0",
     "cssnano": "^5.0.8",
     "demitasse": "^0.5.3",
+    "eslint": "^7.32.0",
+    "eslint-config-flare-prettier": "workspace:*",
+    "eslint-config-flare-react": "workspace:*",
+    "eslint-config-flare-react-typescript": "workspace:*",
+    "eslint-config-flare-typescript": "workspace:*",
+    "eslint-config-next": "11.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "flare-core": "workspace:^0.0.2",
     "fp-ts": "^2.11.1",
     "fp-ts-std": "^0.11.0",
@@ -30,18 +40,15 @@
     "postcss": "^8.3.6",
     "postcss-font-magician": "^3.0.0",
     "postcss-loader": "^6.1.1",
+    "prettier": "^2.3.2",
+    "prettier-config-flare": "workspace:*",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-polymorphic-box": "^3.0.3",
     "react-use": "^17.2.4",
-    "ts-node": "^10.2.1",
-    "val-loader": "^4.0.0"
-  },
-  "devDependencies": {
-    "@types/react": "17.0.19",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.0",
     "style-loader": "^3.2.1",
-    "typescript": "4.3.5"
+    "ts-node": "^10.2.1",
+    "typescript": "4.3.5",
+    "val-loader": "^4.0.0"
   }
 }

@@ -1,8 +1,7 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "@tsconfig/recommended",
   "compilerOptions": {
-    "jsx": "react",
-    "rootDir": "src",
-    "esModuleInterop": true
+    "noEmit": true,
+    "rootDir": "src"
   }
 }

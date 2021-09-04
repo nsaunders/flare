@@ -1,0 +1,10 @@
+{
+  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "flare-react",
+    "flare-typescript",
+    "flare-react-typescript",
+    "flare-prettier"
+  ]
+}
