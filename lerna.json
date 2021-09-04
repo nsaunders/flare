@@ -1,8 +1,0 @@
-{
-  "packages": [
-    "core",
-    "main",
-    "site"
-  ],
-  "version": "0.0.2"
-}
