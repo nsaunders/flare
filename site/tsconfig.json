@@ -2,8 +2,15 @@
   "extends": "@tsconfig/next",
   "compilerOptions": {
     "strict": true,
-    "jsx": "react-jsx"
+    "jsx": "preserve"
   },
-  "include": ["mdx.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "mdx.d.ts",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
