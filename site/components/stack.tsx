@@ -37,6 +37,12 @@ export const styles = /*#__PURE__*/ css({
   containerSpacing0: {
     margin: 0,
   },
+  containerSpacing2: {
+    margin: -1,
+  },
+  containerSpacing4: {
+    margin: -2,
+  },
   containerSpacing8: {
     margin: -4,
   },
@@ -51,6 +57,12 @@ export const styles = /*#__PURE__*/ css({
   },
   itemSpacing0: {
     margin: 0,
+  },
+  itemSpacing2: {
+    margin: 1,
+  },
+  itemSpacing4: {
+    margin: 2,
   },
   itemSpacing8: {
     margin: 4,
@@ -72,7 +84,7 @@ type StackOwnProps = {
   alignItems?: "start" | "center" | "end";
   block?: boolean;
   direction?: "row" | "row-reverse" | "column" | "column-reverse";
-  spacing?: 0 | 8 | 16 | 48 | 64;
+  spacing?: 0 | 2 | 4 | 8 | 16 | 48 | 64;
 };
 
 type StackProps<E extends ElementType = typeof stackDefaultElement> =
@@ -108,6 +120,8 @@ export const Stack: <E extends ElementType = typeof stackDefaultElement>(
           [styles.containerColumnReverse]: direction === "column-reverse",
           [styles.containerRowReverse]: direction === "row-reverse",
           [styles.containerSpacing0]: spacing === 0,
+          [styles.containerSpacing2]: spacing === 2,
+          [styles.containerSpacing4]: spacing === 4,
           [styles.containerSpacing8]: spacing === 8,
           [styles.containerSpacing16]: spacing === 16,
           [styles.containerSpacing48]: spacing === 48,
@@ -136,6 +150,8 @@ export const Item: <E extends ElementType = typeof itemDefaultElement>(
       as={itemDefaultElement}
       className={cx(className, {
         [styles.itemSpacing0]: spacing === 0,
+        [styles.itemSpacing2]: spacing === 2,
+        [styles.itemSpacing4]: spacing === 4,
         [styles.itemSpacing8]: spacing === 8,
         [styles.itemSpacing16]: spacing === 16,
         [styles.itemSpacing48]: spacing === 48,
