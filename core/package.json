@@ -9,7 +9,7 @@
   "style": "css/flare-core.css",
   "scripts": {
     "precommit": "lint-staged",
-    "prepublishOnly": "node -e \"['cjs', 'css', 'esm', 'types'].forEach(x => {try{require('fs').rmSync(x, { recursive: true })}catch(_){}})\" && node css && tsc --project tsconfig.types.json && tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && rollup -c",
+    "prepublishOnly": "node -e \"['cjs', 'css', 'esm', 'types'].forEach(x => {try{require('fs').rmSync(x, { recursive: true })}catch(_){}})\" && node css && tsc --project tsconfig.types.json && tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && rollup -c --verbose",
     "test": "echo \"You should add some tests.\""
   },
   "repository": {
@@ -56,7 +56,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "ts-node": "^10.2.0",
     "tslib": "^2.3.1",
-    "typescript": "^4.3.5"
+    "typescript": "~4.3.5"
   },
   "dependencies": {
     "demitasse": "^0.5.2",
