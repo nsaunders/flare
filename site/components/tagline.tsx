@@ -1,7 +1,7 @@
-import {ElementType, ReactElement, forwardRef} from "react";
-import {PolymorphicComponentProps,Box} from "react-polymorphic-box";
+import { ElementType, ReactElement, forwardRef } from "react";
+import { PolymorphicComponentProps, Box } from "react-polymorphic-box";
 import cx from "clsx";
-import {css} from "demitasse";
+import { css } from "demitasse";
 
 export const styles = /*#__PURE__*/ css({
   base: {
@@ -31,22 +31,30 @@ const byWidth = {
 
 type TaglineOwnProps = {
   width?: 242 | 310;
-children?: undefined; };
+  children?: undefined;
+};
 
 const defaultElement = "div";
 
-type TaglineProps<E extends ElementType = typeof defaultElement> = PolymorphicComponentProps<E, TaglineOwnProps>;
+type TaglineProps<E extends ElementType = typeof defaultElement> =
+  PolymorphicComponentProps<E, TaglineOwnProps>;
 
-export const Tagline: <E extends ElementType = typeof defaultElement>(props: TaglineProps<E>) => ReactElement | null = /*#__PURE__*/ forwardRef(
-  function Tagline<E extends ElementType = typeof defaultElement>({ className, width = 242, ...restProps }: TaglineProps<E>, ref: typeof restProps.ref) {
-    return (
-      <Box
-        as={defaultElement}
-        className={cx(className, styles.base, styles[byWidth[width]])}
-        {...restProps}
-        ref={ref}>
-        Applicative-style UIs in TypeScript
-      </Box>
-    );
-  }
-);
+export const Tagline: <E extends ElementType = typeof defaultElement>(
+  props: TaglineProps<E>,
+) => ReactElement | null = /*#__PURE__*/ forwardRef(function Tagline<
+  E extends ElementType = typeof defaultElement,
+>(
+  { className, width = 242, ...restProps }: TaglineProps<E>,
+  ref: typeof restProps.ref,
+) {
+  return (
+    <Box
+      as={defaultElement}
+      className={cx(className, styles.base, styles[byWidth[width]])}
+      {...restProps}
+      ref={ref}
+    >
+      Applicative-style UIs in TypeScript
+    </Box>
+  );
+});

@@ -38,7 +38,7 @@ export const Header: FC<{ children?: undefined; expanded?: boolean }> = ({
   <header
     className={cx(styles.container, expanded && styles.containerExpanded)}
   >
-    <Logo height={expanded ? 64 : 48} className={styles.logo} />
+    <Logo className={styles.logo} />
     <div className={styles.mode}>
       <ModeToggle />
     </div>

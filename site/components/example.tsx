@@ -87,7 +87,7 @@ const Select: FC<{
   options: string[];
   onChange: (selectedIndex: number) => void;
   selectedIndex: number;
-}> = ({ children, label, options, onChange, selectedIndex, ...restProps }) => (
+}> = ({ label, options, onChange, selectedIndex, ...restProps }) => (
   <Field label={label}>
     <Input
       as="select"

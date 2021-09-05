@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
+    "format": "prettier --write components/**/*.tsx pages/**/*.tsx",
+    "lint": "next lint",
     "precommit": "lint-staged"
   },
   "devDependencies": {

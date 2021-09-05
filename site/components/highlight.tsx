@@ -49,6 +49,6 @@ export const useHighlighter = (language: Language, code: string): string => {
   useEffect(() => {
     register(language);
     setHighlighted(hljs.highlight(code, { language }).value);
-  }, [language, code]);
+  }, [code, hljs, language, register]);
   return highlighted;
 };

@@ -98,27 +98,22 @@ export const styles = /*#__PURE__*/ css({
   },
 });
 
+type Icon = FC<{ fontSize: "small" | "medium" }>;
+
 type ButtonOwnProps = {
   grow?: boolean;
   motif?: "primary" | "basic" | "tertiary";
+  size?: "medium" | "large";
 } & (
   | {
-      children: string;
+      label: string;
+      icon?: undefined;
     }
   | {
-      icon: unknown;
+      label?: undefined;
+      icon?: Icon;
     }
-) &
-  (
-    | {
-        size?: "medium";
-        icon?: FC<{ fontSize: "small" }>;
-      }
-    | {
-        size: "large";
-        icon?: FC<{ fontSize: "medium" }>;
-      }
-  );
+);
 
 const defaultElement = "button";
 

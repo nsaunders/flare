@@ -1,1 +1,1 @@
-{ "*.{ts,tsx,js}": "eslint --fix" }
+{ "*.{ts,tsx,js}": ["prettier --write", "eslint --fix"] }

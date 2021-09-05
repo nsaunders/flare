@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef } from "react";
 import Link from "next/link";
 import { css } from "demitasse";
-import cx from "classnames";
+import cx from "clsx";
 import { Menu as MenuIcon, MenuOpen as CloseIcon } from "@material-ui/icons";
 import { Button } from "./button";
 import { useClickAway } from "react-use";
