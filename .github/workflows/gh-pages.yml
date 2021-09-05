@@ -13,10 +13,13 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 6.2.1
       - name: Install dependencies
-        run: npm install
+        run: pnpm install -C site
       - name: Build
-        run: npx lerna run site
+        run: pnpm run build -C site
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/master'
