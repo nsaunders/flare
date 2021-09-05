@@ -63,7 +63,7 @@ export const Logo: <E extends ElementType = typeof defaultElement>(
   return asPath === "/" ? (
     content
   ) : (
-    <Link href="./">
+    <Link href="/">
       <a className={styles.link} tabIndex={-1}>
         {content}
       </a>

@@ -85,7 +85,7 @@ const Home: NextPage = () => {
               alignItems="center"
             >
               <Item>
-                <Link href="./getting-started" passHref>
+                <Link href="/getting-started" passHref>
                   <Button as="a" size="large" grow motif="primary">
                     Get started
                   </Button>
