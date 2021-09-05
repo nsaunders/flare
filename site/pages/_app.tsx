@@ -3,7 +3,7 @@ require("../extracted-styles");
 import { NextPage } from "next";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { ReactElement, ReactNode, useEffect, useState } from "react";
+import { ReactElement, ReactNode, UIEvent, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Imprint } from "../components/imprint";
 import { MenuToggle, Menu } from "../components/menu";
@@ -24,6 +24,20 @@ export default function App({
 }: AppProps & Layout): ReactElement {
   const [mode, setMode] = useState<"dark" | "light">("dark");
   const [menu, setMenu] = useState(false);
+  const [scrollAmount, setScrollAmount] = useState(0);
+  const [transitions, setTransitions] = useState(true);
+  const hideHeader = scrollAmount > 8;
+
+  useEffect(() => {
+    setTransitions(false);
+    const timeout = setTimeout(() => {
+      setTransitions(true);
+    }, 500);
+    return () => {
+      clearTimeout(timeout);
+      setTransitions(true);
+    };
+  }, [scrollAmount]);
 
   useEffect(() => {
     const { body } = document;
@@ -50,8 +64,11 @@ export default function App({
             <Menu open={menu} />
           </nav>
           <div className="content">
-            <Imprint headerHeight={52}>
-              <div className="header">
+            <Imprint
+              headerHeight={hideHeader ? -52 : 52}
+              transition={transitions}
+            >
+              <div className="header" style={hideHeader ? { height: 0 } : {}}>
                 <MenuToggle setting={menu} onChange={setMenu} />
                 <ModeToggle />
               </div>
@@ -63,6 +80,12 @@ export default function App({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   className="main"
+                  style={{ top: hideHeader ? 0 : 52 }}
+                  onScroll={({
+                    currentTarget: { scrollTop },
+                  }: UIEvent<HTMLElement>) => {
+                    setScrollAmount(scrollTop);
+                  }}
                 >
                   {getLayout(<Component {...pageProps} />)}
                 </motion.main>

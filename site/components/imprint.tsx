@@ -23,6 +23,8 @@ export const ImprintActions = createContext<{
 export const styles = /*#__PURE__*/ css({
   imprint: {
     position: "absolute",
+  },
+  transition: {
     transitionProperty: "top",
     transitionDuration: "250ms",
     transitionDelay: "250ms",
@@ -38,8 +40,9 @@ export const styles = /*#__PURE__*/ css({
   },
 });
 
-export const Imprint: FC<{ headerHeight: number }> = ({
+export const Imprint: FC<{ headerHeight: number; transition: boolean }> = ({
   children,
+  transition,
   headerHeight,
 }) => {
   const [ref, { width, height }] = useMeasure<HTMLHeadingElement>();
@@ -58,7 +61,7 @@ export const Imprint: FC<{ headerHeight: number }> = ({
       }}
     >
       <div
-        className={styles.imprint}
+        className={cx(styles.imprint, transition && styles.transition)}
         style={{
           zIndex: 1,
           top: y === "auto" ? (headerHeight - height) / 2 : y,
