@@ -35,12 +35,13 @@ importers:
       rollup: ^2.52.2
       rollup-plugin-terser: ^7.0.2
       ts-node: ^10.2.0
+      tslib: ^2.3.1
       typescript: ^4.3.5
     dependencies:
       demitasse: 0.5.3
       react: 17.0.2
     devDependencies:
-      '@rollup/plugin-typescript': 8.2.5_rollup@2.56.3+typescript@4.4.2
+      '@rollup/plugin-typescript': 8.2.5_887d5a15efe47b5fde43404113fb4044
       '@tsconfig/recommended': 1.0.1
       '@types/react': 17.0.19
       '@typescript-eslint/eslint-plugin': 4.30.0_8a8a2d3eaa9257455a03c16dce5f55b3
@@ -63,6 +64,7 @@ importers:
       rollup: 2.56.3
       rollup-plugin-terser: 7.0.2_rollup@2.56.3
       ts-node: 10.2.1_typescript@4.4.2
+      tslib: 2.3.1
       typescript: 4.4.2
 
   eslint-config-flare-prettier:
@@ -866,6 +868,21 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.12.0
+    dev: true
+
+  /@rollup/plugin-typescript/8.2.5_887d5a15efe47b5fde43404113fb4044:
+    resolution: {integrity: sha512-QL/LvDol/PAGB2O0S7/+q2HpSUNodpw7z6nGn9BfoVCPOZ0r4EALrojFU29Bkoi2Hr2jgTocTejJ5GGWZfOxbQ==}
+    engines: {node: '>=8.0.0'}
+    peerDependencies:
+      rollup: ^2.14.0
+      tslib: '*'
+      typescript: '>=3.7.0'
+    dependencies:
+      '@rollup/pluginutils': 3.1.0_rollup@2.56.3
+      resolve: 1.20.0
+      rollup: 2.56.3
+      tslib: 2.3.1
+      typescript: 4.4.2
     dev: true
 
   /@rollup/plugin-typescript/8.2.5_rollup@2.56.3+typescript@4.4.2:
