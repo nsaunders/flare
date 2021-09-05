@@ -1,4 +1,4 @@
-name: github pages
+name: gh pages
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -16,11 +16,15 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 6.2.1
+      - name: install core dependencies
+        run: pnpm install -C core
+      - name: build core
+        run: pnpm run prepublishOnly -C core
       - name: Install dependencies
         run: pnpm install -C site
-      - name: Build
+      - name: build site
         run: pnpm run build -C site
-      - name: Deploy
+      - name: publish
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/master'
         with:
