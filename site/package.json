@@ -38,6 +38,7 @@
     "fp-ts-std": "^0.11.0",
     "framer-motion": "^4.1.17",
     "highlight.js": "^11.2.0",
+    "lint-staged": "^11.1.2",
     "next": "11.1.0",
     "postcss": "^8.3.6",
     "postcss-font-magician": "^3.0.0",
