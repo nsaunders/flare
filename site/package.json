@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build && next export && echo flare.js.org >> .out/CNAME",
     "format": "prettier --write components/**/*.tsx pages/**/*.tsx",
     "lint": "next lint",
     "precommit": "lint-staged"
