@@ -49,134 +49,147 @@ function makeShape({
   }
 }
 
-const Examples: NextPage = () => (
-  <Doc>
-    <h1>Examples</h1>
-    <h2>Basic</h2>
-    <Example
-      flare={pipe(
+const examples = [
+  {
+    name: "Basic",
+    flare: pipe(
+      of(curry2(Math.pow)),
+      ap(numericInput({ defaultValue: 2, label: "Base" })),
+      ap(numericInput({ defaultValue: 4, label: "Exponent" })),
+    ),
+    code: `
+      pipe(
         of(curry2(Math.pow)),
         ap(numericInput({ defaultValue: 2, label: "Base" })),
         ap(numericInput({ defaultValue: 4, label: "Exponent" })),
-      )}
-      code={`
+      )
+    `,
+  },
+  {
+    name: "Adaptive controls",
+    flare: pipe(
+      of(
+        curry2((color: "red" | "blue", props: SpecializedShapeProps) =>
+          makeShape({ color, ...props }),
+        ),
+      ),
+      ap(
+        select({
+          defaultValue: "blue" as const,
+          options: ["red", "blue"] as const,
+          label: "Color",
+        }),
+      ),
+      ap(
         pipe(
-          of(curry2(Math.pow)),
-          ap(numericInput({ defaultValue: 2, label: "Base" })),
-          ap(numericInput({ defaultValue: 4, label: "Exponent" })),
-        )
-      `}
-    />
-    <h2>Adaptive controls</h2>
-    <Example
-      flare={pipe(
-        of(
-          curry2((color: "red" | "blue", props: SpecializedShapeProps) =>
-            makeShape({ color, ...props }),
-          ),
-        ),
-        ap(
           select({
-            defaultValue: "blue" as const,
-            options: ["red", "blue"] as const,
-            label: "Color",
+            defaultValue: "circle" as const,
+            options: ["circle", "rectangle"] as const,
+            label: "Shape",
           }),
-        ),
-        ap(
-          pipe(
-            select({
-              defaultValue: "circle" as const,
-              options: ["circle", "rectangle"] as const,
-              label: "Shape",
-            }),
-            chain(
-              match({
-                circle: pipe(
+          chain(
+            match({
+              circle: pipe(
+                slider({
+                  defaultValue: 25,
+                  min: 0,
+                  max: 50,
+                  label: "Radius",
+                }),
+                map((radius) => ({ type: "circle" as const, radius })),
+              ),
+              rectangle: pipe(
+                of(
+                  curry2((width: number, height: number) => ({
+                    type: "rectangle" as const,
+                    width,
+                    height,
+                  })),
+                ),
+                ap(
+                  slider({
+                    defaultValue: 50,
+                    min: 0,
+                    max: 100,
+                    label: "Width",
+                  }),
+                ),
+                ap(
                   slider({
                     defaultValue: 25,
                     min: 0,
-                    max: 50,
-                    label: "Radius",
+                    max: 100,
+                    label: "Height",
                   }),
-                  map((radius) => ({ type: "circle" as const, radius })),
                 ),
-                rectangle: pipe(
-                  of(
-                    curry2((width: number, height: number) => ({
-                      type: "rectangle" as const,
-                      width,
-                      height,
-                    })),
-                  ),
-                  ap(
-                    slider({
-                      defaultValue: 50,
-                      min: 0,
-                      max: 100,
-                      label: "Width",
-                    }),
-                  ),
-                  ap(
-                    slider({
-                      defaultValue: 25,
-                      min: 0,
-                      max: 100,
-                      label: "Height",
-                    }),
-                  ),
-                ),
-              }),
-            ),
+              ),
+            }),
           ),
         ),
-      )}
-      code={`pipe(  
-          of(curry2((color: "red" | "blue", props: SpecializedShapeProps) => makeShape({ color, ...props }))),  
-          ap(select({ defaultValue: "blue" as const, options: ["red", "blue"] as const, label: "Color" })),  
-          ap(  
-            pipe(  
-              select({ defaultValue: "circle" as const, options: ["circle", "rectangle"] as const, label: "Shape" }),  
-              chain(  
-                match({  
-                  circle: pipe(  
-                    slider({ defaultValue: 25, min: 0, max: 50, label: "Radius" }),  
-                    map(radius => ({ type: "circle" as const, radius }))  
-                  ),  
-                  rectangle: pipe(  
-                    of(curry2((width: number, height: number) => ({ type: "rectangle" as const, width, height }))),  
-                    ap(slider({ defaultValue: 50, min: 0, max: 100, label: "Width" })),  
-                    ap(slider({ defaultValue: 25, min: 0, max: 100, label: "Height" }))  
-                  )  
-                })  
-              )  
+      ),
+    ),
+    code: `
+      pipe(  
+        of(curry2((color: "red" | "blue", props: SpecializedShapeProps) => makeShape({ color, ...props }))),  
+        ap(select({ defaultValue: "blue" as const, options: ["red", "blue"] as const, label: "Color" })),  
+        ap(  
+          pipe(  
+            select({ defaultValue: "circle" as const, options: ["circle", "rectangle"] as const, label: "Shape" }),  
+            chain(  
+              match({  
+                circle: pipe(  
+                  slider({ defaultValue: 25, min: 0, max: 50, label: "Radius" }),  
+                  map(radius => ({ type: "circle" as const, radius }))  
+                ),  
+                rectangle: pipe(  
+                  of(curry2((width: number, height: number) => ({ type: "rectangle" as const, width, height }))),  
+                  ap(slider({ defaultValue: 50, min: 0, max: 100, label: "Width" })),  
+                  ap(slider({ defaultValue: 25, min: 0, max: 100, label: "Height" }))  
+                )  
+              })  
             )  
           )  
-        )`}
-    />
-    <h2>Resizable list</h2>
-    <Example
-      flare={pipe(
+        )  
+      )
+    `,
+  },
+  {
+    name: "Resizable list",
+    flare: pipe(
+      resizableList({
+        item: numericInput({ defaultValue: 1 }),
+        defaultItems: [1, 2, 3].map((defaultValue) =>
+          numericInput({ defaultValue }),
+        ),
+        minLength: 1,
+      }),
+      map(
+        (xs: number[]) =>
+          `${xs.join(" + ")} = ${xs.reduce((acc, x) => acc + x, 0)}`,
+      ),
+    ),
+    code: `
+      pipe(
         resizableList({
           item: numericInput({ defaultValue: 1 }),
-          defaultItems: [1, 2, 3].map((defaultValue) =>
-            numericInput({ defaultValue }),
-          ),
-          minLength: 1,
+          defaultItems: [1, 2, 3].map(defaultValue => numericInput({ defaultValue })),
+          minLength: 1
         }),
-        map(
-          (xs: number[]) =>
-            `${xs.join(" + ")} = ${xs.reduce((acc, x) => acc + x, 0)}`,
-        ),
-      )}
-      code={`pipe(
-          resizableList({
-            item: numericInput({ defaultValue: 1 }),
-            defaultItems: [1, 2, 3].map(defaultValue => numericInput({ defaultValue })),
-            minLength: 1
-          }),
-          map((xs: number[]) => \`\${xs.join(" + ")} = \${xs.reduce((acc, x) => acc + x, 0)}\`)  
-        )`}
-    />
+        map((xs: number[]) => \`\${xs.join(" + ")} = \${xs.reduce((acc, x) => acc + x, 0)}\`)  
+      )
+    `,
+  },
+];
+
+const Examples: NextPage = () => (
+  <Doc>
+    <h1>Examples</h1>
+    {examples.map(({ name, flare, code }) => (
+      <>
+        <h2>{name}</h2>
+        <Example flare={flare} code={code} />
+      </>
+    ))}
   </Doc>
 );
 
