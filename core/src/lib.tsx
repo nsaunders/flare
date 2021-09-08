@@ -1,4 +1,4 @@
-import React, {
+import {
   FC,
   ReactNode,
   createContext,
@@ -159,8 +159,8 @@ export type Components = {
 
 const Button: Components["Button"] = (props) => <button {...props} />;
 
-const fieldStyles = css({
-  field: {
+const fieldStyles = css("field", {
+  container: {
     display: "block",
     "& + &": {
       marginTop: 8,
@@ -183,7 +183,7 @@ const Checkbox: Components["Checkbox"] = ({
   checked,
   onCheckedChange,
 }) => (
-  <label className={fieldStyles.field}>
+  <label className={fieldStyles.container}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
       <input
@@ -197,7 +197,7 @@ const Checkbox: Components["Checkbox"] = ({
   </label>
 );
 
-const numberInputStyles = css({
+const numberInputStyles = css("number-input", {
   width: 80,
 });
 
@@ -206,7 +206,7 @@ const NumberInput: Components["NumberInput"] = ({
   onValueChange,
   ...restProps
 }) => (
-  <label className={fieldStyles.field}>
+  <label className={fieldStyles.container}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
       <input
@@ -233,7 +233,7 @@ const ResizableList: FC<{ addButton: ReactNode }> = ({
   </div>
 );
 
-const resizableListItemStyles = css({
+const resizableListItemStyles = css("resizable-list-item", {
   display: "flex",
   alignItems: "center",
 });
@@ -255,10 +255,10 @@ const SegmentedControl: Components["SegmentedControl"] = ({
 }) => {
   const [name] = useState(uniqueId);
   return (
-    <div className={fieldStyles.field}>
+    <div className={fieldStyles.container}>
       <span className={fieldStyles.label}>{label}</span>
       <div className={fieldStyles.value}>
-        {options.map((option, i) => (
+        {options.map((option) => (
           <label key={option}>
             <input
               type="radio"
@@ -285,7 +285,7 @@ const Select: Components["Select"] = ({
   options,
   value,
 }) => (
-  <label className={fieldStyles.field}>
+  <label className={fieldStyles.container}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
       <select
@@ -309,7 +309,7 @@ const Slider: Components["Slider"] = ({
   onValueChange,
   ...restProps
 }) => (
-  <label className={fieldStyles.field}>
+  <label className={fieldStyles.container}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
       <input
@@ -330,7 +330,7 @@ const TextInput: Components["TextInput"] = ({
   value,
   onValueChange,
 }) => (
-  <label className={fieldStyles.field}>
+  <label className={fieldStyles.container}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
       <input
@@ -345,7 +345,7 @@ const TextInput: Components["TextInput"] = ({
 );
 
 const Toggle: Components["Toggle"] = ({ label, checked, onCheckedChange }) => (
-  <label className={fieldStyles.field}>
+  <label className={fieldStyles.container}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
       <input

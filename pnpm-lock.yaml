@@ -19,7 +19,7 @@ importers:
       '@typescript-eslint/parser': ^4.30.0
       autoprefixer: ^10.3.1
       cssnano: ^5.0.7
-      demitasse: ^0.5.2
+      demitasse: ^1.0.1
       eslint: ^7.32.0
       eslint-config-flare-prettier: workspace:*
       eslint-config-flare-react: workspace:*
@@ -40,7 +40,7 @@ importers:
       tslib: ^2.3.1
       typescript: ~4.3.5
     dependencies:
-      demitasse: 0.5.3
+      demitasse: 1.0.1
       react: 17.0.2
     devDependencies:
       '@rollup/plugin-commonjs': 20.0.0_rollup@2.56.3
@@ -2341,6 +2341,13 @@ packages:
     resolution: {integrity: sha512-LDtLnfh0/+epWaVs84/UT2FR/5j2FBGeK7lceGscxipTCkAY4wEQev0SzCjoiPiJhCzSDnQJF/gAv4DUej8+fw==}
     dependencies:
       csstype: 3.0.8
+    dev: true
+
+  /demitasse/1.0.1:
+    resolution: {integrity: sha512-HjZrYbj0fqtXQjxGIdbO0AhXFGEVySCrwDutRlQgOMeevgIdL1HPCz2FGBcb5x+9/gYseNVCrOuety5VEYRE0Q==}
+    dependencies:
+      csstype: 3.0.8
+    dev: false
 
   /depd/1.1.2:
     resolution: {integrity: sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=}

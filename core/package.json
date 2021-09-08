@@ -61,7 +61,7 @@
     "typescript": "~4.3.5"
   },
   "dependencies": {
-    "demitasse": "^0.5.2",
+    "demitasse": "^1.0.1",
     "react": "^17.0.2"
   }
 }
