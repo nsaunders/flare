@@ -4,7 +4,7 @@ import {
   map,
   match,
   of,
-  numericInput,
+  numberInput,
   resizableList,
   select,
   slider,
@@ -54,14 +54,14 @@ const examples = [
     name: "Basic",
     flare: pipe(
       of(curry2(Math.pow)),
-      ap(numericInput({ defaultValue: 2, label: "Base" })),
-      ap(numericInput({ defaultValue: 4, label: "Exponent" })),
+      ap(numberInput({ defaultValue: 2, label: "Base" })),
+      ap(numberInput({ defaultValue: 4, label: "Exponent" })),
     ),
     code: `
       pipe(
         of(curry2(Math.pow)),
-        ap(numericInput({ defaultValue: 2, label: "Base" })),
-        ap(numericInput({ defaultValue: 4, label: "Exponent" })),
+        ap(numberInput({ defaultValue: 2, label: "Base" })),
+        ap(numberInput({ defaultValue: 4, label: "Exponent" })),
       )
     `,
   },
@@ -157,9 +157,9 @@ const examples = [
     name: "Resizable list",
     flare: pipe(
       resizableList({
-        item: numericInput({ defaultValue: 1 }),
+        item: numberInput({ defaultValue: 1 }),
         defaultItems: [1, 2, 3].map((defaultValue) =>
-          numericInput({ defaultValue }),
+          numberInput({ defaultValue }),
         ),
         minLength: 1,
       }),
@@ -171,8 +171,8 @@ const examples = [
     code: `
       pipe(
         resizableList({
-          item: numericInput({ defaultValue: 1 }),
-          defaultItems: [1, 2, 3].map(defaultValue => numericInput({ defaultValue })),
+          item: numberInput({ defaultValue: 1 }),
+          defaultItems: [1, 2, 3].map(defaultValue => numberInput({ defaultValue })),
           minLength: 1
         }),
         map((xs: number[]) => \`\${xs.join(" + ")} = \${xs.reduce((acc, x) => acc + x, 0)}\`)  

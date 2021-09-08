@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, ReactNode, Children, useState } from "react";
-import { Flare, RunFlare } from "flare-core";
+import { Components, Flare, RunFlare } from "flare-core";
 import { css } from "demitasse";
 import { Button as ButtonImpl } from "./button";
 import { Code } from "./code";
@@ -27,32 +27,24 @@ const Field: FC<{ label?: string }> = ({ children, label }) => (
   </div>
 );
 
-const Button: FC<{
-  children?: string;
-  disabled?: boolean;
-  onClick: () => void;
-}> = ({ children: label, ...props }) => (
+const Button: Components["Button"] = ({ children: label, ...props }) => (
   <ButtonImpl {...props} motif="tertiary">
     {label || "Button"}
   </ButtonImpl>
 );
 
-const NumericInput: FC<{
-  children?: undefined;
-  label?: string;
-  onChange: (value: number) => void;
-  max?: number;
-  min?: number;
-  step?: number;
-  value: number;
-}> = ({ label, onChange, ...restProps }) => (
+const NumberInput: Components["NumberInput"] = ({
+  label,
+  onValueChange,
+  ...restProps
+}) => (
   <Field label={label}>
     <Input
       type="number"
       onChange={({ currentTarget: input }: ChangeEvent<HTMLInputElement>) => {
         const value = parseFloat(input.value);
         if (!isNaN(value)) {
-          onChange(value);
+          onValueChange(value);
         }
       }}
       {...restProps}
@@ -81,23 +73,21 @@ const ResizableListItem: FC<{ addButton: ReactNode; removeButton: ReactNode }> =
     </Stack>
   );
 
-const Select: FC<{
-  children?: undefined;
-  label?: string;
-  options: string[];
-  onChange: (selectedIndex: number) => void;
-  selectedIndex: number;
-}> = ({ label, options, onChange, selectedIndex, ...restProps }) => (
+const Select: Components["Select"] = ({
+  label,
+  onValueChange,
+  options,
+  value,
+}) => (
   <Field label={label}>
     <Input
       as="select"
       onChange={({
-        currentTarget: { selectedIndex },
+        currentTarget: { value },
       }: ChangeEvent<HTMLSelectElement>) => {
-        onChange(selectedIndex);
+        onValueChange(value);
       }}
-      value={options[selectedIndex]}
-      {...restProps}
+      value={value}
     >
       {options.map((o) => (
         <option key={o}>{o}</option>
@@ -106,21 +96,20 @@ const Select: FC<{
   </Field>
 );
 
-const Slider: FC<{
-  children?: undefined;
-  label?: string;
-  onChange: (value: number) => void;
-  value: number;
-}> = ({ label, onChange, ...props }) => (
+const Slider: Components["Slider"] = ({
+  label,
+  onValueChange,
+  ...restProps
+}) => (
   <Field label={label}>
     <SliderImpl
       onChange={({ currentTarget: input }: ChangeEvent<HTMLInputElement>) => {
         const value = parseFloat(input.value);
         if (!isNaN(value)) {
-          onChange(value);
+          onValueChange(value);
         }
       }}
-      {...props}
+      {...restProps}
     />
   </Field>
 );
@@ -144,7 +133,7 @@ export const Example: FC<{
               handler={setOutput}
               components={{
                 Button,
-                NumericInput,
+                NumberInput,
                 ResizableList,
                 ResizableListItem,
                 Select,

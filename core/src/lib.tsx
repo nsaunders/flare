@@ -1,4 +1,3 @@
-import { css } from "demitasse";
 import React, {
   FC,
   ReactNode,
@@ -8,6 +7,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { css } from "demitasse";
 import { Flare } from "./common";
 export { Flare } from "./common";
 export { match } from "./match";
@@ -92,7 +92,9 @@ export function ifElse<A, B>(
 }
 
 export function makeFlare<O, A>(
-  Component: FC<O & { value: A; onChange: (value: A) => void }>,
+  Component: FC<
+    O & { value: A; onChange: (value: A) => void; children?: undefined }
+  >,
 ) {
   return function (opts: O & { defaultValue: A }): Flare<A> {
     return {
@@ -108,7 +110,7 @@ export function makeFlare<O, A>(
                 state = value;
                 onChange();
               }}
-              {...{...opts, defaultValue: undefined}}
+              {...{ ...opts, defaultValue: undefined }}
             />
           ),
         };
@@ -121,13 +123,12 @@ const uniqueId = () => Math.round(Math.random() * 1000000000).toString(36);
 
 type LabelProp = { label?: string };
 
-type ValueProps<T> = { value: T; onChange: (value: T) => void };
+type ValueProps<T, P extends string = "value"> = Record<P, T> &
+  Record<`on${Capitalize<P>}Change`, (t: T) => void>;
 
 type SelectionProps = {
   options: string[];
-  selectedIndex: number;
-  onChange: (selectedIndex: number) => void;
-};
+} & ValueProps<string>;
 
 type NumberProps = {
   min?: number;
@@ -135,17 +136,25 @@ type NumberProps = {
   step?: number;
 };
 
-type Components = {
+export type Components = {
   Button: FC<{ disabled?: boolean; onClick: () => void }>;
-  Checkbox: FC<LabelProp & ValueProps<boolean>>;
-  NumericInput: FC<LabelProp & ValueProps<number> & NumberProps>;
+  Checkbox: FC<
+    { children?: undefined } & LabelProp & ValueProps<boolean, "checked">
+  >;
+  NumberInput: FC<
+    { children?: undefined } & LabelProp & ValueProps<number> & NumberProps
+  >;
   ResizableList: FC<{ addButton: ReactNode }>;
   ResizableListItem: FC<{ addButton: ReactNode; removeButton: ReactNode }>;
-  SegmentedControl: FC<LabelProp & SelectionProps>;
-  Select: FC<LabelProp & SelectionProps>;
-  Slider: FC<LabelProp & ValueProps<number> & NumberProps>;
-  TextInput: FC<LabelProp & ValueProps<string>>;
-  Toggle: FC<LabelProp & ValueProps<boolean>>;
+  SegmentedControl: FC<{ children?: undefined } & LabelProp & SelectionProps>;
+  Select: FC<{ children?: undefined } & LabelProp & SelectionProps>;
+  Slider: FC<
+    { children?: undefined } & LabelProp & ValueProps<number> & NumberProps
+  >;
+  TextInput: FC<{ children?: undefined } & LabelProp & ValueProps<string>>;
+  Toggle: FC<
+    { children?: undefined } & LabelProp & ValueProps<boolean, "checked">
+  >;
 };
 
 const Button: Components["Button"] = (props) => <button {...props} />;
@@ -169,39 +178,43 @@ const fieldStyles = css({
   },
 });
 
-const Checkbox: Components["Checkbox"] = ({ label, value, onChange }) => (
+const Checkbox: Components["Checkbox"] = ({
+  label,
+  checked,
+  onCheckedChange,
+}) => (
   <label className={fieldStyles.field}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
       <input
         type="checkbox"
-        checked={value}
+        checked={checked}
         onChange={({ target: { checked } }) => {
-          onChange(checked);
+          onCheckedChange(checked);
         }}
       />
     </div>
   </label>
 );
 
-const numericInputStyles = css({
+const numberInputStyles = css({
   width: 80,
 });
 
-const NumericInput: Components["NumericInput"] = ({
+const NumberInput: Components["NumberInput"] = ({
   label,
-  onChange,
+  onValueChange,
   ...restProps
 }) => (
   <label className={fieldStyles.field}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
       <input
-        className={numericInputStyles}
+        className={numberInputStyles}
         type="number"
         onChange={({ target: { value } }) => {
           for (const fValue = parseFloat(value); !isNaN(fValue); ) {
-            return onChange(fValue);
+            return onValueChange(fValue);
           }
         }}
         {...restProps}
@@ -236,9 +249,9 @@ const ResizableListItem: FC<{ addButton: ReactNode; removeButton: ReactNode }> =
 
 const SegmentedControl: Components["SegmentedControl"] = ({
   label,
+  onValueChange,
   options,
-  selectedIndex,
-  onChange,
+  value,
 }) => {
   const [name] = useState(uniqueId);
   return (
@@ -251,10 +264,10 @@ const SegmentedControl: Components["SegmentedControl"] = ({
               type="radio"
               name={name}
               value={option}
-              checked={selectedIndex === i}
+              checked={value === option}
               onChange={({ target: { checked } }) => {
                 if (checked) {
-                  onChange(i);
+                  onValueChange(option);
                 }
               }}
             />{" "}
@@ -268,20 +281,20 @@ const SegmentedControl: Components["SegmentedControl"] = ({
 
 const Select: Components["Select"] = ({
   label,
+  onValueChange,
   options,
-  selectedIndex,
-  onChange,
+  value,
 }) => (
   <label className={fieldStyles.field}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
       <select
-        value={options[selectedIndex]}
-        onChange={({ target: { selectedIndex } }) => {
-          onChange(selectedIndex);
+        value={value}
+        onChange={({ target: { value } }) => {
+          onValueChange(value);
         }}
       >
-        {options.map((option, i) => (
+        {options.map((option) => (
           <option key={option} value={option}>
             {option}
           </option>
@@ -291,7 +304,11 @@ const Select: Components["Select"] = ({
   </label>
 );
 
-const Slider: Components["Slider"] = ({ label, onChange, ...restProps }) => (
+const Slider: Components["Slider"] = ({
+  label,
+  onValueChange,
+  ...restProps
+}) => (
   <label className={fieldStyles.field}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
@@ -299,7 +316,7 @@ const Slider: Components["Slider"] = ({ label, onChange, ...restProps }) => (
         type="range"
         onChange={({ target: { value } }) => {
           for (const fValue = parseFloat(value); !isNaN(fValue); ) {
-            return onChange(fValue);
+            return onValueChange(fValue);
           }
         }}
         {...restProps}
@@ -308,7 +325,11 @@ const Slider: Components["Slider"] = ({ label, onChange, ...restProps }) => (
   </label>
 );
 
-const TextInput: Components["TextInput"] = ({ label, value, onChange }) => (
+const TextInput: Components["TextInput"] = ({
+  label,
+  value,
+  onValueChange,
+}) => (
   <label className={fieldStyles.field}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
@@ -316,22 +337,22 @@ const TextInput: Components["TextInput"] = ({ label, value, onChange }) => (
         type="text"
         value={value}
         onChange={({ target: { value } }) => {
-          onChange(value);
+          onValueChange(value);
         }}
       />
     </div>
   </label>
 );
 
-const Toggle: Components["Toggle"] = ({ label, value, onChange }) => (
+const Toggle: Components["Toggle"] = ({ label, checked, onCheckedChange }) => (
   <label className={fieldStyles.field}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
       <input
         type="checkbox"
-        checked={value}
+        checked={checked}
         onChange={({ target: { checked } }) => {
-          onChange(checked);
+          onCheckedChange(checked);
         }}
       />
     </div>
@@ -341,7 +362,7 @@ const Toggle: Components["Toggle"] = ({ label, value, onChange }) => (
 const defaultComponents = {
   Button,
   Checkbox,
-  NumericInput,
+  NumberInput,
   ResizableList,
   ResizableListItem,
   SegmentedControl,
@@ -385,17 +406,21 @@ export function RunFlare<A>({
   );
 }
 
-export const checkbox = /*#__PURE__*/ makeFlare<LabelProp, boolean>((props) => {
-  const { Checkbox } = useContext(Components);
-  return <Checkbox {...props} />;
-});
+export const checkbox = /*#__PURE__*/ makeFlare<LabelProp, boolean>(
+  ({ value, onChange, ...restProps }) => {
+    const { Checkbox } = useContext(Components);
+    return (
+      <Checkbox checked={value} onCheckedChange={onChange} {...restProps} />
+    );
+  },
+);
 
-export const numericInput = /*#__PURE__*/ makeFlare<
+export const numberInput = /*#__PURE__*/ makeFlare<
   LabelProp & NumberProps,
   number
->((props) => {
-  const { NumericInput } = useContext(Components);
-  return <NumericInput {...props} />;
+>(({ onChange, ...restProps }) => {
+  const { NumberInput } = useContext(Components);
+  return <NumberInput onValueChange={onChange} {...restProps} />;
 });
 
 type OptionToStringOpt<T> = T extends string
@@ -413,17 +438,18 @@ export function segmentedControl<T>(
     T
   >(({ label, options, value, onChange, ...restProps }) => {
     const { SegmentedControl } = useContext(Components);
+    const optionToString: (option: T) => string = restProps.optionToString
+      ? restProps.optionToString
+      : (o) => o as unknown as string;
     return (
       <SegmentedControl
         label={label}
-        options={
-          restProps.optionToString
-            ? options.map(restProps.optionToString)
-            : (options as unknown as string[])
-        }
-        selectedIndex={options.indexOf(value)}
-        onChange={(i) => {
-          onChange(options[i]);
+        options={options.map(optionToString)}
+        value={optionToString(value)}
+        onValueChange={(value) => {
+          onChange(
+            options.find((o) => optionToString(o) === value) || options[0],
+          );
         }}
       />
     );
@@ -442,17 +468,18 @@ export function select<T>(
     T
   >(({ label, options, value, onChange, ...restProps }) => {
     const { Select } = useContext(Components);
+    const optionToString: (option: T) => string = restProps.optionToString
+      ? restProps.optionToString
+      : (o) => o as unknown as string;
     return (
       <Select
         label={label}
-        options={
-          restProps.optionToString
-            ? options.map(restProps.optionToString)
-            : (options as unknown as string[])
-        }
-        selectedIndex={options.indexOf(value)}
-        onChange={(i) => {
-          onChange(options[i]);
+        options={options.map(optionToString)}
+        value={optionToString(value)}
+        onValueChange={(value) => {
+          onChange(
+            options.find((o) => optionToString(o) === value) || options[0],
+          );
         }}
       />
     );
@@ -461,9 +488,9 @@ export function select<T>(
 }
 
 export const slider = /*#__PURE__*/ makeFlare<LabelProp & NumberProps, number>(
-  (props) => {
+  ({ onChange, ...restProps }) => {
     const { Slider } = useContext(Components);
-    return <Slider {...props} />;
+    return <Slider onValueChange={onChange} {...restProps} />;
   },
 );
 
@@ -474,7 +501,7 @@ export const textInput = /*#__PURE__*/ makeFlare<
   const { TextInput } = useContext(Components);
   return (
     <TextInput
-      onChange={(v) => {
+      onValueChange={(v) => {
         if (v || !nonEmpty) {
           onChange(v);
         }
@@ -484,22 +511,24 @@ export const textInput = /*#__PURE__*/ makeFlare<
   );
 });
 
-export const toggle = /*#__PURE__*/ makeFlare<LabelProp, boolean>((props) => {
-  const { Toggle } = useContext(Components);
-  return <Toggle {...props} />;
-});
+export const toggle = /*#__PURE__*/ makeFlare<LabelProp, boolean>(
+  ({ onChange, value, ...restProps }) => {
+    const { Toggle } = useContext(Components);
+    return <Toggle checked={value} onCheckedChange={onChange} {...restProps} />;
+  },
+);
 
-const ResizableListView: Components["ResizableList"] = props => {
+const ResizableListView: Components["ResizableList"] = (props) => {
   const { ResizableList } = useContext(Components);
   return <ResizableList {...props} />;
 };
 
-const ResizableListItemView: Components["ResizableListItem"] = props => {
+const ResizableListItemView: Components["ResizableListItem"] = (props) => {
   const { ResizableListItem } = useContext(Components);
   return <ResizableListItem {...props} />;
 };
 
-const ButtonView: Components["Button"] = props => {
+const ButtonView: Components["Button"] = (props) => {
   const { Button } = useContext(Components);
   return <Button {...props} />;
 };
@@ -584,7 +613,7 @@ export function resizableList<A>({
   };
 }
 
-export const styles = [fieldStyles, numericInputStyles, resizableListItemStyles]
+export const styles = [fieldStyles, numberInputStyles, resizableListItemStyles]
   .reduce((xs: string[], x) => {
     switch (typeof x) {
       case "object":

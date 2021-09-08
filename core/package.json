@@ -9,7 +9,7 @@
   "style": "css/flare-core.css",
   "scripts": {
     "precommit": "lint-staged",
-    "prepublishOnly": "node -e \"['cjs', 'css', 'esm', 'types'].forEach(x => {try{require('fs').rmSync(x, { recursive: true })}catch(_){}})\" && node css && tsc --project tsconfig.types.json && tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && rollup -c --verbose",
+    "prepublishOnly": "node -e \"['cjs', 'css', 'esm', 'types'].forEach(x => {try{require('fs').rmSync(x, { recursive: true })}catch(_){}})\" && node css && tsc --project tsconfig.types.json && tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && rollup -c",
     "test": "echo \"You should add some tests.\""
   },
   "repository": {

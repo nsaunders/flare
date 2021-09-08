@@ -1,4 +1,5 @@
 export {
+  Components,
   Flare,
   Unflare,
   ap,
@@ -10,7 +11,7 @@ export {
   makeFlare,
   RunFlare,
   checkbox,
-  numericInput,
+  numberInput,
   segmentedControl,
   select,
   slider,
