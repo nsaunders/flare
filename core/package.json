@@ -32,6 +32,8 @@
   },
   "homepage": "https://github.com/nsaunders/flare#readme",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-typescript": "^8.2.1",
     "@tsconfig/recommended": "^1.0.1",
     "@types/react": "^17.0.11",

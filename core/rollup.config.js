@@ -1,3 +1,5 @@
+import commonjs from "@rollup/plugin-commonjs";
+import resolve from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
 import { terser } from "rollup-plugin-terser";
 import pkg from "./package.json";
@@ -15,7 +17,11 @@ const umd = {
 export default {
   input: "./src/index.ts",
   external: ["react"],
-  plugins: [typescript({ sourceMap: true, target: "es5" })],
+  plugins: [
+    commonjs(),
+    resolve({ include: "node_modules/demitasse/**" }),
+    typescript({ sourceMap: true, target: "es5" }),
+  ],
   output: [
     umd,
     {
