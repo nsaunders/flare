@@ -1,6 +1,6 @@
 {
   "name": "flare",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Applicative-style UIs",
   "main": "cjs/index.js",
   "module": "esm/index.js",
@@ -48,12 +48,13 @@
     "eslint-config-flare-typescript": "workspace:*",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "flare-core": "workspace:^0.0.3",
+    "flare-core": "workspace:0.0.4",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.1",
     "prettier-config-flare": "workspace:*",
     "rollup": "^2.52.2",
     "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.3.1",
     "typescript": "~4.3.5"
   }
 }

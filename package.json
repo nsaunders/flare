@@ -1,5 +1,9 @@
 {
   "private": true,
+  "version": "0.0.4",
+  "scripts": {
+    "version": "node ./scripts/version && pnpm install -r"
+  },
   "devDependencies": {
     "husky": "^6.0.0"
   }
