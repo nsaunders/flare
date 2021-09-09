@@ -96,11 +96,11 @@ export function makeFlare<O, A>(
     O & { value: A; onChange: (value: A) => void; children?: undefined }
   >,
 ) {
-  return function (opts: O & { defaultValue: A }): Flare<A> {
+  return function (opts: O & { initial: A }): Flare<A> {
     return {
       _tag: "Flare",
       make: () => {
-        let state = opts.defaultValue;
+        let state = opts.initial;
         return {
           query: () => state,
           render: ({ onChange }) => (
@@ -110,7 +110,7 @@ export function makeFlare<O, A>(
                 state = value;
                 onChange();
               }}
-              {...{ ...opts, defaultValue: undefined }}
+              {...{ ...opts, initial: undefined }}
             />
           ),
         };
@@ -430,7 +430,7 @@ type OptionToStringOpt<T> = T extends string
 export function segmentedControl<T>(
   opts: LabelProp & {
     options: Readonly<T[]>;
-    defaultValue: T;
+    initial: T;
   } & OptionToStringOpt<T>,
 ): Flare<T> {
   const make = makeFlare<
@@ -460,7 +460,7 @@ export function segmentedControl<T>(
 export function select<T>(
   opts: LabelProp & {
     options: Readonly<T[]>;
-    defaultValue: T;
+    initial: T;
   } & OptionToStringOpt<T>,
 ): Flare<T> {
   const make = makeFlare<
@@ -535,12 +535,12 @@ const ButtonView: Components["Button"] = (props) => {
 
 export function resizableList<A>({
   item,
-  defaultItems,
+  initial,
   minLength = 0,
   maxLength,
 }: {
   item: Flare<A>;
-  defaultItems?: Flare<A>[];
+  initial?: Flare<A>[];
   minLength?: number;
   maxLength?: number;
 }): Flare<A[]> {
@@ -548,7 +548,7 @@ export function resizableList<A>({
     _tag: "Flare",
     make: () => {
       const itemFlares: ReturnType<Flare<A>["make"]>[] =
-        (defaultItems || []).map((x) => x.make()) || [];
+        (initial || []).map((x) => x.make()) || [];
       while (minLength !== undefined && itemFlares.length < minLength) {
         itemFlares.push(item.make());
       }

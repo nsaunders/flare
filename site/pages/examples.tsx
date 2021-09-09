@@ -54,14 +54,14 @@ const examples = [
     name: "Basic",
     flare: pipe(
       of(curry2(Math.pow)),
-      ap(numberInput({ defaultValue: 2, label: "Base" })),
-      ap(numberInput({ defaultValue: 4, label: "Exponent" })),
+      ap(numberInput({ initial: 2, label: "Base" })),
+      ap(numberInput({ initial: 4, label: "Exponent" })),
     ),
     code: `
       pipe(
         of(curry2(Math.pow)),
-        ap(numberInput({ defaultValue: 2, label: "Base" })),
-        ap(numberInput({ defaultValue: 4, label: "Exponent" })),
+        ap(numberInput({ initial: 2, label: "Base" })),
+        ap(numberInput({ initial: 4, label: "Exponent" })),
       )
     `,
   },
@@ -75,7 +75,7 @@ const examples = [
       ),
       ap(
         select({
-          defaultValue: "blue" as const,
+          initial: "blue" as const,
           options: ["red", "blue"] as const,
           label: "Color",
         }),
@@ -83,7 +83,7 @@ const examples = [
       ap(
         pipe(
           select({
-            defaultValue: "circle" as const,
+            initial: "circle" as const,
             options: ["circle", "rectangle"] as const,
             label: "Shape",
           }),
@@ -91,7 +91,7 @@ const examples = [
             match({
               circle: pipe(
                 slider({
-                  defaultValue: 25,
+                  initial: 25,
                   min: 0,
                   max: 50,
                   label: "Radius",
@@ -108,7 +108,7 @@ const examples = [
                 ),
                 ap(
                   slider({
-                    defaultValue: 50,
+                    initial: 50,
                     min: 0,
                     max: 100,
                     label: "Width",
@@ -116,7 +116,7 @@ const examples = [
                 ),
                 ap(
                   slider({
-                    defaultValue: 25,
+                    initial: 25,
                     min: 0,
                     max: 100,
                     label: "Height",
@@ -131,20 +131,20 @@ const examples = [
     code: `
       pipe(  
         of(curry2((color: "red" | "blue", props: SpecializedShapeProps) => makeShape({ color, ...props }))),  
-        ap(select({ defaultValue: "blue" as const, options: ["red", "blue"] as const, label: "Color" })),  
+        ap(select({ initial: "blue" as const, options: ["red", "blue"] as const, label: "Color" })),  
         ap(  
           pipe(  
-            select({ defaultValue: "circle" as const, options: ["circle", "rectangle"] as const, label: "Shape" }),  
+            select({ initial: "circle" as const, options: ["circle", "rectangle"] as const, label: "Shape" }),  
             chain(  
               match({  
                 circle: pipe(  
-                  slider({ defaultValue: 25, min: 0, max: 50, label: "Radius" }),  
+                  slider({ initial: 25, min: 0, max: 50, label: "Radius" }),  
                   map(radius => ({ type: "circle" as const, radius }))  
                 ),  
                 rectangle: pipe(  
                   of(curry2((width: number, height: number) => ({ type: "rectangle" as const, width, height }))),  
-                  ap(slider({ defaultValue: 50, min: 0, max: 100, label: "Width" })),  
-                  ap(slider({ defaultValue: 25, min: 0, max: 100, label: "Height" }))  
+                  ap(slider({ initial: 50, min: 0, max: 100, label: "Width" })),  
+                  ap(slider({ initial: 25, min: 0, max: 100, label: "Height" }))  
                 )  
               })  
             )  
@@ -157,10 +157,8 @@ const examples = [
     name: "Resizable list",
     flare: pipe(
       resizableList({
-        item: numberInput({ defaultValue: 1 }),
-        defaultItems: [1, 2, 3].map((defaultValue) =>
-          numberInput({ defaultValue }),
-        ),
+        item: numberInput({ initial: 1 }),
+        initial: [1, 2, 3].map((initial) => numberInput({ initial })),
         minLength: 1,
       }),
       map(
@@ -171,8 +169,8 @@ const examples = [
     code: `
       pipe(
         resizableList({
-          item: numberInput({ defaultValue: 1 }),
-          defaultItems: [1, 2, 3].map(defaultValue => numberInput({ defaultValue })),
+          item: numberInput({ initial: 1 }),
+          initial: [1, 2, 3].map(initial => numberInput({ initial })),
           minLength: 1
         }),
         map((xs: number[]) => \`\${xs.join(" + ")} = \${xs.reduce((acc, x) => acc + x, 0)}\`)  

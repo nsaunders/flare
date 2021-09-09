@@ -13,7 +13,7 @@ describe("checkbox", () => {
     handler = jest.fn();
     render(
       <RunFlare
-        flare={F.checkbox({ defaultValue: initial, label: "Label" })}
+        flare={F.checkbox({ initial, label: "Label" })}
         handler={handler}
       />,
     );
@@ -42,7 +42,7 @@ describe("numberInput", () => {
     handler = jest.fn();
     render(
       <RunFlare
-        flare={F.numberInput({ defaultValue: initial, label: "Label" })}
+        flare={F.numberInput({ initial, label: "Label" })}
         handler={handler}
       />,
     );
@@ -75,7 +75,7 @@ describe("textInput", () => {
     handler = jest.fn();
     render(
       <RunFlare
-        flare={F.textInput({ defaultValue: initial, label: "Label" })}
+        flare={F.textInput({ initial, label: "Label" })}
         handler={handler}
       />,
     );
