@@ -1,6 +1,6 @@
 {
   "name": "flare-core",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Applicative-style UIs",
   "main": "cjs/index.js",
   "module": "esm/index.js",
