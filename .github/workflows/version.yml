@@ -6,29 +6,50 @@ on:
       - package.json
 
 jobs:
-  sync:
+  update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
       - id: check
         name: check
-        run: git show -L '/version/,+1:package.json' HEAD; echo "::set-output name=UNCHANGED::$?"
-      - if: steps.check.outputs.UNCHANGED == 0
+        run: NEW_VERSION=$(git diff -U0 HEAD~ -- package.json | grep -Po "(?<=\+\s{2}\"version\"\:\s\")([^\"]+)"); echo "::set-output name=new_version::$NEW_VERSION"
+      - if: steps.check.outputs.new_version != ''
         uses: actions/setup-node@v2
         with:
           node-version: 16
-      - if: steps.check.outputs.UNCHANGED == 0
+      - if: steps.check.outputs.new_version != ''
         uses: pnpm/action-setup@v2
         with:
           version: 6.2.1
-      - if: steps.check.outputs.UNCHANGED == 0
-        name: update package.json files
+      - if: steps.check.outputs.new_version != ''
+        name: sync
         run: node ./scripts/version
-      - if: steps.check.outputs.UNCHANGED == 0
-        name: update lockfile
+      - if: steps.check.outputs.new_version != ''
+        name: lockfile
         run: pnpm install --no-prefer-frozen-lockfile -r
-      - if: steps.check.outputs.UNCHANGED == 0
-        name: commit change
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - if: steps.check.outputs.new_version != ''
+        id: commit
+        name: commit
+        uses: EndBug/add-and-commit@v7
         with:
-          commit_message: Version sync
+          author_name: GitHub Actions
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
+          message: Sync version number ${{steps.check.outputs.new_version}}.
+      - if: steps.check.outputs.new_version != ''
+        id: sha
+        name: sha
+        run: COMMIT_SHA=$(git rev-parse ${{steps.commit.outputs.commit_sha}}); echo "::set-output name=commit_sha::$COMMIT_SHA"
+      - if: steps.check.outputs.new_version != ''
+        name: tag
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/v${{steps.check.outputs.new_version}}",
+              sha: "${{steps.sha.outputs.commit_sha}}"
+            })
