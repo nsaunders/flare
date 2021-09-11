@@ -161,6 +161,12 @@ describe("slider", () => {
     runFlare(F.slider({ initial: 5, max }));
     expect(getControl()?.max).toEqual(max.toString());
   });
+
+  it("uses step value", () => {
+    const step = 2;
+    runFlare(F.slider({ initial: 0, step }));
+    expect(getControl()?.step).toEqual(step.toString());
+  });
 });
 
 describe("spinButton", () => {
@@ -245,6 +251,12 @@ describe("spinButton", () => {
       }
       expect(handler).toHaveBeenLastCalledWith(initial);
     });
+  });
+
+  it("uses step value", () => {
+    const step = 3;
+    runFlare(F.spinButton({ initial: 0, step }));
+    expect(getControl()?.step).toEqual(step.toString());
   });
 });
 
