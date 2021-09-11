@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 import { Flare, RunFlare } from "./lib";
 import * as F from "./lib";
+import { pipe } from "fp-ts/lib/function";
 
 type MockHandler<A> = jest.Mock<void, [A]>;
 
@@ -314,5 +315,29 @@ describe("textbox", () => {
       userEvent.type(textbox, additional);
     }
     expect(handler).toHaveBeenLastCalledWith(initial + additional);
+  });
+});
+
+describe("map", () => {
+  const initial = "Hello",
+    f = (s: string) => s.length;
+
+  let handler: MockHandler<number>;
+
+  beforeEach(() => {
+    handler = runFlare(pipe(F.textbox({ initial }), F.map(f)));
+  });
+
+  it("applies the specified function to the initial value", () => {
+    expect(handler).toHaveBeenCalledWith(f(initial));
+  });
+
+  it("applies the specified function to changed values", () => {
+    const additional = "!";
+    const control = screen.getByRole("textbox");
+    if (control) {
+      userEvent.type(control, additional);
+    }
+    expect(handler).toHaveBeenLastCalledWith(f(initial + additional));
   });
 });
