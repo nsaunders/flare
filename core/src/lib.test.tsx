@@ -25,7 +25,7 @@ describe("checkbox", () => {
     }
   });
 
-  it("renders a checkbox", () => {
+  it("renders control", () => {
     expect(checkbox).toBeTruthy();
   });
 
@@ -39,52 +39,21 @@ describe("checkbox", () => {
   });
 });
 
-describe("numberInput", () => {
-  const initial = 5;
-
-  let handler: MockHandler<number>, spinButton: HTMLInputElement;
-
-  beforeEach(() => {
-    handler = runFlare(F.numberInput({ initial }));
-    const maybeSpinButton = screen.getByRole("spinbutton");
-    if (maybeSpinButton instanceof HTMLInputElement) {
-      spinButton = maybeSpinButton;
-    }
-  });
-
-  it("renders a number input", () => {
-    expect(spinButton).toBeTruthy();
-  });
-
-  it("renders with initial", () => {
-    expect(spinButton?.value).toEqual(initial.toString());
-  });
-
-  it("triggers handler on change", () => {
-    const updated = 10;
-    if (spinButton) {
-      userEvent.clear(spinButton);
-      userEvent.type(spinButton, updated.toString());
-    }
-    expect(handler).toHaveBeenLastCalledWith(updated);
-  });
-});
-
-describe("segmentedControl", () => {
+describe("radioGroup", () => {
   const initial = "red",
     options = ["blue", "red", "yellow"];
 
   let handler: MockHandler<typeof options[number]>, radios: HTMLInputElement[];
 
   beforeEach(() => {
-    handler = runFlare(F.segmentedControl({ initial, options }));
+    handler = runFlare(F.radioGroup({ initial, options }));
     radios = screen
       .getAllByRole("radio")
       .flatMap((x) => (x instanceof HTMLInputElement ? [x] : []));
   });
 
-  it("renders radio buttons", () => {
-    expect(radios?.map(({ value }) => value)).toEqual(options);
+  it("renders controls", () => {
+    expect(radios.length).toEqual(options.length);
   });
 
   it("renders with initial", () => {
@@ -120,18 +89,18 @@ describe("select", () => {
     }
   });
 
-  it("renders a select", () => {
+  it("renders a control", () => {
     expect(select).toBeTruthy();
-  });
-
-  it("renders with provided options", () => {
-    expect(Array.from(select?.options).map(({ value }) => value)).toEqual(
-      options,
-    );
   });
 
   it("renders with initial", () => {
     expect(select?.value).toEqual(initial);
+  });
+
+  it("renders provided options", () => {
+    expect(Array.from(select?.options).map(({ value }) => value)).toEqual(
+      options,
+    );
   });
 
   it("triggers handler on change", () => {
@@ -156,7 +125,7 @@ describe("slider", () => {
     }
   });
 
-  it("renders an input", () => {
+  it("renders a control", () => {
     expect(slider).toBeTruthy();
   });
 
@@ -174,20 +143,78 @@ describe("slider", () => {
   });
 });
 
-describe("textInput", () => {
+describe("spinButton", () => {
+  const initial = 5;
+
+  let handler: MockHandler<number>, spinButton: HTMLInputElement;
+
+  beforeEach(() => {
+    handler = runFlare(F.spinButton({ initial }));
+    const maybeSpinButton = screen.getByRole("spinbutton");
+    if (maybeSpinButton instanceof HTMLInputElement) {
+      spinButton = maybeSpinButton;
+    }
+  });
+
+  it("renders a control", () => {
+    expect(spinButton).toBeTruthy();
+  });
+
+  it("renders with initial", () => {
+    expect(spinButton?.value).toEqual(initial.toString());
+  });
+
+  it("triggers handler on change", () => {
+    const updated = 10;
+    if (spinButton) {
+      userEvent.clear(spinButton);
+      userEvent.type(spinButton, updated.toString());
+    }
+    expect(handler).toHaveBeenLastCalledWith(updated);
+  });
+});
+
+describe("switch_", () => {
+  const initial = true;
+
+  let handler: MockHandler<boolean>, switch_: HTMLInputElement;
+
+  beforeEach(() => {
+    handler = runFlare(F.switch_({ initial }));
+    const maybeSwitch = screen.getByRole("switch");
+    if (maybeSwitch instanceof HTMLInputElement) {
+      switch_ = maybeSwitch;
+    }
+  });
+
+  it("renders a control", () => {
+    expect(switch_).toBeTruthy();
+  });
+
+  it("renders with initial", () => {
+    expect(switch_?.checked).toEqual(initial);
+  });
+
+  it("triggers handler on change", () => {
+    switch_ && userEvent.click(switch_);
+    expect(handler).toHaveBeenLastCalledWith(!initial);
+  });
+});
+
+describe("textbox", () => {
   const initial = "Foo";
 
   let handler: MockHandler<string>, textbox: HTMLInputElement;
 
   beforeEach(() => {
-    handler = runFlare(F.textInput({ initial }));
+    handler = runFlare(F.textbox({ initial }));
     const maybeTextbox = screen.getByRole("textbox");
     if (maybeTextbox instanceof HTMLInputElement) {
       textbox = maybeTextbox;
     }
   });
 
-  it("renders a textbox", () => {
+  it("renders a control", () => {
     expect(textbox).toBeTruthy();
   });
 
@@ -201,32 +228,5 @@ describe("textInput", () => {
       userEvent.type(textbox, additional);
     }
     expect(handler).toHaveBeenLastCalledWith(initial + additional);
-  });
-});
-
-describe("toggle", () => {
-  const initial = true;
-
-  let handler: MockHandler<boolean>, toggle: HTMLInputElement;
-
-  beforeEach(() => {
-    handler = runFlare(F.toggle({ initial }));
-    const maybeToggle = screen.getByRole("switch");
-    if (maybeToggle instanceof HTMLInputElement) {
-      toggle = maybeToggle;
-    }
-  });
-
-  it("renders a checkbox", () => {
-    expect(toggle).toBeTruthy();
-  });
-
-  it("renders with initial", () => {
-    expect(toggle?.checked).toEqual(initial);
-  });
-
-  it("triggers handler on change", () => {
-    toggle && userEvent.click(toggle);
-    expect(handler).toHaveBeenLastCalledWith(!initial);
   });
 });

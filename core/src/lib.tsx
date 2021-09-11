@@ -5,6 +5,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { css } from "demitasse";
@@ -141,20 +142,20 @@ export type Components = {
   Checkbox: FC<
     { children?: undefined } & LabelProp & ValueProps<boolean, "checked">
   >;
-  NumberInput: FC<
-    { children?: undefined } & LabelProp & ValueProps<number> & NumberProps
-  >;
   ResizableList: FC<{ addButton: ReactNode }>;
   ResizableListItem: FC<{ addButton: ReactNode; removeButton: ReactNode }>;
-  SegmentedControl: FC<{ children?: undefined } & LabelProp & SelectionProps>;
+  RadioGroup: FC<{ children?: undefined } & LabelProp & SelectionProps>;
   Select: FC<{ children?: undefined } & LabelProp & SelectionProps>;
   Slider: FC<
     { children?: undefined } & LabelProp & ValueProps<number> & NumberProps
   >;
-  TextInput: FC<{ children?: undefined } & LabelProp & ValueProps<string>>;
-  Toggle: FC<
+  SpinButton: FC<
+    { children?: undefined } & LabelProp & ValueProps<number> & NumberProps
+  >;
+  Switch: FC<
     { children?: undefined } & LabelProp & ValueProps<boolean, "checked">
   >;
+  Textbox: FC<{ children?: undefined } & LabelProp & ValueProps<string>>;
 };
 
 const Button: Components["Button"] = (props) => <button {...props} />;
@@ -197,32 +198,6 @@ const Checkbox: Components["Checkbox"] = ({
   </label>
 );
 
-const numberInputStyles = css("number-input", {
-  width: 80,
-});
-
-const NumberInput: Components["NumberInput"] = ({
-  label,
-  onValueChange,
-  ...restProps
-}) => (
-  <label className={fieldStyles.container}>
-    <span className={fieldStyles.label}>{label}</span>
-    <div className={fieldStyles.value}>
-      <input
-        className={numberInputStyles}
-        type="number"
-        onChange={({ target: { value } }) => {
-          for (const fValue = parseFloat(value); !isNaN(fValue); ) {
-            return onValueChange(fValue);
-          }
-        }}
-        {...restProps}
-      />
-    </div>
-  </label>
-);
-
 const ResizableList: FC<{ addButton: ReactNode }> = ({
   children,
   addButton,
@@ -247,22 +222,28 @@ const ResizableListItem: FC<{ addButton: ReactNode; removeButton: ReactNode }> =
     </div>
   );
 
-const SegmentedControl: Components["SegmentedControl"] = ({
+const RadioGroup: Components["RadioGroup"] = ({
   label,
   onValueChange,
   options,
   value,
 }) => {
-  const [name] = useState(uniqueId);
+  const name = useRef(uniqueId());
   return (
-    <div className={fieldStyles.container}>
-      <span className={fieldStyles.label}>{label}</span>
+    <div
+      className={fieldStyles.container}
+      role="radiogroup"
+      aria-labelledby={`${name.current}Label`}
+    >
+      <span className={fieldStyles.label} id={`${name.current}Label`}>
+        {label}
+      </span>
       <div className={fieldStyles.value}>
         {options.map((option) => (
           <label key={option}>
             <input
               type="radio"
-              name={name}
+              name={name.current}
               value={option}
               checked={value === option}
               onChange={({ target: { checked } }) => {
@@ -325,26 +306,28 @@ const Slider: Components["Slider"] = ({
   </label>
 );
 
-const TextInput: Components["TextInput"] = ({
+const SpinButton: Components["SpinButton"] = ({
   label,
-  value,
   onValueChange,
+  ...restProps
 }) => (
   <label className={fieldStyles.container}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
       <input
-        type="text"
-        value={value}
+        type="number"
         onChange={({ target: { value } }) => {
-          onValueChange(value);
+          for (const fValue = parseFloat(value); !isNaN(fValue); ) {
+            return onValueChange(fValue);
+          }
         }}
+        {...restProps}
       />
     </div>
   </label>
 );
 
-const Toggle: Components["Toggle"] = ({ label, checked, onCheckedChange }) => (
+const Switch: Components["Switch"] = ({ label, checked, onCheckedChange }) => (
   <label className={fieldStyles.container}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
@@ -360,17 +343,32 @@ const Toggle: Components["Toggle"] = ({ label, checked, onCheckedChange }) => (
   </label>
 );
 
+const Textbox: Components["Textbox"] = ({ label, value, onValueChange }) => (
+  <label className={fieldStyles.container}>
+    <span className={fieldStyles.label}>{label}</span>
+    <div className={fieldStyles.value}>
+      <input
+        type="text"
+        value={value}
+        onChange={({ target: { value } }) => {
+          onValueChange(value);
+        }}
+      />
+    </div>
+  </label>
+);
+
 const defaultComponents = {
   Button,
   Checkbox,
-  NumberInput,
   ResizableList,
   ResizableListItem,
-  SegmentedControl,
+  RadioGroup,
   Select,
   Slider,
-  TextInput,
-  Toggle,
+  SpinButton,
+  Switch,
+  Textbox,
 };
 
 const Components = createContext<Components>(defaultComponents);
@@ -384,6 +382,7 @@ export function RunFlare<A>({
   handler: (a: A) => void;
   components?: Partial<Components>;
 }): JSX.Element {
+  // TODO: useMemo doesn't offer the semantic guarantees required here.
   const flare_ = useMemo(() => flare.make(), [flare]);
 
   const [state, setState] = useState<A>(flare_.query());
@@ -416,19 +415,11 @@ export const checkbox = /*#__PURE__*/ makeFlare<LabelProp, boolean>(
   },
 );
 
-export const numberInput = /*#__PURE__*/ makeFlare<
-  LabelProp & NumberProps,
-  number
->(({ onChange, ...restProps }) => {
-  const { NumberInput } = useContext(Components);
-  return <NumberInput onValueChange={onChange} {...restProps} />;
-});
-
 type OptionToStringOpt<T> = T extends string
   ? { optionToString?: undefined }
   : { optionToString: (option: T) => string };
 
-export function segmentedControl<T>(
+export function radioGroup<T>(
   opts: LabelProp & {
     options: Readonly<T[]>;
     initial: T;
@@ -438,12 +429,12 @@ export function segmentedControl<T>(
     LabelProp & { options: Readonly<T[]> } & OptionToStringOpt<T>,
     T
   >(({ label, options, value, onChange, ...restProps }) => {
-    const { SegmentedControl } = useContext(Components);
+    const { RadioGroup } = useContext(Components);
     const optionToString: (option: T) => string = restProps.optionToString
       ? restProps.optionToString
       : (o) => o as unknown as string;
     return (
-      <SegmentedControl
+      <RadioGroup
         label={label}
         options={options.map(optionToString)}
         value={optionToString(value)}
@@ -495,13 +486,28 @@ export const slider = /*#__PURE__*/ makeFlare<LabelProp & NumberProps, number>(
   },
 );
 
-export const textInput = /*#__PURE__*/ makeFlare<
+export const spinButton = /*#__PURE__*/ makeFlare<
+  LabelProp & NumberProps,
+  number
+>(({ onChange, ...restProps }) => {
+  const { SpinButton } = useContext(Components);
+  return <SpinButton onValueChange={onChange} {...restProps} />;
+});
+
+export const switch_ = /*#__PURE__*/ makeFlare<LabelProp, boolean>(
+  ({ onChange, value, ...restProps }) => {
+    const { Switch } = useContext(Components);
+    return <Switch checked={value} onCheckedChange={onChange} {...restProps} />;
+  },
+);
+
+export const textbox = /*#__PURE__*/ makeFlare<
   LabelProp & { nonEmpty?: boolean },
   string
 >(({ nonEmpty, onChange, ...restProps }) => {
-  const { TextInput } = useContext(Components);
+  const { Textbox } = useContext(Components);
   return (
-    <TextInput
+    <Textbox
       onValueChange={(v) => {
         if (v || !nonEmpty) {
           onChange(v);
@@ -511,13 +517,6 @@ export const textInput = /*#__PURE__*/ makeFlare<
     />
   );
 });
-
-export const toggle = /*#__PURE__*/ makeFlare<LabelProp, boolean>(
-  ({ onChange, value, ...restProps }) => {
-    const { Toggle } = useContext(Components);
-    return <Toggle checked={value} onCheckedChange={onChange} {...restProps} />;
-  },
-);
 
 const ResizableListView: Components["ResizableList"] = (props) => {
   const { ResizableList } = useContext(Components);
@@ -614,7 +613,7 @@ export function resizableList<A>({
   };
 }
 
-export const styles = [fieldStyles, numberInputStyles, resizableListItemStyles]
+export const styles = [fieldStyles, resizableListItemStyles]
   .reduce((xs: string[], x) => {
     switch (typeof x) {
       case "object":
