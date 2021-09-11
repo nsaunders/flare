@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 import { Flare, RunFlare } from "./lib";
@@ -11,6 +11,8 @@ function runFlare<A>(flare: Flare<A>): MockHandler<A> {
   render(<RunFlare flare={flare} handler={handler} />);
   return handler;
 }
+
+afterEach(cleanup);
 
 describe("checkbox", () => {
   const initial = true;
@@ -113,64 +115,130 @@ describe("select", () => {
 });
 
 describe("slider", () => {
-  const initial = 5;
+  describe("given initial only", () => {
+    const initial = 5;
 
-  let handler: MockHandler<number>, slider: HTMLInputElement;
+    let handler: MockHandler<number>, slider: HTMLInputElement;
 
-  beforeEach(() => {
-    handler = runFlare(F.slider({ initial }));
-    const maybeSlider = screen.getByRole("slider");
-    if (maybeSlider instanceof HTMLInputElement) {
-      slider = maybeSlider;
-    }
+    beforeEach(() => {
+      handler = runFlare(F.slider({ initial }));
+      const maybeSlider = screen.getByRole("slider");
+      if (maybeSlider instanceof HTMLInputElement) {
+        slider = maybeSlider;
+      }
+    });
+
+    it("renders a control", () => {
+      expect(slider).toBeTruthy();
+    });
+
+    it("renders with initial", () => {
+      expect(slider?.value).toEqual(initial.toString());
+    });
+
+    it("triggers handler on change", () => {
+      const updated = 75;
+      if (slider) {
+        userEvent.clear(slider);
+        userEvent.type(slider, updated.toString());
+      }
+      expect(handler).toHaveBeenLastCalledWith(updated);
+    });
   });
 
-  it("renders a control", () => {
-    expect(slider).toBeTruthy();
+  it("limits selectable range from min", () => {
+    const min = 0;
+    runFlare(F.slider({ initial: 5, min }));
+    const element = screen.getByRole("slider");
+    expect(element.getAttribute("min")).toEqual(min.toString());
   });
 
-  it("renders with initial", () => {
-    expect(slider?.value).toEqual(initial.toString());
-  });
-
-  it("triggers handler on change", () => {
-    const updated = 75;
-    if (slider) {
-      userEvent.clear(slider);
-      userEvent.type(slider, updated.toString());
-    }
-    expect(handler).toHaveBeenLastCalledWith(updated);
+  it("limits selectable range to max", () => {
+    const max = 0;
+    runFlare(F.slider({ initial: 5, max }));
+    const element = screen.getByRole("slider");
+    expect(element.getAttribute("max")).toEqual(max.toString());
   });
 });
 
 describe("spinButton", () => {
-  const initial = 5;
+  describe("given initial only", () => {
+    const initial = 5;
 
-  let handler: MockHandler<number>, spinButton: HTMLInputElement;
+    let handler: MockHandler<number>, spinButton: HTMLInputElement;
 
-  beforeEach(() => {
-    handler = runFlare(F.spinButton({ initial }));
-    const maybeSpinButton = screen.getByRole("spinbutton");
-    if (maybeSpinButton instanceof HTMLInputElement) {
-      spinButton = maybeSpinButton;
-    }
+    beforeEach(() => {
+      handler = runFlare(F.spinButton({ initial }));
+      const maybeSpinButton = screen.getByRole("spinbutton");
+      if (maybeSpinButton instanceof HTMLInputElement) {
+        spinButton = maybeSpinButton;
+      }
+    });
+
+    it("renders a control", () => {
+      expect(spinButton).toBeTruthy();
+    });
+
+    it("renders with initial", () => {
+      expect(spinButton?.value).toEqual(initial.toString());
+    });
+
+    it("triggers handler on change", () => {
+      const updated = 10;
+      if (spinButton) {
+        userEvent.clear(spinButton);
+        userEvent.type(spinButton, updated.toString());
+      }
+      expect(handler).toHaveBeenLastCalledWith(updated);
+    });
   });
 
-  it("renders a control", () => {
-    expect(spinButton).toBeTruthy();
+  describe("given min", () => {
+    const initial = 5,
+      min = 0;
+
+    let handler: MockHandler<number>, element: HTMLElement;
+
+    beforeEach(() => {
+      handler = runFlare(F.spinButton({ initial, min }));
+      element = screen.getByRole("spinbutton");
+    });
+
+    it("limits selectable range", () => {
+      expect(element.getAttribute("min")).toEqual(min.toString());
+    });
+
+    it("rejects value less than min", () => {
+      if (element) {
+        userEvent.clear(element);
+        userEvent.type(element, (min - 1).toString());
+      }
+      expect(handler).toHaveBeenLastCalledWith(initial);
+    });
   });
 
-  it("renders with initial", () => {
-    expect(spinButton?.value).toEqual(initial.toString());
-  });
+  describe("given max", () => {
+    const initial = 5,
+      max = 6;
 
-  it("triggers handler on change", () => {
-    const updated = 10;
-    if (spinButton) {
-      userEvent.clear(spinButton);
-      userEvent.type(spinButton, updated.toString());
-    }
-    expect(handler).toHaveBeenLastCalledWith(updated);
+    let handler: MockHandler<number>, element: HTMLElement;
+
+    beforeEach(() => {
+      handler = runFlare(F.spinButton({ initial, max }));
+      element = screen.getByRole("spinbutton");
+    });
+
+    it("limits selectable range", () => {
+      expect(element.getAttribute("max")).toEqual(max.toString());
+    });
+
+    it("rejects value greater than max", () => {
+      if (element) {
+        userEvent.clear(element);
+        userEvent.type(element, (max + 1).toString());
+      }
+      expect(handler).toHaveBeenLastCalledWith(initial);
+    });
   });
 });
 

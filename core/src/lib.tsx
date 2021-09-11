@@ -480,18 +480,44 @@ export function select<T>(
 }
 
 export const slider = /*#__PURE__*/ makeFlare<LabelProp & NumberProps, number>(
-  ({ onChange, ...restProps }) => {
+  ({ min, max, onChange, ...restProps }) => {
     const { Slider } = useContext(Components);
-    return <Slider onValueChange={onChange} {...restProps} />;
+    return (
+      <Slider
+        min={min}
+        max={max}
+        onValueChange={(value) => {
+          const minOk = (!min && min !== 0) || value >= min;
+          const maxOk = (!max && max !== 0) || value <= max;
+          if (minOk && maxOk) {
+            onChange(value);
+          }
+        }}
+        {...restProps}
+      />
+    );
   },
 );
 
 export const spinButton = /*#__PURE__*/ makeFlare<
   LabelProp & NumberProps,
   number
->(({ onChange, ...restProps }) => {
+>(({ min, max, onChange, ...restProps }) => {
   const { SpinButton } = useContext(Components);
-  return <SpinButton onValueChange={onChange} {...restProps} />;
+  return (
+    <SpinButton
+      min={min}
+      max={max}
+      onValueChange={(value) => {
+        const minOk = (!min && min !== 0) || value >= min;
+        const maxOk = (!max && max !== 0) || value <= max;
+        if (minOk && maxOk) {
+          onChange(value);
+        }
+      }}
+      {...restProps}
+    />
+  );
 });
 
 export const switch_ = /*#__PURE__*/ makeFlare<LabelProp, boolean>(
