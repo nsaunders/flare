@@ -349,6 +349,7 @@ const Toggle: Components["Toggle"] = ({ label, checked, onCheckedChange }) => (
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
       <input
+        role="switch"
         type="checkbox"
         checked={checked}
         onChange={({ target: { checked } }) => {

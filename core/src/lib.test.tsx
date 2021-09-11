@@ -1,24 +1,32 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
-import { RunFlare } from "./lib";
+import { Flare, RunFlare } from "./lib";
 import * as F from "./lib";
+
+type MockHandler<A> = jest.Mock<void, [A]>;
+
+function runFlare<A>(flare: Flare<A>): MockHandler<A> {
+  const handler = jest.fn<void, [A]>();
+  render(<RunFlare flare={flare} handler={handler} />);
+  return handler;
+}
 
 describe("checkbox", () => {
   const initial = true;
 
-  let handler: jest.Mock, checkbox: HTMLInputElement | null | undefined;
+  let handler: MockHandler<boolean>, checkbox: HTMLInputElement;
 
   beforeEach(() => {
-    const label = "Label";
-    handler = jest.fn();
-    render(
-      <RunFlare flare={F.checkbox({ initial, label })} handler={handler} />,
-    );
-    checkbox = screen
-      .getByLabelText(label)
-      ?.closest("label")
-      ?.querySelector("input");
+    handler = runFlare(F.checkbox({ initial }));
+    const maybeCheckbox = screen.getByRole("checkbox");
+    if (maybeCheckbox instanceof HTMLInputElement) {
+      checkbox = maybeCheckbox;
+    }
+  });
+
+  it("renders a checkbox", () => {
+    expect(checkbox).toBeTruthy();
   });
 
   it("renders with initial", () => {
@@ -34,29 +42,29 @@ describe("checkbox", () => {
 describe("numberInput", () => {
   const initial = 5;
 
-  let handler: jest.Mock, input: HTMLInputElement | null | undefined;
+  let handler: MockHandler<number>, spinButton: HTMLInputElement;
 
   beforeEach(() => {
-    const label = "Label";
-    handler = jest.fn();
-    render(
-      <RunFlare flare={F.numberInput({ initial, label })} handler={handler} />,
-    );
-    input = screen
-      .getByLabelText(label)
-      ?.closest("label")
-      ?.querySelector("input");
+    handler = runFlare(F.numberInput({ initial }));
+    const maybeSpinButton = screen.getByRole("spinbutton");
+    if (maybeSpinButton instanceof HTMLInputElement) {
+      spinButton = maybeSpinButton;
+    }
+  });
+
+  it("renders a number input", () => {
+    expect(spinButton).toBeTruthy();
   });
 
   it("renders with initial", () => {
-    expect(input?.value).toEqual(initial.toString());
+    expect(spinButton?.value).toEqual(initial.toString());
   });
 
   it("triggers handler on change", () => {
     const updated = 10;
-    if (input) {
-      userEvent.clear(input);
-      userEvent.type(input, updated.toString());
+    if (spinButton) {
+      userEvent.clear(spinButton);
+      userEvent.type(spinButton, updated.toString());
     }
     expect(handler).toHaveBeenLastCalledWith(updated);
   });
@@ -66,25 +74,17 @@ describe("segmentedControl", () => {
   const initial = "red",
     options = ["blue", "red", "yellow"];
 
-  let handler: jest.Mock, radios: HTMLInputElement[];
+  let handler: MockHandler<typeof options[number]>, radios: HTMLInputElement[];
 
   beforeEach(() => {
-    const label = "Label";
-    handler = jest.fn();
-    render(
-      <RunFlare
-        flare={F.segmentedControl({
-          initial,
-          options,
-          label,
-        })}
-        handler={handler}
-      />,
-    );
-    radios = Array.from(
-      screen.getByText(label)?.nextElementSibling?.querySelectorAll("input") ||
-        [],
-    );
+    handler = runFlare(F.segmentedControl({ initial, options }));
+    radios = screen
+      .getAllByRole("radio")
+      .flatMap((x) => (x instanceof HTMLInputElement ? [x] : []));
+  });
+
+  it("renders radio buttons", () => {
+    expect(radios?.map(({ value }) => value)).toEqual(options);
   });
 
   it("renders with initial", () => {
@@ -97,10 +97,11 @@ describe("segmentedControl", () => {
 
   it("triggers handler on change", () => {
     const updated = options[(options.indexOf(initial) + 1) % options.length];
-    const radio = radios.find(({ value }) => value === updated);
-    if (radio) {
-      userEvent.click(radio);
-    }
+    radios
+      .filter(({ value }) => value === updated)
+      .forEach((radio) => {
+        userEvent.click(radio);
+      });
     expect(handler).toHaveBeenLastCalledWith(updated);
   });
 });
@@ -109,35 +110,28 @@ describe("select", () => {
   const initial = "red",
     options = ["blue", "red", "yellow"];
 
-  let handler: jest.Mock, select: HTMLSelectElement | null | undefined;
+  let handler: MockHandler<typeof options[number]>, select: HTMLSelectElement;
 
   beforeEach(() => {
-    const label = "Label";
-    handler = jest.fn();
-    render(
-      <RunFlare
-        flare={F.select({
-          initial,
-          options,
-          label,
-        })}
-        handler={handler}
-      />,
+    handler = runFlare(F.select({ initial, options }));
+    const maybeSelect = screen.getByRole("combobox");
+    if (maybeSelect instanceof HTMLSelectElement) {
+      select = maybeSelect;
+    }
+  });
+
+  it("renders a select", () => {
+    expect(select).toBeTruthy();
+  });
+
+  it("renders with provided options", () => {
+    expect(Array.from(select?.options).map(({ value }) => value)).toEqual(
+      options,
     );
-    select = screen
-      .getByLabelText(label)
-      ?.closest("label")
-      ?.querySelector("select");
   });
 
   it("renders with initial", () => {
     expect(select?.value).toEqual(initial);
-  });
-
-  it("renders provided options", () => {
-    expect(Array.from(select?.options || []).map(({ value }) => value)).toEqual(
-      options,
-    );
   });
 
   it("triggers handler on change", () => {
@@ -149,31 +143,62 @@ describe("select", () => {
   });
 });
 
-describe("textInput", () => {
-  const initial = "Foo";
+describe("slider", () => {
+  const initial = 5;
 
-  let handler: jest.Mock, input: HTMLInputElement | null | undefined;
+  let handler: MockHandler<number>, slider: HTMLInputElement;
 
   beforeEach(() => {
-    const label = "Label";
-    handler = jest.fn();
-    render(
-      <RunFlare flare={F.textInput({ initial, label })} handler={handler} />,
-    );
-    input = screen
-      .getByLabelText(label)
-      ?.closest("label")
-      ?.querySelector("input");
+    handler = runFlare(F.slider({ initial }));
+    const maybeSlider = screen.getByRole("slider");
+    if (maybeSlider instanceof HTMLInputElement) {
+      slider = maybeSlider;
+    }
+  });
+
+  it("renders an input", () => {
+    expect(slider).toBeTruthy();
   });
 
   it("renders with initial", () => {
-    expect(input?.value).toEqual(initial);
+    expect(slider?.value).toEqual(initial.toString());
+  });
+
+  it("triggers handler on change", () => {
+    const updated = 75;
+    if (slider) {
+      userEvent.clear(slider);
+      userEvent.type(slider, updated.toString());
+    }
+    expect(handler).toHaveBeenLastCalledWith(updated);
+  });
+});
+
+describe("textInput", () => {
+  const initial = "Foo";
+
+  let handler: MockHandler<string>, textbox: HTMLInputElement;
+
+  beforeEach(() => {
+    handler = runFlare(F.textInput({ initial }));
+    const maybeTextbox = screen.getByRole("textbox");
+    if (maybeTextbox instanceof HTMLInputElement) {
+      textbox = maybeTextbox;
+    }
+  });
+
+  it("renders a textbox", () => {
+    expect(textbox).toBeTruthy();
+  });
+
+  it("renders with initial", () => {
+    expect(textbox?.value).toEqual(initial);
   });
 
   it("triggers handler on change", () => {
     const additional = "Bar";
-    if (input) {
-      userEvent.type(input, additional);
+    if (textbox) {
+      userEvent.type(textbox, additional);
     }
     expect(handler).toHaveBeenLastCalledWith(initial + additional);
   });
@@ -182,16 +207,18 @@ describe("textInput", () => {
 describe("toggle", () => {
   const initial = true;
 
-  let handler: jest.Mock, toggle: HTMLInputElement | null | undefined;
+  let handler: MockHandler<boolean>, toggle: HTMLInputElement;
 
   beforeEach(() => {
-    const label = "Label";
-    handler = jest.fn();
-    render(<RunFlare flare={F.toggle({ initial, label })} handler={handler} />);
-    toggle = screen
-      .getByLabelText(label)
-      ?.closest("label")
-      ?.querySelector("input");
+    handler = runFlare(F.toggle({ initial }));
+    const maybeToggle = screen.getByRole("switch");
+    if (maybeToggle instanceof HTMLInputElement) {
+      toggle = maybeToggle;
+    }
+  });
+
+  it("renders a checkbox", () => {
+    expect(toggle).toBeTruthy();
   });
 
   it("renders with initial", () => {
