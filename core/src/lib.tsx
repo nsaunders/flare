@@ -382,17 +382,20 @@ export function RunFlare<A>({
   handler: (a: A) => void;
   components?: Partial<Components>;
 }): JSX.Element {
-  // TODO: useMemo doesn't offer the semantic guarantees required here.
-  const flare_ = useMemo(() => flare.make(), [flare]);
-
-  const [state, setState] = useState<A>(flare_.query());
+  const [{ query, render }, setCurrent] = useState(() => flare.make());
 
   useEffect(() => {
-    setState(flare_.query());
-  }, [flare_]);
+    setCurrent(flare.make());
+  }, [flare]);
+
+  const [state, setState] = useState<A>(query());
+
+  useEffect(() => {
+    setState(query());
+  }, [query]);
 
   const onChange = () => {
-    setState(flare_.query());
+    setState(query());
   };
 
   useEffect(() => {
@@ -401,7 +404,7 @@ export function RunFlare<A>({
 
   return (
     <Components.Provider value={{ ...defaultComponents, ...components }}>
-      {flare_.render({ onChange })}
+      {render({ onChange })}
     </Components.Provider>
   );
 }
