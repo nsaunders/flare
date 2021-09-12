@@ -1,3 +1,7 @@
+.eslintrc.json
+.lintstagedrc.json
+.prettierrc.json
 css.js
+jest.config.js
 rollup.config.js
 tsconfig*.json
