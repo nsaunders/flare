@@ -36,6 +36,10 @@ describe("checkbox", () => {
     expect(checkbox?.checked).toEqual(initial);
   });
 
+  it("triggers handler with initial", () => {
+    expect(handler).toHaveBeenCalledWith(initial);
+  });
+
   it("triggers handler on change", () => {
     checkbox && userEvent.click(checkbox);
     expect(handler).toHaveBeenLastCalledWith(!initial);
@@ -65,6 +69,10 @@ describe("radioGroup", () => {
 
   it("renders provided options", () => {
     expect(radios.map(({ value }) => value)).toEqual(options);
+  });
+
+  it("triggers handler with initial", () => {
+    expect(handler).toHaveBeenCalledWith(initial);
   });
 
   it("triggers handler on change", () => {
@@ -98,6 +106,10 @@ describe("select", () => {
 
   it("renders with initial", () => {
     expect(select?.value).toEqual(initial);
+  });
+
+  it("triggers handler with initial", () => {
+    expect(handler).toHaveBeenCalledWith(initial);
   });
 
   it("renders provided options", () => {
@@ -139,6 +151,10 @@ describe("slider", () => {
 
     it("renders with initial", () => {
       expect(control?.value).toEqual(initial.toString());
+    });
+
+    it("triggers handler with initial", () => {
+      expect(handler).toHaveBeenCalledWith(initial);
     });
 
     it("triggers handler on change", () => {
@@ -194,6 +210,10 @@ describe("spinButton", () => {
 
     it("renders with initial", () => {
       expect(control?.value).toEqual(initial.toString());
+    });
+
+    it("triggers handler with initial", () => {
+      expect(handler).toHaveBeenCalledWith(initial);
     });
 
     it("triggers handler on change", () => {
@@ -282,6 +302,10 @@ describe("switch_", () => {
     expect(switch_?.checked).toEqual(initial);
   });
 
+  it("triggers handler with initial", () => {
+    expect(handler).toHaveBeenCalledWith(initial);
+  });
+
   it("triggers handler on change", () => {
     switch_ && userEvent.click(switch_);
     expect(handler).toHaveBeenLastCalledWith(!initial);
@@ -307,6 +331,10 @@ describe("textbox", () => {
 
   it("renders with initial", () => {
     expect(textbox?.value).toEqual(initial);
+  });
+
+  it("triggers handler with initial", () => {
+    expect(handler).toHaveBeenCalledWith(initial);
   });
 
   it("triggers handler on change", () => {
@@ -447,6 +475,10 @@ describe("makeFlare", () => {
 
   it("renders with initial", () => {
     expect(control?.textContent).toEqual(initial ? "True" : "False");
+  });
+
+  it("triggers handler with initial", () => {
+    expect(handler).toHaveBeenCalledWith(initial);
   });
 
   it("triggers handler on change", () => {
