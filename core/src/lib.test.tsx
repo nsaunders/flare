@@ -404,3 +404,58 @@ describe("chain", () => {
     );
   });
 });
+
+describe("ifElse", () => {
+  const flareA = F.of("A");
+  const flareB = F.of("B");
+
+  it("returns the first flare given true", () => {
+    expect(pipe(true, F.ifElse(flareA, flareB))).toEqual(flareA);
+  });
+
+  it("returns the first flare given false", () => {
+    expect(pipe(false, F.ifElse(flareA, flareB))).toEqual(flareB);
+  });
+});
+
+describe("makeFlare", () => {
+  const toggle = F.makeFlare<unknown, boolean>(function Toggle({
+    onChange,
+    value,
+  }) {
+    const label = value ? "True" : "False";
+    return (
+      <button
+        onClick={() => {
+          onChange(!value);
+        }}
+      >
+        {label}
+      </button>
+    );
+  });
+
+  const initial = true;
+
+  let handler: MockHandler<boolean>, control: HTMLElement;
+
+  beforeEach(() => {
+    handler = runFlare(toggle({ initial }));
+    control = screen.getByRole("button");
+  });
+
+  it("renders control", () => {
+    expect(control).toBeTruthy();
+  });
+
+  it("renders with initial", () => {
+    expect(control?.textContent).toEqual(initial ? "True" : "False");
+  });
+
+  it("triggers handler on change", () => {
+    if (control) {
+      userEvent.click(control);
+    }
+    expect(handler).toHaveBeenLastCalledWith(!initial);
+  });
+});
