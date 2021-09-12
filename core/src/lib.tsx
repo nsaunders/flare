@@ -92,10 +92,10 @@ export function ifElse<A, B>(
   return (cond) => (cond ? a : b);
 }
 
-export function makeFlare<O, A>(
-  Component: FC<
-    O & { value: A; onChange: (value: A) => void; children?: undefined }
-  >,
+export function makeFlare<A, O = unknown>(
+  Component: (
+    props: O & { value: A; onChange: (value: A) => void },
+  ) => JSX.Element,
 ) {
   return function (opts: O & { initial: A }): Flare<A> {
     return {
@@ -406,7 +406,7 @@ export function RunFlare<A>({
   );
 }
 
-export const checkbox = /*#__PURE__*/ makeFlare<LabelProp, boolean>(
+export const checkbox = /*#__PURE__*/ makeFlare<boolean, LabelProp>(
   ({ value, onChange, ...restProps }) => {
     const { Checkbox } = useContext(Components);
     return (
@@ -426,8 +426,8 @@ export function radioGroup<T>(
   } & OptionToStringOpt<T>,
 ): Flare<T> {
   const make = makeFlare<
-    LabelProp & { options: Readonly<T[]> } & OptionToStringOpt<T>,
-    T
+    T,
+    LabelProp & { options: Readonly<T[]> } & OptionToStringOpt<T>
   >(({ label, options, value, onChange, ...restProps }) => {
     const { RadioGroup } = useContext(Components);
     const optionToString: (option: T) => string = restProps.optionToString
@@ -456,8 +456,8 @@ export function select<T>(
   } & OptionToStringOpt<T>,
 ): Flare<T> {
   const make = makeFlare<
-    LabelProp & { options: Readonly<T[]> } & OptionToStringOpt<T>,
-    T
+    T,
+    LabelProp & { options: Readonly<T[]> } & OptionToStringOpt<T>
   >(({ label, options, value, onChange, ...restProps }) => {
     const { Select } = useContext(Components);
     const optionToString: (option: T) => string = restProps.optionToString
@@ -479,7 +479,7 @@ export function select<T>(
   return make(opts);
 }
 
-export const slider = /*#__PURE__*/ makeFlare<LabelProp & NumberProps, number>(
+export const slider = /*#__PURE__*/ makeFlare<number, LabelProp & NumberProps>(
   ({ min, max, onChange, ...restProps }) => {
     const { Slider } = useContext(Components);
     return (
@@ -500,8 +500,8 @@ export const slider = /*#__PURE__*/ makeFlare<LabelProp & NumberProps, number>(
 );
 
 export const spinButton = /*#__PURE__*/ makeFlare<
-  LabelProp & NumberProps,
-  number
+  number,
+  LabelProp & NumberProps
 >(({ min, max, onChange, ...restProps }) => {
   const { SpinButton } = useContext(Components);
   return (
@@ -520,7 +520,7 @@ export const spinButton = /*#__PURE__*/ makeFlare<
   );
 });
 
-export const switch_ = /*#__PURE__*/ makeFlare<LabelProp, boolean>(
+export const switch_ = /*#__PURE__*/ makeFlare<boolean, LabelProp>(
   ({ onChange, value, ...restProps }) => {
     const { Switch } = useContext(Components);
     return <Switch checked={value} onCheckedChange={onChange} {...restProps} />;
@@ -528,8 +528,8 @@ export const switch_ = /*#__PURE__*/ makeFlare<LabelProp, boolean>(
 );
 
 export const textbox = /*#__PURE__*/ makeFlare<
-  LabelProp & { nonEmpty?: boolean },
-  string
+  string,
+  LabelProp & { nonEmpty?: boolean }
 >(({ nonEmpty, onChange, ...restProps }) => {
   const { Textbox } = useContext(Components);
   return (

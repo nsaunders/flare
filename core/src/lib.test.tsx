@@ -419,10 +419,7 @@ describe("ifElse", () => {
 });
 
 describe("makeFlare", () => {
-  const toggle = F.makeFlare<unknown, boolean>(function Toggle({
-    onChange,
-    value,
-  }) {
+  const toggle = F.makeFlare<boolean>(function Toggle({ onChange, value }) {
     const label = value ? "True" : "False";
     return (
       <button
