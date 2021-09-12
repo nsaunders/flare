@@ -1,2 +1,5 @@
+.eslintrc.json
+.lintstagedrc.json
+.prettierrc.json
 rollup.config.js
 tsconfig*.json
