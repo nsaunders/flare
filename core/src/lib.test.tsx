@@ -348,3 +348,24 @@ describe("map", () => {
     expect(handler).toHaveBeenLastCalledWith(f(initial + additional));
   });
 });
+
+describe("ap", () => {
+  it("applies the specified function to initial value", () => {
+    const f = (x: number) => x * x;
+    const a = 2;
+    const handler = runFlare(pipe(F.of(f), F.ap(F.of(a))));
+    expect(handler).toHaveBeenCalledWith(f(a));
+  });
+
+  it("applies the specified function to changed values", () => {
+    const f = (x: number) => x * x;
+    const a = 8;
+    const handler = runFlare(pipe(F.of(f), F.ap(F.spinButton({ initial: 0 }))));
+    const control = screen.getByRole("spinbutton");
+    if (control) {
+      userEvent.clear(control);
+      userEvent.type(control, a.toString());
+    }
+    expect(handler).toHaveBeenLastCalledWith(f(a));
+  });
+});
