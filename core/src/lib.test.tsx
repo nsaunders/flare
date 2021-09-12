@@ -318,6 +318,13 @@ describe("textbox", () => {
   });
 });
 
+describe("of", () => {
+  it("lifts the provided value into a flare", () => {
+    const { _tag: tag } = F.of(5);
+    expect(tag).toEqual("Flare");
+  });
+});
+
 describe("map", () => {
   const initial = "Hello",
     f = (s: string) => s.length;
