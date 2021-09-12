@@ -369,3 +369,38 @@ describe("ap", () => {
     expect(handler).toHaveBeenLastCalledWith(f(a));
   });
 });
+
+describe("chain", () => {
+  const initial = false;
+  const checkedValue = "apple banana grape";
+  const uncheckedValue = "lemur";
+  let handler: MockHandler<string>;
+
+  beforeEach(() => {
+    handler = runFlare(
+      pipe(
+        F.checkbox({ initial }),
+        F.chain((x) =>
+          x ? F.textbox({ initial: checkedValue }) : F.of(uncheckedValue),
+        ),
+      ),
+    );
+  });
+
+  it("passes initial flare value", () => {
+    expect(handler).toHaveBeenCalledWith(
+      initial ? checkedValue : uncheckedValue,
+    );
+  });
+
+  it("triggers changes", () => {
+    const checkbox = screen.getByRole("checkbox");
+    if (checkbox) {
+      userEvent.click(checkbox);
+    }
+    expect(!!screen.queryByRole("textbox")).toEqual(!initial);
+    expect(handler).toHaveBeenLastCalledWith(
+      initial ? uncheckedValue : checkedValue,
+    );
+  });
+});
