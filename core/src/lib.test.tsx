@@ -1,6 +1,7 @@
+require("@testing-library/jest-dom/extend-expect");
+
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom/extend-expect";
 import { Flare, RunFlare } from "./lib";
 import * as F from "./lib";
 import { pipe } from "fp-ts/lib/function";
@@ -486,5 +487,255 @@ describe("makeFlare", () => {
       userEvent.click(control);
     }
     expect(handler).toHaveBeenLastCalledWith(!initial);
+  });
+});
+
+describe("resizableList", () => {
+  describe("given initial only", () => {
+    const initials = ["X", "Y", "Z"];
+
+    let handler: MockHandler<string[]>, controls: HTMLInputElement[];
+
+    beforeEach(() => {
+      handler = runFlare(
+        F.resizableList({
+          item: F.textbox({ initial: "hello" }),
+          initial: initials.map((initial) => F.textbox({ initial })),
+        }),
+      );
+      controls = screen
+        .queryAllByRole("textbox")
+        .filter((x) => x instanceof HTMLInputElement)
+        .map((x) => x as HTMLInputElement);
+    });
+
+    it("renders with initial", () => {
+      expect(controls.map(({ value }) => value)).toEqual(initials);
+    });
+
+    it("triggers handler with initial", () => {
+      expect(handler).toHaveBeenCalledWith(initials);
+    });
+
+    it("triggers handler on change", () => {
+      const change = "A";
+      if (controls.length) {
+        userEvent.clear(controls[0]);
+        userEvent.type(controls[0], change);
+      }
+      expect(handler).toHaveBeenLastCalledWith(
+        [change].concat(initials.slice(1)),
+      );
+    });
+  });
+
+  describe("given minLength exceeding initial", () => {
+    const head = "hello";
+    const tailItem = "hi";
+    const tail = Array(2).fill(tailItem);
+
+    let handler: MockHandler<string[]>, controls: HTMLInputElement[];
+
+    beforeEach(() => {
+      handler = runFlare(
+        F.resizableList({
+          item: F.textbox({ initial: tailItem }),
+          initial: [F.textbox({ initial: head })],
+          minLength: tail.length + 1,
+        }),
+      );
+      controls = screen
+        .queryAllByRole("textbox")
+        .filter((x) => x instanceof HTMLInputElement)
+        .map((x) => x as HTMLInputElement);
+    });
+
+    it("renders with initial and additional items until minLength is reached", () => {
+      expect(controls.map(({ value }) => value)).toEqual([head].concat(tail));
+    });
+
+    it("triggers handler with initial and additional items until minLength is reached", () => {
+      expect(handler).toHaveBeenCalledWith([head].concat(tail));
+    });
+  });
+
+  describe("given no initial or minLength", () => {
+    let handler: MockHandler<string[]>, controls: HTMLElement[];
+
+    beforeEach(() => {
+      handler = runFlare(
+        F.resizableList({ item: F.textbox({ initial: "hello" }) }),
+      );
+      controls = screen.queryAllByRole("textbox");
+    });
+
+    it("renders empty list", () => {
+      expect(controls.length).toEqual(0);
+    });
+
+    it("triggers handler with empty list", () => {
+      expect(handler).toHaveBeenLastCalledWith([]);
+    });
+  });
+
+  describe("given a maxLength less than the list of items", () => {
+    const initials = ["A", "B", "C"];
+    const maxLength = 2;
+
+    let handler: MockHandler<string[]>, controls: HTMLInputElement[];
+
+    beforeEach(() => {
+      handler = runFlare(
+        F.resizableList({
+          item: F.textbox({ initial: "hello" }),
+          initial: initials.map((initial) => F.textbox({ initial })),
+          maxLength,
+        }),
+      );
+      controls = screen
+        .queryAllByRole("textbox")
+        .filter((x) => x instanceof HTMLInputElement)
+        .map((x) => x as HTMLInputElement);
+    });
+
+    it("renders truncated list of controls", () => {
+      expect(controls.map(({ value }) => value)).toEqual(
+        initials.slice(0, maxLength),
+      );
+    });
+
+    it("triggers handler with truncated list", () => {
+      expect(handler).toHaveBeenCalledWith(initials.slice(0, maxLength));
+    });
+  });
+
+  describe('when "add" button is clicked on a reference list item', () => {
+    const itemInitial = false;
+    const initials = [true, true, true];
+    const insertionPoint = 1;
+    let handler: MockHandler<boolean[]>;
+
+    beforeEach(() => {
+      handler = runFlare(
+        F.resizableList({
+          item: F.checkbox({ initial: itemInitial }),
+          initial: initials.map((initial) => F.checkbox({ initial })),
+        }),
+      );
+      const addButtons = screen.getAllByText("+");
+      if (addButtons[insertionPoint]) {
+        userEvent.click(addButtons[insertionPoint]);
+      }
+    });
+
+    it("renders an additional list item before the reference list item", () => {
+      expect(
+        screen
+          .getAllByRole("checkbox")
+          .map((x) => (x instanceof HTMLInputElement ? x.checked : null)),
+      ).toEqual(
+        initials
+          .slice(0, insertionPoint)
+          .concat(itemInitial)
+          .concat(initials.slice(insertionPoint)),
+      );
+    });
+
+    it("triggers handler with an additional list item before the reference list item", () => {
+      expect(handler).toHaveBeenLastCalledWith(
+        initials
+          .slice(0, insertionPoint)
+          .concat(itemInitial)
+          .concat(initials.slice(insertionPoint)),
+      );
+    });
+  });
+
+  describe('when "remove" button is clicked on a reference list item', () => {
+    const initials = [true, false, true, true];
+    const removalPoint = 1;
+    let handler: MockHandler<boolean[]>;
+
+    beforeEach(() => {
+      handler = runFlare(
+        F.resizableList({
+          item: F.checkbox({ initial: false }),
+          initial: initials.map((initial) => F.checkbox({ initial })),
+        }),
+      );
+      const removeButtons = screen.getAllByText("-");
+      if (removeButtons[removalPoint]) {
+        userEvent.click(removeButtons[removalPoint]);
+      }
+    });
+
+    it("renders the list without the reference list item", () => {
+      expect(
+        screen
+          .getAllByRole("checkbox")
+          .map((x) => (x instanceof HTMLInputElement ? x.checked : null)),
+      ).toEqual(
+        initials
+          .slice(0, removalPoint)
+          .concat(initials.slice(removalPoint + 1)),
+      );
+    });
+
+    it("triggers handler with the list without the reference list item", () => {
+      expect(handler).toHaveBeenLastCalledWith(
+        initials
+          .slice(0, removalPoint)
+          .concat(initials.slice(removalPoint + 1)),
+      );
+    });
+  });
+
+  describe('when "add" button is clicked at the end of the list', () => {
+    const itemInitial = false;
+    const initials = [true, true, true];
+    let handler: MockHandler<boolean[]>;
+
+    beforeEach(() => {
+      handler = runFlare(
+        F.resizableList({
+          item: F.checkbox({ initial: itemInitial }),
+          initial: initials.map((initial) => F.checkbox({ initial })),
+        }),
+      );
+      const addButtons = screen.getAllByText("+");
+      if (addButtons[addButtons.length - 1]) {
+        userEvent.click(addButtons[addButtons.length - 1]);
+      }
+    });
+
+    it("renders an additional list item at the end", () => {
+      expect(
+        screen
+          .getAllByRole("checkbox")
+          .map((x) => (x instanceof HTMLInputElement ? x.checked : null)),
+      ).toEqual(initials.concat(itemInitial));
+    });
+
+    it("triggers handler with an additional list item at the end", () => {
+      expect(handler).toHaveBeenLastCalledWith(initials.concat(itemInitial));
+    });
+  });
+
+  it("doesn't allow an item to be added when the maxLength has been reached", () => {
+    runFlare(
+      F.resizableList({ item: F.of(""), initial: [F.of("")], maxLength: 1 }),
+    );
+    expect(
+      screen.getAllByText("+").some((el) => !el.hasAttribute("disabled")),
+    ).toEqual(false);
+  });
+
+  it("doesn't allow an item to be removed when the minLength has been reached", () => {
+    runFlare(
+      F.resizableList({ item: F.of(""), initial: [F.of("")], minLength: 1 }),
+    );
+    expect(
+      screen.getAllByText("-").some((el) => !el.hasAttribute("disabled")),
+    ).toEqual(false);
   });
 });
