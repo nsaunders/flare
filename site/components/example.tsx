@@ -33,25 +33,6 @@ const Button: Components["Button"] = ({ children: label, ...props }) => (
   </ButtonImpl>
 );
 
-const NumberInput: Components["NumberInput"] = ({
-  label,
-  onValueChange,
-  ...restProps
-}) => (
-  <Field label={label}>
-    <Input
-      type="number"
-      onChange={({ currentTarget: input }: ChangeEvent<HTMLInputElement>) => {
-        const value = parseFloat(input.value);
-        if (!isNaN(value)) {
-          onValueChange(value);
-        }
-      }}
-      {...restProps}
-    />
-  </Field>
-);
-
 const ResizableList: FC<{ addButton: ReactNode }> = ({
   addButton,
   children,
@@ -114,6 +95,25 @@ const Slider: Components["Slider"] = ({
   </Field>
 );
 
+const SpinButton: Components["SpinButton"] = ({
+  label,
+  onValueChange,
+  ...restProps
+}) => (
+  <Field label={label}>
+    <Input
+      type="number"
+      onChange={({ currentTarget: input }: ChangeEvent<HTMLInputElement>) => {
+        const value = parseFloat(input.value);
+        if (!isNaN(value)) {
+          onValueChange(value);
+        }
+      }}
+      {...restProps}
+    />
+  </Field>
+);
+
 export const Example: FC<{
   children?: undefined;
   code: string;
@@ -133,7 +133,7 @@ export const Example: FC<{
               handler={setOutput}
               components={{
                 Button,
-                NumberInput,
+                SpinButton,
                 ResizableList,
                 ResizableListItem,
                 Select,

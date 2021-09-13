@@ -4,10 +4,10 @@ import {
   map,
   match,
   of,
-  numberInput,
   resizableList,
   select,
   slider,
+  spinButton,
 } from "flare-core";
 import { NextPage } from "next";
 import { pipe } from "fp-ts/lib/function";
@@ -54,14 +54,14 @@ const examples = [
     name: "Basic",
     flare: pipe(
       of(curry2(Math.pow)),
-      ap(numberInput({ initial: 2, label: "Base" })),
-      ap(numberInput({ initial: 4, label: "Exponent" })),
+      ap(spinButton({ initial: 2, label: "Base" })),
+      ap(spinButton({ initial: 4, label: "Exponent" })),
     ),
     code: `
       pipe(
         of(curry2(Math.pow)),
-        ap(numberInput({ initial: 2, label: "Base" })),
-        ap(numberInput({ initial: 4, label: "Exponent" })),
+        ap(spinButton({ initial: 2, label: "Base" })),
+        ap(spinButton({ initial: 4, label: "Exponent" })),
       )
     `,
   },
@@ -157,8 +157,8 @@ const examples = [
     name: "Resizable list",
     flare: pipe(
       resizableList({
-        item: numberInput({ initial: 1 }),
-        initial: [1, 2, 3].map((initial) => numberInput({ initial })),
+        item: spinButton({ initial: 1 }),
+        initial: [1, 2, 3].map((initial) => spinButton({ initial })),
         minLength: 1,
       }),
       map(
@@ -169,8 +169,8 @@ const examples = [
     code: `
       pipe(
         resizableList({
-          item: numberInput({ initial: 1 }),
-          initial: [1, 2, 3].map(initial => numberInput({ initial })),
+          item: spinButton({ initial: 1 }),
+          initial: [1, 2, 3].map(initial => spinButton({ initial })),
           minLength: 1
         }),
         map((xs: number[]) => \`\${xs.join(" + ")} = \${xs.reduce((acc, x) => acc + x, 0)}\`)  
