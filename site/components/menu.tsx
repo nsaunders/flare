@@ -24,34 +24,28 @@ export const styles = /*#__PURE__*/ css({
     overflow: "hidden",
     whiteSpace: "nowrap",
     background: "rgba(var(--light),0.05)",
-    paddingTop: 16,
-    paddingBottom: 16,
-    transitionProperty: "padding-left,padding-right",
-    transitionDuration: "250ms",
-  },
-  menuOpen: {
-    paddingLeft: 16,
-    paddingRight: 16,
   },
   link: {
     outline: "none",
-    display: "inline-block",
+    display: "block",
     color: "rgb(var(--light))",
     textDecoration: "none",
+    paddingTop: 8,
+    paddingRight: 16,
+    paddingBottom: 8,
+    paddingLeft: 16,
     "&:focus": {
       textDecoration: "underline",
     },
-  },
-  linkWrap: {
-    "& + &": {
-      marginTop: 16,
+    "&:first-child": {
+      marginTop: 8,
     },
   },
   items: {
     transitionProperty: "transform,opacity",
     transitionDuration: "250ms",
     fontFamily: "Lato",
-    fontSize: 12,
+    fontSize: 16,
     lineHeight: 1,
   },
   itemsClosed: {
@@ -94,20 +88,14 @@ export const Menu: FC<{ children?: undefined; open?: boolean }> = ({
     }
   }, [open]);
   return (
-    <div
-      tabIndex={open ? 0 : -1}
-      ref={menuEl}
-      className={cx(styles.menu, open && styles.menuOpen)}
-    >
+    <div tabIndex={open ? 0 : -1} ref={menuEl} className={styles.menu}>
       <div className={cx(styles.items, !open && styles.itemsClosed)}>
         {menu.map(([href, title]) => (
-          <div className={styles.linkWrap} key={title}>
-            <Link href={href}>
-              <a className={styles.link} tabIndex={open ? 0 : -1}>
-                {title}
-              </a>
-            </Link>
-          </div>
+          <Link href={href} key={title}>
+            <a className={styles.link} tabIndex={open ? 0 : -1}>
+              {title}
+            </a>
+          </Link>
         ))}
       </div>
     </div>
