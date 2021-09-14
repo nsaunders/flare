@@ -57,7 +57,8 @@ export default function App({
       <ModeSetting.Provider value={[mode, setMode]}>
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+          <link rel="icon" type="image/png" href="/favicon.png" />
         </Head>
         <div className={cx("shell", menu && "menu-expanded")}>
           <nav className="menu">
