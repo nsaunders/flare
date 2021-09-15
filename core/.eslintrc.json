@@ -7,9 +7,6 @@
     "flare-react-typescript",
     "flare-prettier"
   ],
-  "rules": {
-    "react/react-in-jsx-scope": "off"
-  },
   "overrides": [
     {
       "files": "*.config.js",

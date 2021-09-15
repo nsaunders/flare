@@ -1,5 +1,6 @@
 require("@testing-library/jest-dom/extend-expect");
 
+import React from "react";
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Flare, RunFlare } from "./lib";
