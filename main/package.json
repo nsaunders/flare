@@ -1,6 +1,6 @@
 {
   "name": "flare",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Applicative-style UIs",
   "main": "cjs/index.js",
   "module": "esm/index.js",
@@ -48,7 +48,7 @@
     "eslint-config-flare-typescript": "workspace:*",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "flare-core": "workspace:0.1.1",
+    "flare-core": "workspace:0.1.2",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.1",
     "prettier-config-flare": "workspace:*",
