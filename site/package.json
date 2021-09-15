@@ -10,12 +10,14 @@
     "precommit": "lint-staged"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.5",
     "@fontsource/courier-prime": "^4.5.0",
     "@fontsource/gruppo": "^4.5.0",
     "@fontsource/lato": "^4.5.0",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@mdx-js/loader": "^1.6.22",
+    "@mdx-js/react": "^1.6.22",
     "@next/mdx": "^11.1.0",
     "@tsconfig/next": "^1.0.0",
     "@types/highlightjs": "^9.12.2",
@@ -41,6 +43,8 @@
     "framer-motion": "^4.1.17",
     "highlight.js": "^11.2.0",
     "lint-staged": "^11.1.2",
+    "monocle-ts": "^2.3.11",
+    "newtype-ts": "^0.3.4",
     "next": "11.1.0",
     "postcss": "^8.3.6",
     "postcss-font-magician": "^3.0.0",
@@ -54,6 +58,7 @@
     "style-loader": "^3.2.1",
     "ts-node": "^10.2.1",
     "typescript": "~4.3.5",
-    "val-loader": "^4.0.0"
+    "val-loader": "^4.0.0",
+    "webpack": "^5.52.1"
   }
 }
