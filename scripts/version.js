@@ -19,8 +19,8 @@ const { version } = rootPkg;
       {
         ...mainPkg,
         version,
-        devDependencies: {
-          ...mainPkg.devDependencies,
+        dependencies: {
+          ...mainPkg.dependencies,
           "flare-core": `workspace:${version}`,
         },
       },
