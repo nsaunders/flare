@@ -1,0 +1,4 @@
+{
+  "extends": "@tsconfig/recommended",
+  "rootDir": "src"
+}
