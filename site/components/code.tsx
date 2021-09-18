@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { forwardRef } from "react";
 import { css } from "demitasse";
 import { useHighlighter } from "./highlight";
 
@@ -28,33 +28,35 @@ export const styles = /*#__PURE__*/ css({
   },
 });
 
-export const Code: FC<{ children: string }> = ({ children: code }) => {
-  const mindent = code
-    .split("\n")
-    .filter((line, i, { length }) => line.trim() || (i && i !== length - 1))
-    .map((x) => {
-      const match = x.match(/^\s+/);
-      if (!match) {
-        return Number.MAX_VALUE;
-      }
-      return match[0].length;
-    })
-    .reduce((a, b) => Math.min(a, b), Number.MAX_VALUE);
-  const highlighted = useHighlighter(
-    "typescript",
-    code
+export const Code = forwardRef<HTMLDivElement, { children: string }>(
+  function Code({ children: code }, ref) {
+    const mindent = code
       .split("\n")
-      .map((x) => x.substring(mindent))
-      .join("\n"),
-  );
-  return (
-    <div className={styles.surface}>
-      <pre className={styles.pre}>
-        <code
-          dangerouslySetInnerHTML={{ __html: highlighted.trim() }}
-          className={styles.code}
-        />
-      </pre>
-    </div>
-  );
-};
+      .filter((line, i, { length }) => line.trim() || (i && i !== length - 1))
+      .map((x) => {
+        const match = x.match(/^\s+/);
+        if (!match) {
+          return Number.MAX_VALUE;
+        }
+        return match[0].length;
+      })
+      .reduce((a, b) => Math.min(a, b), Number.MAX_VALUE);
+    const highlighted = useHighlighter(
+      "typescript",
+      code
+        .split("\n")
+        .map((x) => x.substring(mindent))
+        .join("\n"),
+    );
+    return (
+      <div className={styles.surface} ref={ref}>
+        <pre className={styles.pre}>
+          <code
+            dangerouslySetInnerHTML={{ __html: highlighted.trim() }}
+            className={styles.code}
+          />
+        </pre>
+      </div>
+    );
+  },
+);

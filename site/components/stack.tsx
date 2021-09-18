@@ -10,8 +10,9 @@ import { PolymorphicComponentProps, Box } from "react-polymorphic-box";
 import cx from "clsx";
 
 export const styles = /*#__PURE__*/ css({
-  container: {
+  containerCommon: {
     display: "inline-flex",
+    margin: 0,
   },
   containerBlock: {
     display: "flex",
@@ -25,6 +26,9 @@ export const styles = /*#__PURE__*/ css({
   containerAlignItemsEnd: {
     alignItems: "flex-end",
   },
+  containerJustifySpaceBetween: {
+    justifyContent: "space-between",
+  },
   containerColumn: {
     flexDirection: "column",
   },
@@ -33,27 +37,6 @@ export const styles = /*#__PURE__*/ css({
   },
   containerRowReverse: {
     flexDirection: "row-reverse",
-  },
-  containerSpacing0: {
-    margin: 0,
-  },
-  containerSpacing2: {
-    margin: -1,
-  },
-  containerSpacing4: {
-    margin: -2,
-  },
-  containerSpacing8: {
-    margin: -4,
-  },
-  containerSpacing16: {
-    margin: -8,
-  },
-  containerSpacing48: {
-    margin: -24,
-  },
-  containerSpacing64: {
-    margin: -32,
   },
   itemSpacing0: {
     margin: 0,
@@ -76,6 +59,46 @@ export const styles = /*#__PURE__*/ css({
   itemSpacing64: {
     margin: 32,
   },
+  itemInRow: {
+    "&&": {
+      marginTop: 0,
+      marginRight: 0,
+      marginBottom: 0,
+    },
+    "&:first-child": {
+      marginLeft: 0,
+    },
+  },
+  itemInColumn: {
+    "&&": {
+      marginRight: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+    },
+    "&:first-child": {
+      marginTop: 0,
+    },
+  },
+  itemInRowReverse: {
+    "&&": {
+      marginTop: 0,
+      marginLeft: 0,
+      marginBottom: 0,
+    },
+    "&:first-child": {
+      marginRight: 0,
+    },
+  },
+  itemInColumnReverse: {
+    "&&": {
+      marginRight: 0,
+      marginTop: 0,
+      marginLeft: 0,
+    },
+    "&:first-child": {
+      marginBottom: 0,
+    },
+  },
 });
 
 const stackDefaultElement = "div";
@@ -84,13 +107,19 @@ type StackOwnProps = {
   alignItems?: "start" | "center" | "end";
   block?: boolean;
   direction?: "row" | "row-reverse" | "column" | "column-reverse";
+  justifyContent?: "space-between";
   spacing?: 0 | 2 | 4 | 8 | 16 | 48 | 64;
 };
 
 type StackProps<E extends ElementType = typeof stackDefaultElement> =
   PolymorphicComponentProps<E, StackOwnProps>;
 
-const Spacing = createContext(0);
+const Spacing = createContext<
+  [
+    Exclude<StackOwnProps["spacing"], undefined>,
+    Exclude<StackOwnProps["direction"], undefined>,
+  ]
+>([0, "row"]);
 
 export const Stack: <E extends ElementType = typeof stackDefaultElement>(
   props: StackProps<E>,
@@ -101,31 +130,27 @@ export const Stack: <E extends ElementType = typeof stackDefaultElement>(
     alignItems,
     block,
     className,
-    direction,
+    direction = "row",
+    justifyContent,
     spacing = 0,
     ...restProps
   }: StackProps<E>,
   ref: typeof restProps.ref,
 ) {
   return (
-    <Spacing.Provider value={spacing}>
+    <Spacing.Provider value={[spacing, direction]}>
       <Box
         as={stackDefaultElement}
-        className={cx(className, styles.container, {
+        className={cx(className, styles.containerCommon, {
           [styles.containerBlock]: block,
           [styles.containerAlignItemsStart]: alignItems === "start",
           [styles.containerAlignItemsCenter]: alignItems === "center",
           [styles.containerAlignItemsEnd]: alignItems === "end",
+          [styles.containerJustifySpaceBetween]:
+            justifyContent === "space-between",
           [styles.containerColumn]: direction === "column",
           [styles.containerColumnReverse]: direction === "column-reverse",
           [styles.containerRowReverse]: direction === "row-reverse",
-          [styles.containerSpacing0]: spacing === 0,
-          [styles.containerSpacing2]: spacing === 2,
-          [styles.containerSpacing4]: spacing === 4,
-          [styles.containerSpacing8]: spacing === 8,
-          [styles.containerSpacing16]: spacing === 16,
-          [styles.containerSpacing48]: spacing === 48,
-          [styles.containerSpacing64]: spacing === 64,
         })}
         {...restProps}
         ref={ref}
@@ -144,11 +169,15 @@ export const Item: <E extends ElementType = typeof itemDefaultElement>(
 ) => ReactElement | null = /*#__PURE__*/ forwardRef(function Item<
   E extends ElementType = typeof itemDefaultElement,
 >({ className, ...restProps }: ItemProps<E>, ref: typeof restProps.ref) {
-  const spacing = useContext(Spacing);
+  const [spacing, direction] = useContext(Spacing);
   return (
     <Box
       as={itemDefaultElement}
       className={cx(className, {
+        [styles.itemInRow]: direction === "row",
+        [styles.itemInRowReverse]: direction === "row-reverse",
+        [styles.itemInColumn]: direction === "column",
+        [styles.itemInColumnReverse]: direction === "column-reverse",
         [styles.itemSpacing0]: spacing === 0,
         [styles.itemSpacing2]: spacing === 2,
         [styles.itemSpacing4]: spacing === 4,

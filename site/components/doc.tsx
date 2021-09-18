@@ -3,7 +3,7 @@ import { FC } from "react";
 
 export const styles = /*#__PURE__*/ css({
   paddingTop: 8,
-  paddingRight: 0,
+  paddingRight: 16,
   paddingBottom: 8,
   paddingLeft: 16,
   fontFamily: "Lato",

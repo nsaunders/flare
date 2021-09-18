@@ -51,22 +51,34 @@ function makeShape({
 
 const examples = [
   {
-    name: "Basic",
+    title: "Basic",
     flare: pipe(
       of(curry2(Math.pow)),
       ap(spinButton({ initial: 2, label: "Base" })),
       ap(spinButton({ initial: 4, label: "Exponent" })),
     ),
-    code: `
+    displayCode: `
       pipe(
         of(curry2(Math.pow)),
         ap(spinButton({ initial: 2, label: "Base" })),
-        ap(spinButton({ initial: 4, label: "Exponent" })),
+        ap(spinButton({ initial: 4, label: "Exponent" }))
       )
     `,
+    sandboxCode: [
+      `pipe(
+  of(curry2(Math.pow)),
+  ap(spinButton({ initial: 2, label: "Base" })),
+  ap(spinButton({ initial: 4, label: "Exponent" }))
+)`,
+      {
+        "fp-ts/lib/function": ["pipe"],
+        "fp-ts-std/Function": ["curry2"],
+        flare: ["ap, of, spinButton"],
+      },
+    ],
   },
   {
-    name: "Adaptive controls",
+    title: "Adaptive controls",
     flare: pipe(
       of(
         curry2((color: "red" | "blue", props: SpecializedShapeProps) =>
@@ -128,7 +140,7 @@ const examples = [
         ),
       ),
     ),
-    code: `
+    displayCode: `
       pipe(  
         of(curry2((color: "red" | "blue", props: SpecializedShapeProps) => makeShape({ color, ...props }))),  
         ap(select({ initial: "blue" as const, options: ["red", "blue"] as const, label: "Color" })),  
@@ -154,7 +166,7 @@ const examples = [
     `,
   },
   {
-    name: "Resizable list",
+    title: "Resizable list",
     flare: pipe(
       resizableList({
         item: spinButton({ initial: 1 }),
@@ -166,7 +178,7 @@ const examples = [
           `${xs.join(" + ")} = ${xs.reduce((acc, x) => acc + x, 0)}`,
       ),
     ),
-    code: `
+    displayCode: `
       pipe(
         resizableList({
           item: spinButton({ initial: 1 }),
@@ -177,16 +189,13 @@ const examples = [
       )
     `,
   },
-];
+] as const;
 
 const Examples: NextPage = () => (
   <Doc>
-    <h1>Examples</h1>
-    {examples.map(({ name, flare, code }) => (
-      <>
-        <h2>{name}</h2>
-        <Example flare={flare} code={code} />
-      </>
+    <h1 style={{ marginBottom: 0 }}>Examples</h1>
+    {examples.map((props, i) => (
+      <Example key={i} {...props} />
     ))}
   </Doc>
 );
