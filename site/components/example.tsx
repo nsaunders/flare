@@ -162,7 +162,7 @@ export const Example: FC<{
   children?: undefined;
   title: string;
   displayCode: string;
-  sandboxCode?: Readonly<[string, Record<string, Readonly<string[]>>]>;
+  sandboxCode?: Parameters<typeof createSandbox>[0];
   flare: Flare<ReactNode>;
 }> = ({ title, displayCode, sandboxCode, flare }) => {
   const [output, setOutput] = useState<ReactNode>(null);
@@ -230,7 +230,7 @@ export const Example: FC<{
         {sandboxStatus.tag === "error" && (
           <div className={cx(styles.sandbox, styles.sandboxError)}>
             <Stack spacing={48} direction="column" alignItems="center">
-              <Item>An error occurred while initializing the sandbox.</Item>
+              <Item>An error occurred while creating the sandbox.</Item>
               <Item>
                 <Stack direction="row" spacing={8}>
                   <Item>
@@ -307,9 +307,7 @@ export const Example: FC<{
   );
 };
 
-function createSandbox([code, imports]: Readonly<
-  [string, Record<string, Readonly<string[]>>]
->): Promise<string> {
+function createSandbox(content: string): Promise<string> {
   const pkg = {
     content: {
       scripts: {
@@ -340,22 +338,8 @@ function createSandbox([code, imports]: Readonly<
 </html>`,
   };
 
-  const allImports = {
-    ...imports,
-    flare: [...imports.flare, "runFlare"],
-  };
-
   const main = {
-    content: `${Object.entries(allImports)
-      .map(
-        ([pkg, imports]: [string, string[]]) =>
-          `import { ${imports.join(", ")} } from "${pkg}";`,
-      )
-      .join("\n")}
-
-const flare = ${code};
-
-runFlare("controls", "output", flare);`,
+    content,
   };
 
   const tsconfig = {
