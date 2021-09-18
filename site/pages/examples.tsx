@@ -9,6 +9,7 @@ import {
   slider,
   spinButton,
 } from "flare-core";
+import Head from "next/head";
 import { NextPage } from "next";
 import { pipe } from "fp-ts/lib/function";
 import { curry2 } from "fp-ts-std/Function";
@@ -192,12 +193,21 @@ const examples = [
 ] as const;
 
 const Examples: NextPage = () => (
-  <Doc>
-    <h1 style={{ marginBottom: 0 }}>Examples</h1>
-    {examples.map((props, i) => (
-      <Example key={i} {...props} />
-    ))}
-  </Doc>
+  <>
+    <Head>
+      <title>Examples</title>
+      <meta
+        name="description"
+        content="Examples of applicative-style UIs built in TypeScript with Flare"
+      />
+    </Head>
+    <Doc>
+      <h1 style={{ marginBottom: 0 }}>Examples</h1>
+      {examples.map((props, i) => (
+        <Example key={i} {...props} />
+      ))}
+    </Doc>
+  </>
 );
 
 export default Examples;
