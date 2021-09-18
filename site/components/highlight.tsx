@@ -17,7 +17,6 @@ function reducer(
   [hljs, registered]: [HLJSApi, Language[]],
   language: Language,
 ): [HLJSApi, Language[]] {
-  console.log("registering language " + language);
   if (!registered.includes(language)) {
     hljs.registerLanguage(language, availableLanguages[language]);
     return [hljs, registered.concat(language)];
