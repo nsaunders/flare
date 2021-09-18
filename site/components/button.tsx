@@ -43,6 +43,9 @@ export const styles = /*#__PURE__*/ css({
   mediumText: {
     paddingTop: 5,
     paddingBottom: 5,
+    "&:not(:first-child)": {
+      marginLeft: 8,
+    },
   },
   mediumIcon: {
     paddingTop: 1,
@@ -56,6 +59,9 @@ export const styles = /*#__PURE__*/ css({
   largeText: {
     paddingTop: 7,
     paddingBottom: 7,
+    "&:not(:first-child)": {
+      marginLeft: 8,
+    },
   },
   largeIcon: {
     paddingTop: 3,

@@ -1,8 +1,24 @@
+import Link from "next/link";
+import { Button } from "../components/button";
 import { Install } from "../components/install";
+import { Launch } from "@material-ui/icons";
 
-# Getting started
+# Getting Started
 
-## Installation
+## Browser
+
+Each live demo featured on the [Examples](/examples) page can be used as the
+starting point for a [CodeSandbox](https://codesandbox.io/) project, allowing
+you to experiment with Flare directly in the web browser. Click on the pencil
+icon next to a demo to get started.
+
+<Link href="/examples" passHref>
+  <Button as="a" motif="basic" size="large" icon={Launch}>Examples</Button>
+</Link>
+
+-----
+
+## Local Installation
 
 Install Flare using your choice of NPM, Yarn, or an equivalent package manager.
 

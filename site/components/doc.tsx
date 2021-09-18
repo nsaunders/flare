@@ -11,6 +11,27 @@ export const styles = /*#__PURE__*/ css({
   "& > h1:first-child": {
     marginTop: 0,
   },
+  "& hr + h2:not([class])": {
+    marginTop: -8,
+  },
+  "& hr:not([class])": {
+    height: 0,
+    border: "none",
+    borderBottom: "1px solid rgba(var(--light),0.05)",
+    marginTop: 24,
+    marginBottom: 24,
+  },
+  "& p:not([class])": {
+    lineHeight: 1.5,
+  },
+  "& a:not([class])": {
+    "&:link,&:visited": {
+      color: "rgba(var(--light), 0.75)",
+    },
+    "&:hover,&:focus,&:active": {
+      color: "inherit",
+    },
+  },
 });
 
 export const Doc: FC<unknown> = ({ children }) => (
