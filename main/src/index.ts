@@ -1,7 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Flare, RunFlare } from "flare-core";
-export * from "flare-core";
+export {
+  Flare,
+  Unflare,
+  ap,
+  chain,
+  map,
+  of,
+  ifElse,
+  match,
+  checkbox,
+  radioGroup,
+  select,
+  slider,
+  switch_,
+  spinButton,
+  textbox,
+  resizableList,
+} from "flare-core";
 
 export function runFlareWith<A>(
   controlsElementId: string,
