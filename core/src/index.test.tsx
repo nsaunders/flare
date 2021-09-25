@@ -3,8 +3,8 @@ require("@testing-library/jest-dom/extend-expect");
 import React from "react";
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Flare, RunFlare } from "./lib";
-import * as F from "./lib";
+import { Flare, RunFlare } from ".";
+import * as F from ".";
 import { pipe } from "fp-ts/lib/function";
 
 type MockHandler<A> = jest.Mock<void, [A]>;
