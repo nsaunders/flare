@@ -1,2 +1,2 @@
-import { styles } from "./lib";
+import { styles } from ".";
 export default styles;
