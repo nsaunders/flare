@@ -888,7 +888,7 @@ const ButtonView: Button = (props) => {
  *
  * @typeParam A - The value of each item in the list
  */
-type ResizableListOptions<A> = {
+export type ResizableListOptions<A> = {
   /**
    * The Flare used each time an item is added to the list
    */
@@ -918,7 +918,13 @@ type ResizableListOptions<A> = {
   maxLength?: number;
 };
 
-/** Creates a Flare that renders as a resizable list of Flares. */
+/**
+ * Creates a Flare that renders as a resizable list of Flares.
+ *
+ * @param options - Resizable list options
+ *
+ * @returns A resizable list of Flares
+ */
 export function resizableList<A>(options: ResizableListOptions<A>): Flare<A[]> {
   const { item, initial, minLength = 0, maxLength } = options;
   return {
