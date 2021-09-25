@@ -883,18 +883,44 @@ const ButtonView: Button = (props) => {
   return <Button {...props} />;
 };
 
-/** Creates a Flare that renders as a resizable list of Flares. */
-export function resizableList<A>({
-  item,
-  initial,
-  minLength = 0,
-  maxLength,
-}: {
+/**
+ * Options for the {@link resizableList} function
+ *
+ * @typeParam A - The value of each item in the list
+ */
+type ResizableListOptions<A> = {
+  /**
+   * The Flare used each time an item is added to the list
+   */
   item: Flare<A>;
+
+  /**
+   * The initial list of Flares
+   */
   initial?: Flare<A>[];
+
+  /**
+   * The minimum length of the list
+   *
+   * @remarks
+   * The user will be prevented from removing any item when the current list
+   * length is equal to the minimum length.
+   */
   minLength?: number;
+
+  /**
+   * The maximum length of the list
+   *
+   * @remarks
+   * The user will be prevented from adding an additional item when the current
+   * list length is equal to the maximum length.
+   */
   maxLength?: number;
-}): Flare<A[]> {
+};
+
+/** Creates a Flare that renders as a resizable list of Flares. */
+export function resizableList<A>(options: ResizableListOptions<A>): Flare<A[]> {
+  const { item, initial, minLength = 0, maxLength } = options;
   return {
     _tag: "Flare",
     make: () => {
@@ -964,6 +990,7 @@ export function resizableList<A>({
   };
 }
 
+/** @ignore */
 export const styles = [fieldStyles, resizableListItemStyles]
   .reduce((xs: string[], x) => {
     switch (typeof x) {
