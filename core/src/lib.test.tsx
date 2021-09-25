@@ -448,6 +448,24 @@ describe("ifElse", () => {
   });
 });
 
+describe("match", () => {
+  it("returns the flare corresponding to the provided value", () => {
+    const flare1 = F.of("A");
+    const flare2 = F.of("B");
+    const flare3 = F.of(3);
+
+    const match_ = F.match({
+      1: flare1,
+      two: flare2,
+      3: flare3,
+    });
+
+    expect(match_(1)).toEqual(flare1);
+    expect(match_("two")).toEqual(flare2);
+    expect(match_(3)).toEqual(flare3);
+  });
+});
+
 describe("makeFlare", () => {
   const toggle = F.makeFlare<boolean>(function Toggle({ onChange, value }) {
     const label = value ? "True" : "False";
