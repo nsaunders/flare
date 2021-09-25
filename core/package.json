@@ -8,7 +8,7 @@
   "typings": "types/index.d.ts",
   "style": "css/flare-core.css",
   "scripts": {
-    "docs": "typedoc --readme none --out docs src/index.ts",
+    "docs": "typedoc --readme none --out docs src/index.tsx",
     "precommit": "lint-staged",
     "prepublishOnly": "node -e \"['cjs', 'css', 'esm', 'types'].forEach(x => {try{require('fs').rmSync(x, { recursive: true })}catch(_){}})\" && node css && tsc --project tsconfig.types.json && tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && rollup -c",
     "test": "jest"
