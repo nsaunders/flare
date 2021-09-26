@@ -956,48 +956,22 @@ const ButtonView: Button = (props) => {
 };
 
 /**
- * Options for the {@link resizableList} function
- *
- * @typeParam A - The value of each item in the list
- */
-export type ResizableListOptions<A> = {
-  /**
-   * The Flare used each time an item is added to the list
-   */
-  item: Flare<A>;
-
-  /**
-   * The initial list of Flares
-   */
-  initial?: Flare<A>[];
-
-  /**
-   * The minimum length of the list
-   *
-   * @remarks
-   * The user will be prevented from removing any item when the current list
-   * length is equal to the minimum length.
-   */
-  minLength?: number;
-
-  /**
-   * The maximum length of the list
-   *
-   * @remarks
-   * The user will be prevented from adding an additional item when the current
-   * list length is equal to the maximum length.
-   */
-  maxLength?: number;
-};
-
-/**
  * Creates a Flare that renders as a resizable list of Flares.
  *
  * @param options - Resizable list options
+ * @param options.item - The Flare used each time an item is added to the list
+ * @param options.initial - The initial list of Flares
+ * @param options.minLength - The minimum length of the list
+ * @param options.maxLength - The maximum length of the list
  *
  * @returns The Flare that was created
  */
-export function resizableList<A>(options: ResizableListOptions<A>): Flare<A[]> {
+export function resizableList<A>(options: {
+  item: Flare<A>;
+  initial?: Flare<A>[];
+  minLength?: number;
+  maxLength?: number;
+}): Flare<A[]> {
   const { item, initial, minLength = 0, maxLength } = options;
   return {
     _tag: "Flare",
