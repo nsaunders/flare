@@ -224,24 +224,25 @@ export function match<M>(
  * `components` prop of {@link RunFlare}.
  *
  * @typeParam A - The value the Flare produces
- * @typeParam O - Additional options, forwarded to the component as props
+ * @typeParam O - Flare options, forwarded to the component as props
  *
  * @param Component - The React component to turn into a Flare
  *
- * @returns A Flare based upon the provided React component
+ * @returns A Flare that renders as the provided React component
  *
  * @experimental
  */
-export function makeFlare<A, O = unknown>(
+export function makeFlare<O, A = O extends { initial: infer X } ? X : never>(
   Component: (
-    props: O & { value: A; onChange: (value: A) => void },
+    props: Omit<O, "initial"> & { value: A; onChange: (value: A) => void },
   ) => JSX.Element,
 ) {
-  return function (opts: O & { initial: A }): Flare<A> {
+  return function (options: O extends { initial: A } ? O : never): Flare<A> {
+    const { initial, ...restOptions } = options;
     return {
       _tag: "Flare",
       make: () => {
-        let state = opts.initial;
+        let state = initial;
         return {
           query: () => state,
           render: ({ onChange }) => (
@@ -251,7 +252,7 @@ export function makeFlare<A, O = unknown>(
                 state = value;
                 onChange();
               }}
-              {...{ ...opts, initial: undefined }}
+              {...restOptions}
             />
           ),
         };
@@ -722,87 +723,119 @@ export function RunFlare<A>(props: RunFlareProps<A>): ReactElement {
   );
 }
 
-/** Creates a Flare that renders as a checkbox control. */
-export const checkbox = /*#__PURE__*/ makeFlare<boolean, { label?: string }>(
-  ({ value, onChange, ...restProps }) => {
-    const { Checkbox } = useContext(Components);
-    return (
-      <Checkbox checked={value} onCheckedChange={onChange} {...restProps} />
-    );
-  },
-);
+/**
+ * Creates a Flare that renders as a checkbox control.
+ *
+ * @param options - Checkbox options
+ *
+ * @returns The Flare that was created
+ */
+export const checkbox = /*#__PURE__*/ makeFlare<{
+  label?: string;
+  initial: boolean;
+}>(({ value, onChange, ...restProps }) => {
+  const { Checkbox } = useContext(Components);
+  return <Checkbox checked={value} onCheckedChange={onChange} {...restProps} />;
+});
 
-type OptionToStringOpt<T> = T extends string
-  ? { optionToString?: undefined }
-  : { optionToString: (option: T) => string };
-
-/** Creates a Flare that renders as a group of radio buttons. */
-export function radioGroup<T>(
-  opts: { label?: string } & {
-    options: Readonly<T[]>;
-    initial: T;
-  } & OptionToStringOpt<T>,
-): Flare<T> {
-  const make = makeFlare<
-    T,
-    { label?: string } & { options: Readonly<T[]> } & OptionToStringOpt<T>
-  >(({ label, options, value, onChange, ...restProps }) => {
+/**
+ * Creates a Flare that renders as a group of radio buttons.
+ *
+ * @typeParam A - The value that the radio button group produces
+ * @typeParam C - An additional `optionToString` option, required to convert `A`
+ * to `string` when it doesn't already extend `string`
+ *
+ * @param options - Radio group options
+ *
+ * @returns The Flare that was created
+ */
+export function radioGroup<
+  A,
+  C extends A extends string
+    ? { optionToString?: undefined }
+    : { optionToString: (option: A) => string },
+>(options: { label?: string; initial: A; options: A[] } & C) {
+  const { optionToString, ...restOptions } = options;
+  const stringOptions = restOptions.options.map(
+    optionToString || ((x: A) => x as unknown as string),
+  );
+  const getOption = (o: string) =>
+    restOptions.options[stringOptions.indexOf(o)];
+  const impl = makeFlare<{
+    label?: string;
+    options: string[];
+    initial: string;
+  }>(({ onChange, ...restProps }) => {
     const { RadioGroup } = useContext(Components);
-    const optionToString: (option: T) => string = restProps.optionToString
-      ? restProps.optionToString
-      : (o) => o as unknown as string;
-    return (
-      <RadioGroup
-        label={label}
-        options={options.map(optionToString)}
-        value={optionToString(value)}
-        onValueChange={(value) => {
-          onChange(
-            options.find((o) => optionToString(o) === value) || options[0],
-          );
-        }}
-      />
-    );
+    return <RadioGroup onValueChange={onChange} {...restProps} />;
   });
-  return make(opts);
+  return map(getOption)(
+    impl({
+      ...restOptions,
+      initial: optionToString
+        ? optionToString(restOptions.initial)
+        : (restOptions.initial as unknown as string),
+      options: stringOptions,
+    }),
+  );
 }
 
-/** Creates a Flare that renders as a select. */
-export function select<T>(
-  opts: { label?: string } & {
-    options: Readonly<T[]>;
-    initial: T;
-  } & OptionToStringOpt<T>,
-): Flare<T> {
-  const make = makeFlare<
-    T,
-    { label?: string } & { options: Readonly<T[]> } & OptionToStringOpt<T>
-  >(({ label, options, value, onChange, ...restProps }) => {
+/**
+ * Creates a Flare that renders as a select.
+ *
+ * @typeParam A - The value that the select produces
+ * @typeParam C - An additional `optionToString` option, required to convert `A`
+ * to `string` when it doesn't already extend `string`
+ *
+ * @param options - Select options
+ *
+ * @returns The Flare that was created
+ */
+export function select<
+  A,
+  C extends A extends string
+    ? { optionToString?: undefined }
+    : { optionToString: (option: A) => string },
+>(options: { label?: string; initial: A; options: A[] } & C) {
+  const { optionToString, ...restOptions } = options;
+  const stringOptions = restOptions.options.map(
+    optionToString || ((x: A) => x as unknown as string),
+  );
+  const getOption = (o: string) =>
+    restOptions.options[stringOptions.indexOf(o)];
+  const impl = makeFlare<{
+    label?: string;
+    options: string[];
+    initial: string;
+  }>(({ onChange, ...restProps }) => {
     const { Select } = useContext(Components);
-    const optionToString: (option: T) => string = restProps.optionToString
-      ? restProps.optionToString
-      : (o) => o as unknown as string;
-    return (
-      <Select
-        label={label}
-        options={options.map(optionToString)}
-        value={optionToString(value)}
-        onValueChange={(value) => {
-          onChange(
-            options.find((o) => optionToString(o) === value) || options[0],
-          );
-        }}
-      />
-    );
+    return <Select onValueChange={onChange} {...restProps} />;
   });
-  return make(opts);
+  return map(getOption)(
+    impl({
+      ...restOptions,
+      initial: optionToString
+        ? optionToString(restOptions.initial)
+        : (restOptions.initial as unknown as string),
+      options: stringOptions,
+    }),
+  );
 }
 
-/** Creates a Flare that renders as a slider. */
-export const slider = /*#__PURE__*/ makeFlare<
-  number,
-  { label?: string; min?: number; max?: number; step?: number }
->(({ min, max, onChange, ...restProps }) => {
+/**
+ * Creates a Flare that renders as a slider.
+ *
+ * @param options - Slider options
+ *
+ * @returns The Flare that was created
+ */
+export const slider = /*#__PURE__*/ makeFlare<{
+  label?: string;
+  initial: number;
+  min?: number;
+  max?: number;
+  step?: number;
+}>(({ min, max, onChange, ...restProps }) => {
   const { Slider } = useContext(Components);
   return (
     <Slider
@@ -820,11 +853,20 @@ export const slider = /*#__PURE__*/ makeFlare<
   );
 });
 
-/** Creates a Flare that renders as a spin button. */
-export const spinButton = /*#__PURE__*/ makeFlare<
-  number,
-  { label?: string; min?: number; max?: number; step?: number }
->(({ min, max, onChange, ...restProps }) => {
+/**
+ * Creates a Flare that renders as a spin button.
+ *
+ * @param options - Spin button options
+ *
+ * @returns The Flare that was created
+ */
+export const spinButton = /*#__PURE__*/ makeFlare<{
+  label?: string;
+  initial: number;
+  min?: number;
+  max?: number;
+  step?: number;
+}>(({ min, max, onChange, ...restProps }) => {
   const { SpinButton } = useContext(Components);
   return (
     <SpinButton
@@ -842,19 +884,33 @@ export const spinButton = /*#__PURE__*/ makeFlare<
   );
 });
 
-/** Creates a Flare that renders as a switch. */
-export const switch_ = /*#__PURE__*/ makeFlare<boolean, { label?: string }>(
-  ({ onChange, value, ...restProps }) => {
-    const { Switch } = useContext(Components);
-    return <Switch checked={value} onCheckedChange={onChange} {...restProps} />;
-  },
-);
+/**
+ * Creates a Flare that renders as a switch.
+ *
+ * @param options - Switch options
+ *
+ * @returns The Flare that was created
+ */
+export const switch_ = /*#__PURE__*/ makeFlare<{
+  label?: string;
+  initial: boolean;
+}>(({ onChange, value, ...restProps }) => {
+  const { Switch } = useContext(Components);
+  return <Switch checked={value} onCheckedChange={onChange} {...restProps} />;
+});
 
-/** Creates a Flare that renders as a textbox. */
-export const textbox = /*#__PURE__*/ makeFlare<
-  string,
-  { label?: string } & { nonEmpty?: boolean }
->(({ nonEmpty, onChange, ...restProps }) => {
+/**
+ * Creates a Flare that renders as a textbox.
+ *
+ * @param options - Textbox options
+ *
+ * @returns The Flare that was created
+ */
+export const textbox = /*#__PURE__*/ makeFlare<{
+  label?: string;
+  initial: string;
+  nonEmpty?: boolean;
+}>(({ nonEmpty, onChange, ...restProps }) => {
   const { Textbox } = useContext(Components);
   return (
     <Textbox
@@ -923,7 +979,7 @@ export type ResizableListOptions<A> = {
  *
  * @param options - Resizable list options
  *
- * @returns A resizable list of Flares
+ * @returns The Flare that was created
  */
 export function resizableList<A>(options: ResizableListOptions<A>): Flare<A[]> {
   const { item, initial, minLength = 0, maxLength } = options;
