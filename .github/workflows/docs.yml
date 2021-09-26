@@ -1,0 +1,30 @@
+name: docs
+
+on:
+  push:
+    paths:
+      - core/src/**
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 6.2.1
+      - name: install core dependencies
+        run: pnpm -C core install
+      - name: rebuild core docs
+        run: pnpm -C core run docs
+      - name: commit
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: GitHub Actions
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
+          message: Update docs
