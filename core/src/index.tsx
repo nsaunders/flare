@@ -727,6 +727,8 @@ export function RunFlare<A>(props: RunFlareProps<A>): ReactElement {
  * Creates a Flare that renders as a checkbox control.
  *
  * @param options - Checkbox options
+ * @param options.initial - Initial checked state
+ * @param options.label - Checkbox label
  *
  * @returns The Flare that was created
  */
@@ -826,6 +828,11 @@ export function select<
  * Creates a Flare that renders as a slider.
  *
  * @param options - Slider options
+ * @param options.label - Slider label
+ * @param options.initial - Initial slider state
+ * @param options.min - Minimum selectable value
+ * @param options.max - Maximum selectable value
+ * @param options.step - The granularity of the slider value
  *
  * @returns The Flare that was created
  */
@@ -857,6 +864,11 @@ export const slider = /*#__PURE__*/ makeFlare<{
  * Creates a Flare that renders as a spin button.
  *
  * @param options - Spin button options
+ * @param options.label - Spin button label
+ * @param options.initial - Initial spin button state
+ * @param options.min - Minimum selectable value
+ * @param options.max - Maximum selectable value
+ * @param options.step - The granularity of the spin button value
  *
  * @returns The Flare that was created
  */
@@ -888,6 +900,8 @@ export const spinButton = /*#__PURE__*/ makeFlare<{
  * Creates a Flare that renders as a switch.
  *
  * @param options - Switch options
+ * @param options.label - Switch label
+ * @param options.initial - Initial switch state
  *
  * @returns The Flare that was created
  */
@@ -903,6 +917,8 @@ export const switch_ = /*#__PURE__*/ makeFlare<{
  * Creates a Flare that renders as a textbox.
  *
  * @param options - Textbox options
+ * @param options.label - Textbox label
+ * @param options.initial - Initial textbox state
  *
  * @returns The Flare that was created
  */
