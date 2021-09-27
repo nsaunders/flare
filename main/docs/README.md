@@ -476,7 +476,7 @@ Runs the specified Flare, rendering its HTML output to the target element.
 | :------ | :------ | :------ |
 | `controlsElementId` | `string` | The id of the element in which to render the Flare controls |
 | `targetElementId` | `string` | The id of the element in which to render the HTML output |
-| `flare` | [`Flare`](README.md#flare)<`string`\> | The Flare to run |
+| `flare` | [`Flare`](README.md#flare)<`HTML`\> | The Flare to run |
 
 #### Returns
 
@@ -484,7 +484,7 @@ Runs the specified Flare, rendering its HTML output to the target element.
 
 #### Defined in
 
-[main/src/index.ts:69](https://github.com/nsaunders/flare/blob/ce828e9/main/src/index.ts#L69)
+[main/src/index.ts:70](https://github.com/nsaunders/flare/blob/84d2e80/main/src/index.ts#L70)
 
 ___
 
@@ -514,7 +514,7 @@ Runs the specified Flare, invoking the handler on each change.
 
 #### Defined in
 
-[main/src/index.ts:33](https://github.com/nsaunders/flare/blob/ce828e9/main/src/index.ts#L33)
+[main/src/index.ts:33](https://github.com/nsaunders/flare/blob/84d2e80/main/src/index.ts#L33)
 
 ___
 
