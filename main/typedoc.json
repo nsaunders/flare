@@ -1,0 +1,6 @@
+{
+  "disableSources": true,
+  "intentionallyNotExported": ["HTML"],
+  "out": "docs",
+  "readme": "none"
+}

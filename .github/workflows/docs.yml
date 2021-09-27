@@ -4,7 +4,11 @@ on:
   push:
     paths:
       - core/src/**
+      - core/package.json
+      - core/typedoc.json
       - main/src/**
+      - main/package.json
+      - main/typedoc.json
 
 jobs:
   update:
