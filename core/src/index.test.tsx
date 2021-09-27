@@ -48,6 +48,47 @@ describe("checkbox", () => {
   });
 });
 
+describe("comboBox", () => {
+  const initial = "red",
+    options = ["blue", "red", "yellow"];
+
+  let handler: MockHandler<typeof options[number]>, comboBox: HTMLSelectElement;
+
+  beforeEach(() => {
+    handler = runFlare(F.comboBox({ initial, options }));
+    const maybeComboBox = screen.getByRole("combobox");
+    if (maybeComboBox instanceof HTMLSelectElement) {
+      comboBox = maybeComboBox;
+    }
+  });
+
+  it("renders a control", () => {
+    expect(comboBox).toBeTruthy();
+  });
+
+  it("renders with initial", () => {
+    expect(comboBox?.value).toEqual(initial);
+  });
+
+  it("triggers handler with initial", () => {
+    expect(handler).toHaveBeenCalledWith(initial);
+  });
+
+  it("renders provided options", () => {
+    expect(Array.from(comboBox?.options).map(({ value }) => value)).toEqual(
+      options,
+    );
+  });
+
+  it("triggers handler on change", () => {
+    const updated = "blue";
+    if (comboBox) {
+      userEvent.selectOptions(comboBox, "blue");
+    }
+    expect(handler).toHaveBeenLastCalledWith(updated);
+  });
+});
+
 describe("radioGroup", () => {
   const initial = "red",
     options = ["blue", "red", "yellow"];
@@ -84,47 +125,6 @@ describe("radioGroup", () => {
       .forEach((radio) => {
         userEvent.click(radio);
       });
-    expect(handler).toHaveBeenLastCalledWith(updated);
-  });
-});
-
-describe("select", () => {
-  const initial = "red",
-    options = ["blue", "red", "yellow"];
-
-  let handler: MockHandler<typeof options[number]>, select: HTMLSelectElement;
-
-  beforeEach(() => {
-    handler = runFlare(F.select({ initial, options }));
-    const maybeSelect = screen.getByRole("combobox");
-    if (maybeSelect instanceof HTMLSelectElement) {
-      select = maybeSelect;
-    }
-  });
-
-  it("renders a control", () => {
-    expect(select).toBeTruthy();
-  });
-
-  it("renders with initial", () => {
-    expect(select?.value).toEqual(initial);
-  });
-
-  it("triggers handler with initial", () => {
-    expect(handler).toHaveBeenCalledWith(initial);
-  });
-
-  it("renders provided options", () => {
-    expect(Array.from(select?.options).map(({ value }) => value)).toEqual(
-      options,
-    );
-  });
-
-  it("triggers handler on change", () => {
-    const updated = "blue";
-    if (select) {
-      userEvent.selectOptions(select, "blue");
-    }
     expect(handler).toHaveBeenLastCalledWith(updated);
   });
 });
@@ -314,25 +314,25 @@ describe("switch_", () => {
   });
 });
 
-describe("textbox", () => {
+describe("textBox", () => {
   const initial = "Foo";
 
-  let handler: MockHandler<string>, textbox: HTMLInputElement;
+  let handler: MockHandler<string>, textBox: HTMLInputElement;
 
   beforeEach(() => {
-    handler = runFlare(F.textbox({ initial }));
-    const maybeTextbox = screen.getByRole("textbox");
-    if (maybeTextbox instanceof HTMLInputElement) {
-      textbox = maybeTextbox;
+    handler = runFlare(F.textBox({ initial }));
+    const maybeTextBox = screen.getByRole("textbox");
+    if (maybeTextBox instanceof HTMLInputElement) {
+      textBox = maybeTextBox;
     }
   });
 
   it("renders a control", () => {
-    expect(textbox).toBeTruthy();
+    expect(textBox).toBeTruthy();
   });
 
   it("renders with initial", () => {
-    expect(textbox?.value).toEqual(initial);
+    expect(textBox?.value).toEqual(initial);
   });
 
   it("triggers handler with initial", () => {
@@ -341,8 +341,8 @@ describe("textbox", () => {
 
   it("triggers handler on change", () => {
     const additional = "Bar";
-    if (textbox) {
-      userEvent.type(textbox, additional);
+    if (textBox) {
+      userEvent.type(textBox, additional);
     }
     expect(handler).toHaveBeenLastCalledWith(initial + additional);
   });
@@ -362,7 +362,7 @@ describe("map", () => {
   let handler: MockHandler<number>;
 
   beforeEach(() => {
-    handler = runFlare(pipe(F.textbox({ initial }), F.map(f)));
+    handler = runFlare(pipe(F.textBox({ initial }), F.map(f)));
   });
 
   it("applies the specified function to the initial value", () => {
@@ -411,7 +411,7 @@ describe("chain", () => {
       pipe(
         F.checkbox({ initial }),
         F.chain((x) =>
-          x ? F.textbox({ initial: checkedValue }) : F.of(uncheckedValue),
+          x ? F.textBox({ initial: checkedValue }) : F.of(uncheckedValue),
         ),
       ),
     );
@@ -521,8 +521,8 @@ describe("resizableList", () => {
     beforeEach(() => {
       handler = runFlare(
         F.resizableList({
-          item: F.textbox({ initial: "hello" }),
-          initial: initials.map((initial) => F.textbox({ initial })),
+          item: F.textBox({ initial: "hello" }),
+          initial: initials.map((initial) => F.textBox({ initial })),
         }),
       );
       controls = screen
@@ -561,8 +561,8 @@ describe("resizableList", () => {
     beforeEach(() => {
       handler = runFlare(
         F.resizableList({
-          item: F.textbox({ initial: tailItem }),
-          initial: [F.textbox({ initial: head })],
+          item: F.textBox({ initial: tailItem }),
+          initial: [F.textBox({ initial: head })],
           minLength: tail.length + 1,
         }),
       );
@@ -586,7 +586,7 @@ describe("resizableList", () => {
 
     beforeEach(() => {
       handler = runFlare(
-        F.resizableList({ item: F.textbox({ initial: "hello" }) }),
+        F.resizableList({ item: F.textBox({ initial: "hello" }) }),
       );
       controls = screen.queryAllByRole("textbox");
     });
@@ -609,8 +609,8 @@ describe("resizableList", () => {
     beforeEach(() => {
       handler = runFlare(
         F.resizableList({
-          item: F.textbox({ initial: "hello" }),
-          initial: initials.map((initial) => F.textbox({ initial })),
+          item: F.textBox({ initial: "hello" }),
+          initial: initials.map((initial) => F.textBox({ initial })),
           maxLength,
         }),
       );

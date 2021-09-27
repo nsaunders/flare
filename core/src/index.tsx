@@ -314,6 +314,24 @@ export type CheckboxProps = {
 /** The React component used to render a checkbox */
 export type Checkbox = ComponentType<CheckboxProps>;
 
+/** The props of the React component used to render a combo box */
+export type ComboBoxProps = {
+  /** The label to display next to the combo box */
+  label?: string;
+
+  /** The list of available options */
+  options: string[];
+
+  /** The selected value */
+  value: string;
+
+  /** The callback to invoke when the selected value changes */
+  onValueChange: (value: string) => void;
+};
+
+/** The React component used to render a combo box */
+export type ComboBox = ComponentType<ComboBoxProps>;
+
 /** The props of the React component used to render a resizable list */
 export type ResizableListProps = {
   /** The button used to add an item to the end of the list */
@@ -358,24 +376,6 @@ export type RadioGroupProps = {
 
 /** The React component used to render a group of radio buttons */
 export type RadioGroup = ComponentType<RadioGroupProps>;
-
-/** The props of the React component used to render a select */
-export type SelectProps = {
-  /** The label to display next to the select */
-  label?: string;
-
-  /** The list of available options */
-  options: string[];
-
-  /** The selected value */
-  value: string;
-
-  /** The callback to invoke when the selected value changes */
-  onValueChange: (value: string) => void;
-};
-
-/** The React component used to render a select */
-export type Select = ComponentType<SelectProps>;
 
 /** The props of the React component used to render a slider */
 export type SliderProps = {
@@ -440,9 +440,9 @@ export type SwitchProps = {
 /** The React component used to render a switch */
 export type Switch = ComponentType<SwitchProps>;
 
-/** The props of the React component used to render a textbox */
-export type TextboxProps = {
-  /** The label to display next to the textbox */
+/** The props of the React component used to render a text box */
+export type TextBoxProps = {
+  /** The label to display next to the text box */
   label?: string;
 
   /** The value */
@@ -452,8 +452,8 @@ export type TextboxProps = {
   onValueChange: (value: string) => void;
 };
 
-/** The React component used to render a textbox */
-export type Textbox = ComponentType<TextboxProps>;
+/** The React component used to render a text box */
+export type TextBox = ComponentType<TextBoxProps>;
 
 /** The React component used to render a button */
 const Button: Button = (props) => <button {...props} />;
@@ -477,7 +477,6 @@ const fieldStyles = /*#__PURE__*/ css("field", {
   },
 });
 
-/** The React component used to render a checkbox */
 const Checkbox: Checkbox = ({ label, checked, onCheckedChange }) => (
   <label className={fieldStyles.container}>
     <span className={fieldStyles.label}>{label}</span>
@@ -493,7 +492,26 @@ const Checkbox: Checkbox = ({ label, checked, onCheckedChange }) => (
   </label>
 );
 
-/** The React component used to render a resizable list */
+const ComboBox: ComboBox = ({ label, onValueChange, options, value }) => (
+  <label className={fieldStyles.container}>
+    <span className={fieldStyles.label}>{label}</span>
+    <div className={fieldStyles.value}>
+      <select
+        value={value}
+        onChange={({ target: { value } }) => {
+          onValueChange(value);
+        }}
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
+  </label>
+);
+
 const ResizableList: ResizableList = ({ children, addButton }) => (
   <div>
     {children}
@@ -506,7 +524,6 @@ const resizableListItemStyles = /*#__PURE__*/ css("resizable-list-item", {
   alignItems: "center",
 });
 
-/** The React component used to render a resizable list item */
 const ResizableListItem: ResizableListItem = ({
   addButton,
   children,
@@ -519,7 +536,6 @@ const ResizableListItem: ResizableListItem = ({
   </div>
 );
 
-/** The React component used to render a group of radio buttons */
 const RadioGroup: RadioGroup = ({ label, onValueChange, options, value }) => {
   const name = useRef(uniqueId());
   return (
@@ -552,27 +568,6 @@ const RadioGroup: RadioGroup = ({ label, onValueChange, options, value }) => {
     </div>
   );
 };
-
-/** The React component used to render a select */
-const Select: Select = ({ label, onValueChange, options, value }) => (
-  <label className={fieldStyles.container}>
-    <span className={fieldStyles.label}>{label}</span>
-    <div className={fieldStyles.value}>
-      <select
-        value={value}
-        onChange={({ target: { value } }) => {
-          onValueChange(value);
-        }}
-      >
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    </div>
-  </label>
-);
 
 /** The React component used to render a slider */
 const Slider: Slider = ({ label, onValueChange, ...restProps }) => (
@@ -627,8 +622,8 @@ const Switch: Switch = ({ label, checked, onCheckedChange }) => (
   </label>
 );
 
-/** The React component used to render a textbox */
-const Textbox: Textbox = ({ label, value, onValueChange }) => (
+/** The React component used to render a text box */
+const TextBox: TextBox = ({ label, value, onValueChange }) => (
   <label className={fieldStyles.container}>
     <span className={fieldStyles.label}>{label}</span>
     <div className={fieldStyles.value}>
@@ -650,29 +645,48 @@ const Textbox: Textbox = ({ label, value, onValueChange }) => (
  * {@link RunFlare} component.
  */
 export type Components = {
+  /** The React component used to render a button */
   Button: Button;
+
+  /** The React component used to render a checkbox */
   Checkbox: Checkbox;
+
+  /** The React component used to render a combo box */
+  ComboBox: ComboBox;
+
+  /** The React component used to render a resizable list */
   ResizableList: ResizableList;
+
+  /** The React component used to render a resizable list item */
   ResizableListItem: ResizableListItem;
+
+  /** The React component used to render a group of radio buttons */
   RadioGroup: RadioGroup;
-  Select: Select;
+
+  /** The React component used to render a slider */
   Slider: Slider;
+
+  /** The React component used to render a spin button */
   SpinButton: SpinButton;
+
+  /** The React component used to render a switch */
   Switch: Switch;
-  Textbox: Textbox;
+
+  /** The React component used to render a text box */
+  TextBox: TextBox;
 };
 
 const defaultComponents: Components = {
   Button,
   Checkbox,
+  ComboBox,
   ResizableList,
   ResizableListItem,
   RadioGroup,
-  Select,
   Slider,
   SpinButton,
   Switch,
-  Textbox,
+  TextBox,
 };
 
 const Components = createContext<Components>(defaultComponents);
@@ -741,6 +755,48 @@ export const checkbox = /*#__PURE__*/ makeFlare<{
 });
 
 /**
+ * Creates a Flare that renders as a combo box.
+ *
+ * @typeParam A - The value that the combo box produces
+ * @typeParam C - An additional `optionToString` option, required to convert `A`
+ * to `string` when it doesn't already extend `string`
+ *
+ * @param options - Combo box options
+ *
+ * @returns The Flare that was created
+ */
+export function comboBox<
+  A,
+  C extends A extends string
+    ? { optionToString?: undefined }
+    : { optionToString: (option: A) => string },
+>(options: { label?: string; initial: A; options: A[] } & C) {
+  const { optionToString, ...restOptions } = options;
+  const stringOptions = restOptions.options.map(
+    optionToString || ((x: A) => x as unknown as string),
+  );
+  const getOption = (o: string) =>
+    restOptions.options[stringOptions.indexOf(o)];
+  const impl = makeFlare<{
+    label?: string;
+    options: string[];
+    initial: string;
+  }>(({ onChange, ...restProps }) => {
+    const { ComboBox } = useContext(Components);
+    return <ComboBox onValueChange={onChange} {...restProps} />;
+  });
+  return map(getOption)(
+    impl({
+      ...restOptions,
+      initial: optionToString
+        ? optionToString(restOptions.initial)
+        : (restOptions.initial as unknown as string),
+      options: stringOptions,
+    }),
+  );
+}
+
+/**
  * Creates a Flare that renders as a group of radio buttons.
  *
  * @typeParam A - The value that the radio button group produces
@@ -770,48 +826,6 @@ export function radioGroup<
   }>(({ onChange, ...restProps }) => {
     const { RadioGroup } = useContext(Components);
     return <RadioGroup onValueChange={onChange} {...restProps} />;
-  });
-  return map(getOption)(
-    impl({
-      ...restOptions,
-      initial: optionToString
-        ? optionToString(restOptions.initial)
-        : (restOptions.initial as unknown as string),
-      options: stringOptions,
-    }),
-  );
-}
-
-/**
- * Creates a Flare that renders as a select.
- *
- * @typeParam A - The value that the select produces
- * @typeParam C - An additional `optionToString` option, required to convert `A`
- * to `string` when it doesn't already extend `string`
- *
- * @param options - Select options
- *
- * @returns The Flare that was created
- */
-export function select<
-  A,
-  C extends A extends string
-    ? { optionToString?: undefined }
-    : { optionToString: (option: A) => string },
->(options: { label?: string; initial: A; options: A[] } & C) {
-  const { optionToString, ...restOptions } = options;
-  const stringOptions = restOptions.options.map(
-    optionToString || ((x: A) => x as unknown as string),
-  );
-  const getOption = (o: string) =>
-    restOptions.options[stringOptions.indexOf(o)];
-  const impl = makeFlare<{
-    label?: string;
-    options: string[];
-    initial: string;
-  }>(({ onChange, ...restProps }) => {
-    const { Select } = useContext(Components);
-    return <Select onValueChange={onChange} {...restProps} />;
   });
   return map(getOption)(
     impl({
@@ -914,22 +928,22 @@ export const switch_ = /*#__PURE__*/ makeFlare<{
 });
 
 /**
- * Creates a Flare that renders as a textbox.
+ * Creates a Flare that renders as a text box.
  *
- * @param options - Textbox options
- * @param options.label - Textbox label
- * @param options.initial - Initial textbox state
+ * @param options - Text box options
+ * @param options.label - Text box label
+ * @param options.initial - Initial text box state
  *
  * @returns The Flare that was created
  */
-export const textbox = /*#__PURE__*/ makeFlare<{
+export const textBox = /*#__PURE__*/ makeFlare<{
   label?: string;
   initial: string;
   nonEmpty?: boolean;
 }>(({ nonEmpty, onChange, ...restProps }) => {
-  const { Textbox } = useContext(Components);
+  const { TextBox } = useContext(Components);
   return (
-    <Textbox
+    <TextBox
       onValueChange={(v) => {
         if (v || !nonEmpty) {
           onChange(v);
