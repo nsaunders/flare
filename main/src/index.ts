@@ -55,7 +55,8 @@ export function runFlareWith<A>(
  * An HTML string
  * @ignore
  */
-export type HTML = string;
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type HTML = string & {};
 
 /**
  * Runs the specified Flare, rendering its HTML output to the target element.
