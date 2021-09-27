@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - core/src/**
+      - main/src/**
 
 jobs:
   update:
@@ -22,6 +23,12 @@ jobs:
         run: pnpm -C core install
       - name: rebuild core docs
         run: pnpm -C core run docs
+      - name: build core
+        run: pnpm -C core run prepublishOnly
+      - name: install main dependencies
+        run: pnpm -C main install
+      - name: rebuild main docs
+        run: pnpm -C main run docs
       - name: commit
         uses: EndBug/add-and-commit@v7
         with:

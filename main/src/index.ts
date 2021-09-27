@@ -11,19 +11,28 @@ export {
   ifElse,
   match,
   checkbox,
+  comboBox,
   radioGroup,
-  select,
   slider,
   switch_,
   spinButton,
-  textbox,
+  textBox,
   resizableList,
 } from "flare-core";
 
+/**
+ * Runs the specified Flare, invoking the handler on each change.
+ *
+ * @typeParam A - The value produced by the Flare
+ *
+ * @param controlsElementId - The id of the element in which to render the Flare
+ * controls
+ * @param handler - The callback function to invoke each time the value changes
+ * @param flare - The Flare to run
+ */
 export function runFlareWith<A>(
   controlsElementId: string,
   handler: (a: A) => void,
-
   flare: Flare<A>,
 ): void {
   const controlsElement = document.getElementById(controlsElementId);
@@ -42,10 +51,25 @@ export function runFlareWith<A>(
   );
 }
 
+/**
+ * An HTML string
+ * @ignore
+ */
+export type HTML = string;
+
+/**
+ * Runs the specified Flare, rendering its HTML output to the target element.
+ *
+ * @param controlsElementId - The id of the element in which to render the Flare
+ * controls
+ * @param targetElementId - The id of the element in which to render the HTML
+ * output
+ * @param flare - The Flare to run
+ */
 export function runFlare(
   controlsElementId: string,
   targetElementId: string,
-  flare: Flare<string>,
+  flare: Flare<HTML>,
 ): void {
   const targetElement = document.getElementById(targetElementId);
   if (!targetElement) {

@@ -128,6 +128,8 @@ importers:
       rollup: ^2.52.2
       rollup-plugin-terser: ^7.0.2
       tslib: ^2.3.1
+      typedoc: ^0.22.4
+      typedoc-plugin-markdown: ^3.11.2
       typescript: ~4.3.5
     dependencies:
       flare-core: link:../core
@@ -152,6 +154,8 @@ importers:
       rollup: 2.56.3
       rollup-plugin-terser: 7.0.2_rollup@2.56.3
       tslib: 2.3.1
+      typedoc: 0.22.4_typescript@4.3.5
+      typedoc-plugin-markdown: 3.11.2_typedoc@0.22.4
       typescript: 4.3.5
 
   prettier-config-flare:
@@ -4777,6 +4781,17 @@ packages:
       minimatch: 3.0.4
       once: 1.4.0
       path-is-absolute: 1.0.1
+
+  /glob/7.2.0:
+    resolution: {integrity: sha512-lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==}
+    dependencies:
+      fs.realpath: 1.0.0
+      inflight: 1.0.6
+      inherits: 2.0.4
+      minimatch: 3.0.4
+      once: 1.4.0
+      path-is-absolute: 1.0.1
+    dev: true
 
   /global-dirs/0.1.1:
     resolution: {integrity: sha1-sxnA3UYH81PzvpzKTHL8FIxJ9EU=}
@@ -10103,6 +10118,15 @@ packages:
       typedoc: 0.22.4_typescript@4.3.5
     dev: true
 
+  /typedoc-plugin-markdown/3.11.2_typedoc@0.22.4:
+    resolution: {integrity: sha512-+qMq9AE49Uc3wQda9ZMNeD46Cx8FwGCkFhPG6N8GGCXBoo7AOUF83UemBzjehpL9xDZeL6U08q6qlrXKnUtXaQ==}
+    peerDependencies:
+      typedoc: '>=0.22.0'
+    dependencies:
+      handlebars: 4.7.7
+      typedoc: 0.22.4_typescript@4.3.5
+    dev: true
+
   /typedoc/0.22.4_typescript@4.3.5:
     resolution: {integrity: sha512-M/a8NnPxq3/iZNNVjzFCK5gu4m//HTJIPbSS0JQVbkHJPP9wyepR12agylWTSqeVZe0xsbidVtO26+PP7iD/jw==}
     engines: {node: '>= 12.10.0'}
@@ -10110,7 +10134,7 @@ packages:
     peerDependencies:
       typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x || 4.4.x
     dependencies:
-      glob: 7.1.7
+      glob: 7.2.0
       lunr: 2.3.9
       marked: 3.0.4
       minimatch: 3.0.4
