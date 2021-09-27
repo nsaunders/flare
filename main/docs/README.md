@@ -52,10 +52,6 @@ queried and invoking some upstream handler when the value changes
 | `_tag` | ``"Flare"`` | Tags the object as a Flare.  **`internal`** |
 | `make` | () => { `render`: `VoidFunctionComponent`<`Object`\> ; `query`: () => `A`  } | - |
 
-#### Defined in
-
-core/types/index.d.ts:8
-
 ___
 
 ### Unflare
@@ -76,10 +72,6 @@ struggles to infer types.
 | Name |
 | :------ |
 | `F` |
-
-#### Defined in
-
-core/types/index.d.ts:43
 
 ## Functions
 
@@ -124,10 +116,6 @@ Applies a function to a value within a `Flare` context.
 
 A Flare that produces the result of the function application
 
-#### Defined in
-
-core/types/index.d.ts:55
-
 ___
 
 ### chain
@@ -171,10 +159,6 @@ Composes Flares in a sequence.
 
 The Flare resulting from the composition
 
-#### Defined in
-
-core/types/index.d.ts:68
-
 ___
 
 ### checkbox
@@ -196,10 +180,6 @@ Creates a Flare that renders as a checkbox control.
 [`Flare`](README.md#flare)<`boolean`\>
 
 The Flare that was created
-
-#### Defined in
-
-core/types/index.d.ts:343
 
 ___
 
@@ -227,10 +207,6 @@ Creates a Flare that renders as a combo box.
 [`Flare`](README.md#flare)<`A`\>
 
 The Flare that was created
-
-#### Defined in
-
-core/types/index.d.ts:358
 
 ___
 
@@ -282,10 +258,6 @@ that corresponds to the boolean expression provided.
 The first Flare when the boolean expession is `true`; otherwise, the
 second Flare
 
-#### Defined in
-
-core/types/index.d.ts:108
-
 ___
 
 ### map
@@ -329,10 +301,6 @@ Applies a function to a Flare to change its output.
 
 A Flare that produces the result of the function application
 
-#### Defined in
-
-core/types/index.d.ts:80
-
 ___
 
 ### match
@@ -363,10 +331,6 @@ that corresponds to the expression provided.
 A function that returns the Flare from the `map` corresponding to the
 specified `key`
 
-#### Defined in
-
-core/types/index.d.ts:122
-
 ___
 
 ### of
@@ -392,10 +356,6 @@ Lifts a value into a `Flare` context.
 [`Flare`](README.md#flare)<`A`\>
 
 A Flare that produces the specified value `a`
-
-#### Defined in
-
-core/types/index.d.ts:90
 
 ___
 
@@ -423,10 +383,6 @@ Creates a Flare that renders as a group of radio buttons.
 [`Flare`](README.md#flare)<`A`\>
 
 The Flare that was created
-
-#### Defined in
-
-core/types/index.d.ts:378
 
 ___
 
@@ -458,10 +414,6 @@ Creates a Flare that renders as a resizable list of Flares.
 
 The Flare that was created
 
-#### Defined in
-
-core/types/index.d.ts:463
-
 ___
 
 ### runFlare
@@ -481,10 +433,6 @@ Runs the specified Flare, rendering its HTML output to the target element.
 #### Returns
 
 `void`
-
-#### Defined in
-
-[main/src/index.ts:70](https://github.com/nsaunders/flare/blob/84d2e80/main/src/index.ts#L70)
 
 ___
 
@@ -512,10 +460,6 @@ Runs the specified Flare, invoking the handler on each change.
 
 `void`
 
-#### Defined in
-
-[main/src/index.ts:33](https://github.com/nsaunders/flare/blob/84d2e80/main/src/index.ts#L33)
-
 ___
 
 ### slider
@@ -540,10 +484,6 @@ Creates a Flare that renders as a slider.
 [`Flare`](README.md#flare)<`number`\>
 
 The Flare that was created
-
-#### Defined in
-
-core/types/index.d.ts:399
 
 ___
 
@@ -570,10 +510,6 @@ Creates a Flare that renders as a spin button.
 
 The Flare that was created
 
-#### Defined in
-
-core/types/index.d.ts:418
-
 ___
 
 ### switch\_
@@ -595,10 +531,6 @@ Creates a Flare that renders as a switch.
 [`Flare`](README.md#flare)<`boolean`\>
 
 The Flare that was created
-
-#### Defined in
-
-core/types/index.d.ts:434
 
 ___
 
@@ -622,7 +554,3 @@ Creates a Flare that renders as a text box.
 [`Flare`](README.md#flare)<`string`\>
 
 The Flare that was created
-
-#### Defined in
-
-core/types/index.d.ts:447
