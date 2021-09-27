@@ -13,7 +13,7 @@ import React, {
 import { css } from "demitasse";
 
 /**
- * The basic building block a Flare UI, capable of providing a value when
+ * The basic building block of a Flare UI, capable of providing a value when
  * queried and invoking some upstream handler when the value changes
  *
  * @typeParam A - The value the Flare produces
