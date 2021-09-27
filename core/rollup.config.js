@@ -15,7 +15,7 @@ const umd = {
 };
 
 export default {
-  input: "./src/index.ts",
+  input: "./src/index.tsx",
   external: ["react"],
   plugins: [
     commonjs(),
