@@ -10,6 +10,8 @@ flare-core
 - [ButtonProps](README.md#buttonprops)
 - [Checkbox](README.md#checkbox)
 - [CheckboxProps](README.md#checkboxprops)
+- [ComboBox](README.md#combobox)
+- [ComboBoxProps](README.md#comboboxprops)
 - [ComponentType](README.md#componenttype)
 - [Components](README.md#components)
 - [Flare](README.md#flare)
@@ -20,16 +22,14 @@ flare-core
 - [ResizableListItemProps](README.md#resizablelistitemprops)
 - [ResizableListProps](README.md#resizablelistprops)
 - [RunFlareProps](README.md#runflareprops)
-- [Select](README.md#select)
-- [SelectProps](README.md#selectprops)
 - [Slider](README.md#slider)
 - [SliderProps](README.md#sliderprops)
 - [SpinButton](README.md#spinbutton)
 - [SpinButtonProps](README.md#spinbuttonprops)
 - [Switch](README.md#switch)
 - [SwitchProps](README.md#switchprops)
-- [Textbox](README.md#textbox)
-- [TextboxProps](README.md#textboxprops)
+- [TextBox](README.md#textbox)
+- [TextBoxProps](README.md#textboxprops)
 - [Unflare](README.md#unflare)
 
 ### Functions
@@ -38,6 +38,7 @@ flare-core
 - [ap](README.md#ap)
 - [chain](README.md#chain)
 - [checkbox](README.md#checkbox)
+- [comboBox](README.md#combobox)
 - [ifElse](README.md#ifelse)
 - [makeFlare](README.md#makeflare)
 - [map](README.md#map)
@@ -45,11 +46,10 @@ flare-core
 - [of](README.md#of)
 - [radioGroup](README.md#radiogroup)
 - [resizableList](README.md#resizablelist)
-- [select](README.md#select)
 - [slider](README.md#slider)
 - [spinButton](README.md#spinbutton)
 - [switch\_](README.md#switch_)
-- [textbox](README.md#textbox)
+- [textBox](README.md#textbox)
 
 ## Type aliases
 
@@ -61,7 +61,7 @@ The React component used to render a button
 
 #### Defined in
 
-[index.tsx:300](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L300)
+[index.tsx:300](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L300)
 
 ___
 
@@ -81,7 +81,7 @@ The props of the React component used to render a button
 
 #### Defined in
 
-[index.tsx:282](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L282)
+[index.tsx:282](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L282)
 
 ___
 
@@ -93,7 +93,7 @@ The React component used to render a checkbox
 
 #### Defined in
 
-[index.tsx:315](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L315)
+[index.tsx:315](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L315)
 
 ___
 
@@ -113,7 +113,40 @@ The props of the React component used to render a checkbox
 
 #### Defined in
 
-[index.tsx:303](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L303)
+[index.tsx:303](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L303)
+
+___
+
+### ComboBox
+
+Ƭ **ComboBox**: [`ComponentType`](README.md#componenttype)<[`ComboBoxProps`](README.md#comboboxprops)\>
+
+The React component used to render a combo box
+
+#### Defined in
+
+[index.tsx:333](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L333)
+
+___
+
+### ComboBoxProps
+
+Ƭ **ComboBoxProps**: `Object`
+
+The props of the React component used to render a combo box
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `label?` | `string` | The label to display next to the combo box |
+| `options` | `string`[] | The list of available options |
+| `value` | `string` | The selected value |
+| `onValueChange` | (`value`: `string`) => `void` | - |
+
+#### Defined in
+
+[index.tsx:318](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L318)
 
 ___
 
@@ -139,7 +172,7 @@ that it does not implicitly add a `children` prop.
 
 #### Defined in
 
-[index.tsx:277](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L277)
+[index.tsx:277](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L277)
 
 ___
 
@@ -154,22 +187,22 @@ The React components used to render various Flares
 
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
-| `Button` | [`Button`](README.md#button) |
-| `Checkbox` | [`Checkbox`](README.md#checkbox) |
-| `RadioGroup` | [`RadioGroup`](README.md#radiogroup) |
-| `ResizableList` | [`ResizableList`](README.md#resizablelist) |
-| `ResizableListItem` | [`ResizableListItem`](README.md#resizablelistitem) |
-| `Select` | [`Select`](README.md#select) |
-| `Slider` | [`Slider`](README.md#slider) |
-| `SpinButton` | [`SpinButton`](README.md#spinbutton) |
-| `Switch` | [`Switch`](README.md#switch) |
-| `Textbox` | [`Textbox`](README.md#textbox) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `Button` | [`Button`](README.md#button) | The React component used to render a button |
+| `Checkbox` | [`Checkbox`](README.md#checkbox) | The React component used to render a checkbox |
+| `ComboBox` | [`ComboBox`](README.md#combobox) | The React component used to render a combo box |
+| `RadioGroup` | [`RadioGroup`](README.md#radiogroup) | The React component used to render a group of radio buttons |
+| `ResizableList` | [`ResizableList`](README.md#resizablelist) | The React component used to render a resizable list |
+| `ResizableListItem` | [`ResizableListItem`](README.md#resizablelistitem) | The React component used to render a resizable list item |
+| `Slider` | [`Slider`](README.md#slider) | The React component used to render a slider |
+| `SpinButton` | [`SpinButton`](README.md#spinbutton) | The React component used to render a spin button |
+| `Switch` | [`Switch`](README.md#switch) | The React component used to render a switch |
+| `TextBox` | [`TextBox`](README.md#textbox) | The React component used to render a text box |
 
 #### Defined in
 
-[index.tsx:652](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L652)
+[index.tsx:647](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L647)
 
 ___
 
@@ -197,7 +230,7 @@ queried and invoking some upstream handler when the value changes
 
 #### Defined in
 
-[index.tsx:21](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L21)
+[index.tsx:21](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L21)
 
 ___
 
@@ -209,7 +242,7 @@ The React component used to render a group of radio buttons
 
 #### Defined in
 
-[index.tsx:360](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L360)
+[index.tsx:378](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L378)
 
 ___
 
@@ -230,7 +263,7 @@ The props of the React component used to render a group of radio buttons
 
 #### Defined in
 
-[index.tsx:345](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L345)
+[index.tsx:363](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L363)
 
 ___
 
@@ -242,7 +275,7 @@ The React component used to render a resizable list
 
 #### Defined in
 
-[index.tsx:327](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L327)
+[index.tsx:345](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L345)
 
 ___
 
@@ -254,7 +287,7 @@ The React component used to render a resizable list item
 
 #### Defined in
 
-[index.tsx:342](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L342)
+[index.tsx:360](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L360)
 
 ___
 
@@ -274,7 +307,7 @@ The props of the React component used to render a resizable list item
 
 #### Defined in
 
-[index.tsx:330](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L330)
+[index.tsx:348](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L348)
 
 ___
 
@@ -293,7 +326,7 @@ The props of the React component used to render a resizable list
 
 #### Defined in
 
-[index.tsx:318](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L318)
+[index.tsx:336](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L336)
 
 ___
 
@@ -321,40 +354,7 @@ ___
 
 #### Defined in
 
-[index.tsx:685](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L685)
-
-___
-
-### Select
-
-Ƭ **Select**: [`ComponentType`](README.md#componenttype)<[`SelectProps`](README.md#selectprops)\>
-
-The React component used to render a select
-
-#### Defined in
-
-[index.tsx:378](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L378)
-
-___
-
-### SelectProps
-
-Ƭ **SelectProps**: `Object`
-
-The props of the React component used to render a select
-
-#### Type declaration
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `label?` | `string` | The label to display next to the select |
-| `options` | `string`[] | The list of available options |
-| `value` | `string` | The selected value |
-| `onValueChange` | (`value`: `string`) => `void` | - |
-
-#### Defined in
-
-[index.tsx:363](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L363)
+[index.tsx:699](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L699)
 
 ___
 
@@ -366,7 +366,7 @@ The React component used to render a slider
 
 #### Defined in
 
-[index.tsx:402](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L402)
+[index.tsx:402](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L402)
 
 ___
 
@@ -389,7 +389,7 @@ The props of the React component used to render a slider
 
 #### Defined in
 
-[index.tsx:381](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L381)
+[index.tsx:381](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L381)
 
 ___
 
@@ -401,7 +401,7 @@ The React component used to render a spin button
 
 #### Defined in
 
-[index.tsx:426](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L426)
+[index.tsx:426](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L426)
 
 ___
 
@@ -424,7 +424,7 @@ The props of the React component used to render a spin button
 
 #### Defined in
 
-[index.tsx:405](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L405)
+[index.tsx:405](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L405)
 
 ___
 
@@ -436,7 +436,7 @@ The React component used to render a switch
 
 #### Defined in
 
-[index.tsx:441](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L441)
+[index.tsx:441](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L441)
 
 ___
 
@@ -456,39 +456,39 @@ The props of the React component used to render a switch
 
 #### Defined in
 
-[index.tsx:429](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L429)
+[index.tsx:429](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L429)
 
 ___
 
-### Textbox
+### TextBox
 
-Ƭ **Textbox**: [`ComponentType`](README.md#componenttype)<[`TextboxProps`](README.md#textboxprops)\>
+Ƭ **TextBox**: [`ComponentType`](README.md#componenttype)<[`TextBoxProps`](README.md#textboxprops)\>
 
-The React component used to render a textbox
+The React component used to render a text box
 
 #### Defined in
 
-[index.tsx:456](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L456)
+[index.tsx:456](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L456)
 
 ___
 
-### TextboxProps
+### TextBoxProps
 
-Ƭ **TextboxProps**: `Object`
+Ƭ **TextBoxProps**: `Object`
 
-The props of the React component used to render a textbox
+The props of the React component used to render a text box
 
 #### Type declaration
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `label?` | `string` | The label to display next to the textbox |
+| `label?` | `string` | The label to display next to the text box |
 | `value` | `string` | The value |
 | `onValueChange` | (`value`: `string`) => `void` | - |
 
 #### Defined in
 
-[index.tsx:444](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L444)
+[index.tsx:444](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L444)
 
 ___
 
@@ -513,7 +513,7 @@ struggles to infer types.
 
 #### Defined in
 
-[index.tsx:57](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L57)
+[index.tsx:57](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L57)
 
 ## Functions
 
@@ -541,7 +541,7 @@ A React component that renders the specified Flare.
 
 #### Defined in
 
-[index.tsx:699](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L699)
+[index.tsx:713](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L713)
 
 ___
 
@@ -588,7 +588,7 @@ A Flare that produces the result of the function application
 
 #### Defined in
 
-[index.tsx:70](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L70)
+[index.tsx:70](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L70)
 
 ___
 
@@ -635,7 +635,7 @@ The Flare resulting from the composition
 
 #### Defined in
 
-[index.tsx:104](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L104)
+[index.tsx:104](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L104)
 
 ___
 
@@ -661,7 +661,38 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:735](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L735)
+[index.tsx:749](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L749)
+
+___
+
+### comboBox
+
+▸ **comboBox**<`A`, `C`\>(`options`): [`Flare`](README.md#flare)<`A`\>
+
+Creates a Flare that renders as a combo box.
+
+#### Type parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `A` | `A` | The value that the combo box produces |
+| `C` | extends { `optionToString?`: `undefined`  } \| { `optionToString`: (`option`: `A`) => `string`  } | An additional `optionToString` option, required to convert `A` to `string` when it doesn't already extend `string` |
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `options` | { `initial`: `A` ; `label?`: `string` ; `options`: `A`[]  } & `C` | Combo box options |
+
+#### Returns
+
+[`Flare`](README.md#flare)<`A`\>
+
+The Flare that was created
+
+#### Defined in
+
+[index.tsx:768](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L768)
 
 ___
 
@@ -715,7 +746,7 @@ second Flare
 
 #### Defined in
 
-[index.tsx:191](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L191)
+[index.tsx:191](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L191)
 
 ___
 
@@ -764,7 +795,7 @@ A Flare that renders as the provided React component
 
 #### Defined in
 
-[index.tsx:235](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L235)
+[index.tsx:235](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L235)
 
 ___
 
@@ -811,7 +842,7 @@ A Flare that produces the result of the function application
 
 #### Defined in
 
-[index.tsx:142](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L142)
+[index.tsx:142](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L142)
 
 ___
 
@@ -845,7 +876,7 @@ specified `key`
 
 #### Defined in
 
-[index.tsx:211](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L211)
+[index.tsx:211](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L211)
 
 ___
 
@@ -875,7 +906,7 @@ A Flare that produces the specified value `a`
 
 #### Defined in
 
-[index.tsx:164](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L164)
+[index.tsx:164](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L164)
 
 ___
 
@@ -906,7 +937,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:754](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L754)
+[index.tsx:810](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L810)
 
 ___
 
@@ -940,38 +971,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:969](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L969)
-
-___
-
-### select
-
-▸ **select**<`A`, `C`\>(`options`): [`Flare`](README.md#flare)<`A`\>
-
-Creates a Flare that renders as a select.
-
-#### Type parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `A` | `A` | The value that the select produces |
-| `C` | extends { `optionToString?`: `undefined`  } \| { `optionToString`: (`option`: `A`) => `string`  } | An additional `optionToString` option, required to convert `A` to `string` when it doesn't already extend `string` |
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options` | { `initial`: `A` ; `label?`: `string` ; `options`: `A`[]  } & `C` | Select options |
-
-#### Returns
-
-[`Flare`](README.md#flare)<`A`\>
-
-The Flare that was created
-
-#### Defined in
-
-[index.tsx:796](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L796)
+[index.tsx:983](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L983)
 
 ___
 
@@ -1000,7 +1000,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:839](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L839)
+[index.tsx:853](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L853)
 
 ___
 
@@ -1029,7 +1029,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:875](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L875)
+[index.tsx:889](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L889)
 
 ___
 
@@ -1055,23 +1055,23 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:908](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L908)
+[index.tsx:922](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L922)
 
 ___
 
-### textbox
+### textBox
 
-▸ `Const` **textbox**(`options`): [`Flare`](README.md#flare)<`string`\>
+▸ `Const` **textBox**(`options`): [`Flare`](README.md#flare)<`string`\>
 
-Creates a Flare that renders as a textbox.
+Creates a Flare that renders as a text box.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | `Object` | Textbox options |
-| `options.initial` | `string` | Initial textbox state |
-| `options.label?` | `string` | Textbox label |
+| `options` | `Object` | Text box options |
+| `options.initial` | `string` | Initial text box state |
+| `options.label?` | `string` | Text box label |
 | `options.nonEmpty?` | `boolean` | - |
 
 #### Returns
@@ -1082,4 +1082,4 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:925](https://github.com/nsaunders/flare/blob/ccc6bbd/core/src/index.tsx#L925)
+[index.tsx:939](https://github.com/nsaunders/flare/blob/de38ca3/core/src/index.tsx#L939)
