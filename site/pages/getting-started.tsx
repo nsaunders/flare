@@ -1,4 +1,3 @@
-import { ReactElement } from "react";
 import Head from "next/head";
 import Markdown from "../docs/getting-started.mdx";
 import { Doc } from "../components/doc";
@@ -12,10 +11,10 @@ const GettingStarted = (): JSX.Element => (
         content="How to start building applicative-style UIs in TypeScript using Flare"
       />
     </Head>
-    <Markdown />
+    <Doc>
+      <Markdown />
+    </Doc>
   </>
 );
-
-GettingStarted.getLayout = (page: ReactElement) => <Doc>{page}</Doc>;
 
 export default GettingStarted;

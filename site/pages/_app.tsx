@@ -1,9 +1,8 @@
 require("../global.css");
 require("../extracted-styles");
-import { NextPage } from "next";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { ReactElement, ReactNode, UIEvent, useEffect, useState } from "react";
+import { ReactElement, UIEvent, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Imprint } from "../components/imprint";
 import { MenuToggle, Menu } from "../components/menu";
@@ -11,17 +10,11 @@ import { ModeSetting, ModeToggle } from "../components/mode";
 import cx from "clsx";
 import { Highlighter } from "../components/highlight";
 
-type Layout = {
-  Component: NextPage & {
-    getLayout?: (page: ReactElement) => ReactNode;
-  };
-};
-
 export default function App({
   Component,
   pageProps,
   router,
-}: AppProps & Layout): ReactElement {
+}: AppProps): ReactElement {
   const [mode, setMode] = useState<"dark" | "light">("dark");
   const [menu, setMenu] = useState(false);
   const [scrollAmount, setScrollAmount] = useState(0);
@@ -49,8 +42,6 @@ export default function App({
       body.classList.add("light");
     }
   }, [mode]);
-
-  const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
     <Highlighter>
@@ -88,7 +79,7 @@ export default function App({
                     setScrollAmount(scrollTop);
                   }}
                 >
-                  {getLayout(<Component {...pageProps} />)}
+                  <Component {...pageProps} />
                 </motion.main>
               </AnimatePresence>
             </Imprint>

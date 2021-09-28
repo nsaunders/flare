@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactNode } from "react";
 import Head from "next/head";
 import Markdown from "flare-core/docs/README.md";
 import { Doc } from "../components/doc";
@@ -30,11 +30,11 @@ const CoreAPI = (): JSX.Element => (
       <meta name="description" content="Core API documentation" />
     </Head>
     <MDXProvider components={mdxComponents}>
-      <Markdown />
+      <Doc>
+        <Markdown />
+      </Doc>
     </MDXProvider>
   </>
 );
-
-CoreAPI.getLayout = (page: ReactElement) => <Doc>{page}</Doc>;
 
 export default CoreAPI;
