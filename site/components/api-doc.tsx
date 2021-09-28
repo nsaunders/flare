@@ -23,9 +23,7 @@ const mdxComponents = {
 
 const APIDoc: FC<unknown> = ({ children }) => (
   <MDXProvider components={mdxComponents}>
-    <Doc>
-      {children}
-    </Doc>
+    <Doc>{children}</Doc>
   </MDXProvider>
 );
 
