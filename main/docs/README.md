@@ -198,7 +198,7 @@ Creates a Flare that renders as a combo box.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | { `initial`: `A` ; `label?`: `string` ; `options`: `A`[]  } & `C` | Combo box options |
+| `options` | { `initial`: `A` ; `label?`: `string` ; `options`: readonly `A`[]  } & `C` | Combo box options |
 
 #### Returns
 
@@ -374,7 +374,7 @@ Creates a Flare that renders as a group of radio buttons.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | { `initial`: `A` ; `label?`: `string` ; `options`: `A`[]  } & `C` | Radio group options |
+| `options` | { `initial`: `A` ; `label?`: `string` ; `options`: readonly `A`[]  } & `C` | Radio group options |
 
 #### Returns
 
