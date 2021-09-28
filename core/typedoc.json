@@ -1,4 +1,5 @@
 {
   "out": "docs",
-  "readme": "none"
+  "readme": "none",
+  "hideBreadcrumbs": true
 }
