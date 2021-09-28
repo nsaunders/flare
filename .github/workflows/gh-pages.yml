@@ -6,6 +6,8 @@ on:
       - master
     paths:
       - site/**
+  release:
+    types: [published]
 
 jobs:
   deploy:
@@ -18,12 +20,10 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 6.2.1
-      - name: install core dependencies
-        run: pnpm install -C core
+      - name: install dependencies
+        run: pnpm install -C
       - name: build core
         run: pnpm run prepublishOnly -C core
-      - name: Install dependencies
-        run: pnpm install -C site
       - name: build site
         run: pnpm run build -C site
       - name: publish
