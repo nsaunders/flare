@@ -1,6 +1,4 @@
-import { ReactNode } from "react";
-import Head from "next/head";
-import Markdown from "flare-core/docs/README.md";
+import { FC, ReactNode } from "react";
 import { Doc } from "../components/doc";
 import { MDXProvider } from "@mdx-js/react";
 
@@ -23,18 +21,12 @@ const mdxComponents = {
   h6: mkHeading(6),
 };
 
-const CoreAPI = (): JSX.Element => (
-  <>
-    <Head>
-      <title>Core API</title>
-      <meta name="description" content="Core API documentation" />
-    </Head>
-    <MDXProvider components={mdxComponents}>
-      <Doc>
-        <Markdown />
-      </Doc>
-    </MDXProvider>
-  </>
+const APIDoc: FC<unknown> = ({ children }) => (
+  <MDXProvider components={mdxComponents}>
+    <Doc>
+      {children}
+    </Doc>
+  </MDXProvider>
 );
 
-export default CoreAPI;
+export default APIDoc;
