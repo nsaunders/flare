@@ -770,7 +770,7 @@ export function comboBox<
   C extends A extends string
     ? { optionToString?: undefined }
     : { optionToString: (option: A) => string },
->(options: { label?: string; initial: A; options: A[] } & C) {
+>(options: { label?: string; initial: A; options: Readonly<A[]> } & C) {
   const { optionToString, ...restOptions } = options;
   const stringOptions = restOptions.options.map(
     optionToString || ((x: A) => x as unknown as string),
@@ -812,7 +812,7 @@ export function radioGroup<
   C extends A extends string
     ? { optionToString?: undefined }
     : { optionToString: (option: A) => string },
->(options: { label?: string; initial: A; options: A[] } & C) {
+>(options: { label?: string; initial: A; options: Readonly<A[]> } & C) {
   const { optionToString, ...restOptions } = options;
   const stringOptions = restOptions.options.map(
     optionToString || ((x: A) => x as unknown as string),

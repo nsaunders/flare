@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, ReactNode, Children, useState } from "react";
-import { Components, Flare, RunFlare } from "flare-core";
+import type * as F from "flare-core";
+import { Flare, RunFlare } from "flare-core";
 import { css } from "demitasse";
 import cx from "clsx";
 import { useMeasure } from "react-use";
@@ -8,7 +9,7 @@ import { Code } from "./code";
 import { Input } from "./input";
 import { Slider as SliderImpl } from "./slider";
 import { Stack, Item } from "./stack";
-import { Close, Edit, ErrorOutline, Sync } from "@material-ui/icons";
+import { Close, Edit, Sync } from "@material-ui/icons";
 import pkg from "../package.json";
 
 const { version } = pkg;
@@ -71,16 +72,13 @@ const Field: FC<{ label?: string }> = ({ children, label }) => (
   </div>
 );
 
-const Button: Components["Button"] = ({ children: label, ...props }) => (
+const Button: F.Button = ({ children: label, ...props }) => (
   <ButtonImpl {...props} motif="tertiary">
     {label || "Button"}
   </ButtonImpl>
 );
 
-const ResizableList: FC<{ addButton: ReactNode }> = ({
-  addButton,
-  children,
-}) => (
+const ResizableList: F.ResizableList = ({ addButton, children }) => (
   <Stack direction="column" spacing={2}>
     {Children.map(children, (x) => (
       <Item>{x}</Item>
@@ -89,21 +87,19 @@ const ResizableList: FC<{ addButton: ReactNode }> = ({
   </Stack>
 );
 
-const ResizableListItem: FC<{ addButton: ReactNode; removeButton: ReactNode }> =
-  ({ addButton, children, removeButton }) => (
-    <Stack direction="row" spacing={2}>
-      <Item>{addButton}</Item>
-      <Item>{children}</Item>
-      <Item>{removeButton}</Item>
-    </Stack>
-  );
-
-const Select: Components["Select"] = ({
-  label,
-  onValueChange,
-  options,
-  value,
+const ResizableListItem: F.ResizableListItem = ({
+  addButton,
+  children,
+  removeButton,
 }) => (
+  <Stack direction="row" spacing={2}>
+    <Item>{addButton}</Item>
+    <Item>{children}</Item>
+    <Item>{removeButton}</Item>
+  </Stack>
+);
+
+const ComboBox: F.ComboBox = ({ label, onValueChange, options, value }) => (
   <Field label={label}>
     <Input
       as="select"
@@ -121,11 +117,7 @@ const Select: Components["Select"] = ({
   </Field>
 );
 
-const Slider: Components["Slider"] = ({
-  label,
-  onValueChange,
-  ...restProps
-}) => (
+const Slider: F.Slider = ({ label, onValueChange, ...restProps }) => (
   <Field label={label}>
     <SliderImpl
       onChange={({ currentTarget: input }: ChangeEvent<HTMLInputElement>) => {
@@ -139,11 +131,7 @@ const Slider: Components["Slider"] = ({
   </Field>
 );
 
-const SpinButton: Components["SpinButton"] = ({
-  label,
-  onValueChange,
-  ...restProps
-}) => (
+const SpinButton: F.SpinButton = ({ label, onValueChange, ...restProps }) => (
   <Field label={label}>
     <Input
       type="number"
@@ -289,10 +277,10 @@ export const Example: FC<{
                     handler={setOutput}
                     components={{
                       Button,
+                      ComboBox,
                       SpinButton,
                       ResizableList,
                       ResizableListItem,
-                      Select,
                       Slider,
                     }}
                   />

@@ -1,11 +1,11 @@
 import {
   ap,
   chain,
+  comboBox,
   map,
   match,
   of,
   resizableList,
-  select,
   slider,
   spinButton,
 } from "flare-core";
@@ -86,7 +86,7 @@ runFlare("controls", "output", flare);`,
         ),
       ),
       ap(
-        select({
+        comboBox({
           initial: "blue" as const,
           options: ["red", "blue"] as const,
           label: "Color",
@@ -94,7 +94,7 @@ runFlare("controls", "output", flare);`,
       ),
       ap(
         pipe(
-          select({
+          comboBox({
             initial: "circle" as const,
             options: ["circle", "rectangle"] as const,
             label: "Shape",
@@ -143,10 +143,10 @@ runFlare("controls", "output", flare);`,
     displayCode: `
       pipe(
         of(curry2((color: "red" | "blue", props: SpecializedShapeProps) => makeShape({ color, ...props }))),
-        ap(select({ initial: "blue" as const, options: ["red", "blue"] as const, label: "Color" })),
+        ap(comboBox({ initial: "blue" as const, options: ["red", "blue"] as const, label: "Color" })),
         ap(
           pipe(
-            select({ initial: "circle" as const, options: ["circle", "rectangle"] as const, label: "Shape" }),
+            comboBox({ initial: "circle" as const, options: ["circle", "rectangle"] as const, label: "Shape" }),
             chain(
               match({
                 circle: pipe(
@@ -166,7 +166,7 @@ runFlare("controls", "output", flare);`,
     `,
     sandboxCode: `import { pipe } from "fp-ts/lib/function";
 import { curry2 } from "fp-ts-std/Function";
-import { ap, chain, map, match, of, select, slider, runFlare } from "flare";
+import { ap, chain, map, match, of, comboBox, slider, runFlare } from "flare";
 
 type SpecializedShapeProps =
   | { type: "circle"; radius: number }
@@ -174,10 +174,10 @@ type SpecializedShapeProps =
 
 const flare = pipe(
   of(curry2((color: "red" | "blue", props: SpecializedShapeProps) => makeShape({ color, ...props }))),
-  ap(select({ initial: "blue" as const, options: ["red", "blue"] as const, label: "Color" })),
+  ap(comboBox({ initial: "blue" as const, options: ["red", "blue"] as const, label: "Color" })),
   ap(
     pipe(
-      select({ initial: "circle" as const, options: ["circle", "rectangle"] as const, label: "Shape" }),
+      comboBox({ initial: "circle" as const, options: ["circle", "rectangle"] as const, label: "Shape" }),
       chain(
         match({
           circle: pipe(
