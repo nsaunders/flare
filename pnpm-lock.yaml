@@ -195,6 +195,7 @@ importers:
       eslint-plugin-prettier: ^4.0.0
       eslint-plugin-react: ^7.25.1
       eslint-plugin-react-hooks: ^4.2.0
+      flare: workspace:0.2.1
       flare-core: workspace:0.2.1
       fp-ts: ^2.11.1
       fp-ts-std: ^0.11.0
@@ -247,6 +248,7 @@ importers:
       eslint-plugin-prettier: 4.0.0_5a48a349ffec60f5257b5f148f5199c3
       eslint-plugin-react: 7.25.1_eslint@7.32.0
       eslint-plugin-react-hooks: 4.2.0_eslint@7.32.0
+      flare: link:../main
       flare-core: link:../core
       fp-ts: 2.11.1
       fp-ts-std: 0.11.0_edb76676bf32fcf9e9f7ad77165156ae

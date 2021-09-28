@@ -37,6 +37,7 @@ const { version } = rootPkg;
         version,
         devDependencies: {
           ...sitePkg.devDependencies,
+          "flare": `workspace:${version}`,
           "flare-core": `workspace:${version}`,
         },
       },
