@@ -1,4 +1,4 @@
-const withMDX = require("@next/mdx")();
+const withMDX = require("@next/mdx");
 const {
   getGlobalCssLoader,
 } = require("next/dist/build/webpack/config/blocks/css/loaders");
@@ -59,4 +59,26 @@ function withDemitasse(nextConfig = {}) {
   };
 }
 
-module.exports = withDemitasse(withMDX());
+module.exports = withDemitasse(withMDX({ extension: /\.mdx?$/ })({
+  webpack: config => ({
+    ...config,
+    module: {
+      ...config.module,
+      rules: [
+        ...config.module.rules,
+        {
+          test: /flare(\-core)?\/docs\/README\.md$/,
+          use: [
+            {
+              loader: "string-replace-loader",
+              options: {
+                search: "README.md",
+                replace: "",
+              },
+            },
+          ],
+        },
+      ],
+    },
+  }),
+}));
