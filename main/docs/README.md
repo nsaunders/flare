@@ -1,32 +1,30 @@
-flare
-
 # flare
 
 ## Table of contents
 
 ### Type aliases
 
-- [Flare](README.md#flare)
-- [Unflare](README.md#unflare)
+- [Flare](#flare)
+- [Unflare](#unflare)
 
 ### Functions
 
-- [ap](README.md#ap)
-- [chain](README.md#chain)
-- [checkbox](README.md#checkbox)
-- [comboBox](README.md#combobox)
-- [ifElse](README.md#ifelse)
-- [map](README.md#map)
-- [match](README.md#match)
-- [of](README.md#of)
-- [radioGroup](README.md#radiogroup)
-- [resizableList](README.md#resizablelist)
-- [runFlare](README.md#runflare)
-- [runFlareWith](README.md#runflarewith)
-- [slider](README.md#slider)
-- [spinButton](README.md#spinbutton)
-- [switch\_](README.md#switch_)
-- [textBox](README.md#textbox)
+- [ap](#ap)
+- [chain](#chain)
+- [checkbox](#checkbox)
+- [comboBox](#combobox)
+- [ifElse](#ifelse)
+- [map](#map)
+- [match](#match)
+- [of](#of)
+- [radioGroup](#radiogroup)
+- [resizableList](#resizablelist)
+- [runFlare](#runflare)
+- [runFlareWith](#runflarewith)
+- [slider](#slider)
+- [spinButton](#spinbutton)
+- [switch\_](#switch_)
+- [textBox](#textbox)
 
 ## Type aliases
 
@@ -56,7 +54,7 @@ ___
 
 ### Unflare
 
-Ƭ **Unflare**<`F`\>: `F` extends [`Flare`](README.md#flare)<infer A\> ? `A` : `never`
+Ƭ **Unflare**<`F`\>: `F` extends [`Flare`](#flare)<infer A\> ? `A` : `never`
 
 A utility type that extracts the type parameter `A` from a `Flare<A>`
 
@@ -77,7 +75,7 @@ struggles to infer types.
 
 ### ap
 
-▸ **ap**<`A`, `B`\>(`fa`): (`fab`: [`Flare`](README.md#flare)<`fn`\>) => [`Flare`](README.md#flare)<`B`\>
+▸ **ap**<`A`, `B`\>(`fa`): (`fab`: [`Flare`](#flare)<`fn`\>) => [`Flare`](#flare)<`B`\>
 
 Applies a function to a value within a `Flare` context.
 
@@ -92,7 +90,7 @@ Applies a function to a value within a `Flare` context.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `fa` | [`Flare`](README.md#flare)<`A`\> | The Flare that produces the original value |
+| `fa` | [`Flare`](#flare)<`A`\> | The Flare that produces the original value |
 
 #### Returns
 
@@ -100,7 +98,7 @@ Applies a function to a value within a `Flare` context.
 
 A Flare that produces the result of the function application
 
-▸ (`fab`): [`Flare`](README.md#flare)<`B`\>
+▸ (`fab`): [`Flare`](#flare)<`B`\>
 
 Applies a function to a value within a `Flare` context.
 
@@ -108,11 +106,11 @@ Applies a function to a value within a `Flare` context.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `fab` | [`Flare`](README.md#flare)<`fn`\> | The Flare that produces the function to apply |
+| `fab` | [`Flare`](#flare)<`fn`\> | The Flare that produces the function to apply |
 
 ##### Returns
 
-[`Flare`](README.md#flare)<`B`\>
+[`Flare`](#flare)<`B`\>
 
 A Flare that produces the result of the function application
 
@@ -120,7 +118,7 @@ ___
 
 ### chain
 
-▸ **chain**<`A`, `B`\>(`afb`): (`fa`: [`Flare`](README.md#flare)<`A`\>) => [`Flare`](README.md#flare)<`B`\>
+▸ **chain**<`A`, `B`\>(`afb`): (`fa`: [`Flare`](#flare)<`A`\>) => [`Flare`](#flare)<`B`\>
 
 Composes Flares in a sequence.
 
@@ -135,7 +133,7 @@ Composes Flares in a sequence.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `afb` | (`a`: `A`) => [`Flare`](README.md#flare)<`B`\> | The function to apply to the output of the first Flare to produce the second Flare |
+| `afb` | (`a`: `A`) => [`Flare`](#flare)<`B`\> | The function to apply to the output of the first Flare to produce the second Flare |
 
 #### Returns
 
@@ -143,7 +141,7 @@ Composes Flares in a sequence.
 
 The Flare resulting from the composition
 
-▸ (`fa`): [`Flare`](README.md#flare)<`B`\>
+▸ (`fa`): [`Flare`](#flare)<`B`\>
 
 Composes Flares in a sequence.
 
@@ -151,11 +149,11 @@ Composes Flares in a sequence.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `fa` | [`Flare`](README.md#flare)<`A`\> | The first Flare whose value determines the second |
+| `fa` | [`Flare`](#flare)<`A`\> | The first Flare whose value determines the second |
 
 ##### Returns
 
-[`Flare`](README.md#flare)<`B`\>
+[`Flare`](#flare)<`B`\>
 
 The Flare resulting from the composition
 
@@ -163,7 +161,7 @@ ___
 
 ### checkbox
 
-▸ `Const` **checkbox**(`options`): [`Flare`](README.md#flare)<`boolean`\>
+▸ `Const` **checkbox**(`options`): [`Flare`](#flare)<`boolean`\>
 
 Creates a Flare that renders as a checkbox control.
 
@@ -177,7 +175,7 @@ Creates a Flare that renders as a checkbox control.
 
 #### Returns
 
-[`Flare`](README.md#flare)<`boolean`\>
+[`Flare`](#flare)<`boolean`\>
 
 The Flare that was created
 
@@ -185,7 +183,7 @@ ___
 
 ### comboBox
 
-▸ **comboBox**<`A`, `C`\>(`options`): [`Flare`](README.md#flare)<`A`\>
+▸ **comboBox**<`A`, `C`\>(`options`): [`Flare`](#flare)<`A`\>
 
 Creates a Flare that renders as a combo box.
 
@@ -204,7 +202,7 @@ Creates a Flare that renders as a combo box.
 
 #### Returns
 
-[`Flare`](README.md#flare)<`A`\>
+[`Flare`](#flare)<`A`\>
 
 The Flare that was created
 
@@ -212,12 +210,12 @@ ___
 
 ### ifElse
 
-▸ **ifElse**<`A`, `B`\>(`a`, `b`): (`cond`: `boolean`) => [`Flare`](README.md#flare)<`A` \| `B`\>
+▸ **ifElse**<`A`, `B`\>(`a`, `b`): (`cond`: `boolean`) => [`Flare`](#flare)<`A` \| `B`\>
 
 Combines two Flares into one, producing the value from the original Flare
 that corresponds to the boolean expression provided.
 
-**`remarks`** This is typically used with [chain](README.md#chain).
+**`remarks`** This is typically used with [chain](#chain).
 
 #### Type parameters
 
@@ -230,8 +228,8 @@ that corresponds to the boolean expression provided.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `a` | [`Flare`](README.md#flare)<`A`\> | The value produced by the first Flare |
-| `b` | [`Flare`](README.md#flare)<`B`\> | The value produced by the second Flare |
+| `a` | [`Flare`](#flare)<`A`\> | The value produced by the first Flare |
+| `b` | [`Flare`](#flare)<`B`\> | The value produced by the second Flare |
 
 #### Returns
 
@@ -240,7 +238,7 @@ that corresponds to the boolean expression provided.
 The first Flare when the boolean expession is `true`; otherwise, the
 second Flare
 
-▸ (`cond`): [`Flare`](README.md#flare)<`A` \| `B`\>
+▸ (`cond`): [`Flare`](#flare)<`A` \| `B`\>
 
 Combines two Flares into one, producing the value from the original Flare
 that corresponds to the boolean expression provided.
@@ -253,7 +251,7 @@ that corresponds to the boolean expression provided.
 
 ##### Returns
 
-[`Flare`](README.md#flare)<`A` \| `B`\>
+[`Flare`](#flare)<`A` \| `B`\>
 
 The first Flare when the boolean expession is `true`; otherwise, the
 second Flare
@@ -262,7 +260,7 @@ ___
 
 ### map
 
-▸ **map**<`A`, `B`\>(`ab`): (`fa`: [`Flare`](README.md#flare)<`A`\>) => [`Flare`](README.md#flare)<`B`\>
+▸ **map**<`A`, `B`\>(`ab`): (`fa`: [`Flare`](#flare)<`A`\>) => [`Flare`](#flare)<`B`\>
 
 Applies a function to a Flare to change its output.
 
@@ -285,7 +283,7 @@ Applies a function to a Flare to change its output.
 
 A Flare that produces the result of the function application
 
-▸ (`fa`): [`Flare`](README.md#flare)<`B`\>
+▸ (`fa`): [`Flare`](#flare)<`B`\>
 
 Applies a function to a Flare to change its output.
 
@@ -293,11 +291,11 @@ Applies a function to a Flare to change its output.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `fa` | [`Flare`](README.md#flare)<`A`\> | The original Flare |
+| `fa` | [`Flare`](#flare)<`A`\> | The original Flare |
 
 ##### Returns
 
-[`Flare`](README.md#flare)<`B`\>
+[`Flare`](#flare)<`B`\>
 
 A Flare that produces the result of the function application
 
@@ -305,12 +303,12 @@ ___
 
 ### match
 
-▸ **match**<`M`\>(`map`): `M` extends `Record`<`string` \| `number`, [`Flare`](README.md#flare)<infer A\>\> ? (`key`: keyof `M`) => [`Flare`](README.md#flare)<`A`\> : `never`
+▸ **match**<`M`\>(`map`): `M` extends `Record`<`string` \| `number`, [`Flare`](#flare)<infer A\>\> ? (`key`: keyof `M`) => [`Flare`](#flare)<`A`\> : `never`
 
 Combines multiple Flares into one, producing the value from the original Flare
 that corresponds to the expression provided.
 
-**`remarks`** This is typically used with [chain](README.md#chain).
+**`remarks`** This is typically used with [chain](#chain).
 
 #### Type parameters
 
@@ -326,7 +324,7 @@ that corresponds to the expression provided.
 
 #### Returns
 
-`M` extends `Record`<`string` \| `number`, [`Flare`](README.md#flare)<infer A\>\> ? (`key`: keyof `M`) => [`Flare`](README.md#flare)<`A`\> : `never`
+`M` extends `Record`<`string` \| `number`, [`Flare`](#flare)<infer A\>\> ? (`key`: keyof `M`) => [`Flare`](#flare)<`A`\> : `never`
 
 A function that returns the Flare from the `map` corresponding to the
 specified `key`
@@ -335,7 +333,7 @@ ___
 
 ### of
 
-▸ **of**<`A`\>(`a`): [`Flare`](README.md#flare)<`A`\>
+▸ **of**<`A`\>(`a`): [`Flare`](#flare)<`A`\>
 
 Lifts a value into a `Flare` context.
 
@@ -353,7 +351,7 @@ Lifts a value into a `Flare` context.
 
 #### Returns
 
-[`Flare`](README.md#flare)<`A`\>
+[`Flare`](#flare)<`A`\>
 
 A Flare that produces the specified value `a`
 
@@ -361,7 +359,7 @@ ___
 
 ### radioGroup
 
-▸ **radioGroup**<`A`, `C`\>(`options`): [`Flare`](README.md#flare)<`A`\>
+▸ **radioGroup**<`A`, `C`\>(`options`): [`Flare`](#flare)<`A`\>
 
 Creates a Flare that renders as a group of radio buttons.
 
@@ -380,7 +378,7 @@ Creates a Flare that renders as a group of radio buttons.
 
 #### Returns
 
-[`Flare`](README.md#flare)<`A`\>
+[`Flare`](#flare)<`A`\>
 
 The Flare that was created
 
@@ -388,7 +386,7 @@ ___
 
 ### resizableList
 
-▸ **resizableList**<`A`\>(`options`): [`Flare`](README.md#flare)<`A`[]\>
+▸ **resizableList**<`A`\>(`options`): [`Flare`](#flare)<`A`[]\>
 
 Creates a Flare that renders as a resizable list of Flares.
 
@@ -403,14 +401,14 @@ Creates a Flare that renders as a resizable list of Flares.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | `Object` | Resizable list options |
-| `options.initial?` | [`Flare`](README.md#flare)<`A`\>[] | The initial list of Flares |
-| `options.item` | [`Flare`](README.md#flare)<`A`\> | The Flare used each time an item is added to the list |
+| `options.initial?` | [`Flare`](#flare)<`A`\>[] | The initial list of Flares |
+| `options.item` | [`Flare`](#flare)<`A`\> | The Flare used each time an item is added to the list |
 | `options.maxLength?` | `number` | The maximum length of the list |
 | `options.minLength?` | `number` | The minimum length of the list |
 
 #### Returns
 
-[`Flare`](README.md#flare)<`A`[]\>
+[`Flare`](#flare)<`A`[]\>
 
 The Flare that was created
 
@@ -428,7 +426,7 @@ Runs the specified Flare, rendering its HTML output to the target element.
 | :------ | :------ | :------ |
 | `controlsElementId` | `string` | The id of the element in which to render the Flare controls |
 | `targetElementId` | `string` | The id of the element in which to render the HTML output |
-| `flare` | [`Flare`](README.md#flare)<`HTML`\> | The Flare to run |
+| `flare` | [`Flare`](#flare)<`HTML`\> | The Flare to run |
 
 #### Returns
 
@@ -454,7 +452,7 @@ Runs the specified Flare, invoking the handler on each change.
 | :------ | :------ | :------ |
 | `controlsElementId` | `string` | The id of the element in which to render the Flare controls |
 | `handler` | (`a`: `A`) => `void` | The callback function to invoke each time the value changes |
-| `flare` | [`Flare`](README.md#flare)<`A`\> | The Flare to run |
+| `flare` | [`Flare`](#flare)<`A`\> | The Flare to run |
 
 #### Returns
 
@@ -464,7 +462,7 @@ ___
 
 ### slider
 
-▸ `Const` **slider**(`options`): [`Flare`](README.md#flare)<`number`\>
+▸ `Const` **slider**(`options`): [`Flare`](#flare)<`number`\>
 
 Creates a Flare that renders as a slider.
 
@@ -481,7 +479,7 @@ Creates a Flare that renders as a slider.
 
 #### Returns
 
-[`Flare`](README.md#flare)<`number`\>
+[`Flare`](#flare)<`number`\>
 
 The Flare that was created
 
@@ -489,7 +487,7 @@ ___
 
 ### spinButton
 
-▸ `Const` **spinButton**(`options`): [`Flare`](README.md#flare)<`number`\>
+▸ `Const` **spinButton**(`options`): [`Flare`](#flare)<`number`\>
 
 Creates a Flare that renders as a spin button.
 
@@ -506,7 +504,7 @@ Creates a Flare that renders as a spin button.
 
 #### Returns
 
-[`Flare`](README.md#flare)<`number`\>
+[`Flare`](#flare)<`number`\>
 
 The Flare that was created
 
@@ -514,7 +512,7 @@ ___
 
 ### switch\_
 
-▸ `Const` **switch_**(`options`): [`Flare`](README.md#flare)<`boolean`\>
+▸ `Const` **switch_**(`options`): [`Flare`](#flare)<`boolean`\>
 
 Creates a Flare that renders as a switch.
 
@@ -528,7 +526,7 @@ Creates a Flare that renders as a switch.
 
 #### Returns
 
-[`Flare`](README.md#flare)<`boolean`\>
+[`Flare`](#flare)<`boolean`\>
 
 The Flare that was created
 
@@ -536,7 +534,7 @@ ___
 
 ### textBox
 
-▸ `Const` **textBox**(`options`): [`Flare`](README.md#flare)<`string`\>
+▸ `Const` **textBox**(`options`): [`Flare`](#flare)<`string`\>
 
 Creates a Flare that renders as a text box.
 
@@ -551,6 +549,6 @@ Creates a Flare that renders as a text box.
 
 #### Returns
 
-[`Flare`](README.md#flare)<`string`\>
+[`Flare`](#flare)<`string`\>
 
 The Flare that was created
