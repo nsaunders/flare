@@ -67,13 +67,21 @@ module.exports = withDemitasse(withMDX({ extension: /\.mdx?$/ })({
       rules: [
         ...config.module.rules,
         {
-          test: /flare(\-core)?\/docs\/README\.md$/,
+          test: /README\.md$/,
           use: [
             {
               loader: "string-replace-loader",
               options: {
-                search: "README.md",
-                replace: "",
+                multiple: [
+                  {
+                    search: /^#\sflare(-core)?\s+/,
+                    replace: "",
+                  },
+                  {
+                    search: "README.md",
+                    replace: "",
+                  },
+                ],
               },
             },
           ],

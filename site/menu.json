@@ -1,6 +1,6 @@
 [
   ["/getting-started", "Getting Started"],
   ["/examples", "Examples"],
-  ["/flare-api", "Basic API"],
-  ["/flare-core-api", "Core API"]
+  ["/api-docs", "Basic API"],
+  ["/api-docs/flare-core", "Core API"]
 ]
