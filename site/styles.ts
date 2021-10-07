@@ -1,3 +1,4 @@
+export { styles as apiSwitcher } from "./components/api-switcher";
 export { styles as button } from "./components/button";
 export { styles as code } from "./components/code";
 export { styles as doc } from "./components/doc";

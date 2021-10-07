@@ -74,10 +74,6 @@ module.exports = withDemitasse(withMDX({ extension: /\.mdx?$/ })({
               options: {
                 multiple: [
                   {
-                    search: /^#\sflare(-core)?\s+/,
-                    replace: "",
-                  },
-                  {
                     search: "README.md",
                     replace: "",
                   },
