@@ -73,7 +73,15 @@ export default function App({
                 <MenuToggle setting={menu} onChange={setMenu} />
                 <ModeToggle />
               </div>
-              <div className="main">
+              <div
+                className="main"
+                style={{ top: hideHeader ? 0 : 52 }}
+                onScroll={({
+                  currentTarget: { scrollTop },
+                }: UIEvent<HTMLElement>) => {
+                  setScrollAmount(scrollTop);
+                }}
+              >
                 {getLayout(
                   <AnimatePresence exitBeforeEnter>
                     <motion.main
@@ -82,12 +90,6 @@ export default function App({
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      style={{ top: hideHeader ? 0 : 52 }}
-                      onScroll={({
-                        currentTarget: { scrollTop },
-                      }: UIEvent<HTMLElement>) => {
-                        setScrollAmount(scrollTop);
-                      }}
                     >
                       <Component {...pageProps} />
                     </motion.main>
