@@ -11,7 +11,6 @@ export const styles = /*#__PURE__*/ css({
     display: "inline-flex",
     width: "100%",
     maxWidth: 400,
-    borderRadius: 4,
     fontFamily: "Lato",
     fontSize: 14,
     backgroundColor: "rgba(var(--light), 0.05)",
