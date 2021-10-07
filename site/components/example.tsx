@@ -212,7 +212,7 @@ export const Example: FC<{
         {sandboxStatus.tag === "created" && (
           <iframe
             className={styles.sandbox}
-            src={`https://codesandbox.io/embed/${sandboxStatus.id}`}
+            src={`https://codesandbox.io/embed/${sandboxStatus.id}?module=/src/main.ts`}
           />
         )}
         {sandboxStatus.tag === "error" && (
