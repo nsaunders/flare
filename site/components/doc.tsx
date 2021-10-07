@@ -32,6 +32,21 @@ export const styles = /*#__PURE__*/ css({
       color: "inherit",
     },
   },
+  "& code": {
+    fontFamily: "'Courier Prime'",
+  },
+  "& table th, & table td": {
+    paddingTop: 2,
+    paddingRight: 8,
+    paddingBottom: 2,
+    paddingLeft: 8,
+  },
+  "& table": {
+    marginTop: -2,
+    marginRight: -8,
+    marginBottom: -2,
+    marginLeft: -8,
+  },
 });
 
 export const Doc: FC<unknown> = ({ children }) => (
