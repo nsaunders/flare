@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Markdown from "flare-core/docs/README.md";
-import APIDoc from "../../components/api-doc";
-import APIDocLayout from "./_layout";
+import APIDocLayout from "../../components/api-doc-layout";
 
 const FlareCoreAPI = (): JSX.Element => (
   <>
@@ -12,9 +11,7 @@ const FlareCoreAPI = (): JSX.Element => (
         content="API documentation for the flare-core package"
       />
     </Head>
-    <APIDoc>
-      <Markdown />
-    </APIDoc>
+    <Markdown />
   </>
 );
 

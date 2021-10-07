@@ -55,7 +55,7 @@ export const styles = /*#__PURE__*/ css({
   },
 });
 
-export const APISwitcher: VFC<unknown> = () => {
+const APISwitcher: VFC<unknown> = () => {
   const selected = useRouter().pathname.endsWith("/flare-core")
     ? "flare-core"
     : "flare";
@@ -82,3 +82,5 @@ export const APISwitcher: VFC<unknown> = () => {
     </div>
   );
 };
+
+export default APISwitcher;
