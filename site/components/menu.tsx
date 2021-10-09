@@ -1,4 +1,5 @@
 import { FC, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { css } from "demitasse";
 import cx from "clsx";
@@ -28,7 +29,7 @@ export const styles = /*#__PURE__*/ css({
   link: {
     outline: "none",
     display: "block",
-    color: "rgb(var(--light))",
+    color: "rgba(var(--light),0.5)",
     textDecoration: "none",
     paddingTop: 8,
     paddingRight: 16,
@@ -40,6 +41,10 @@ export const styles = /*#__PURE__*/ css({
     "&:first-child": {
       marginTop: 8,
     },
+  },
+  linkActive: {
+    background: "rgba(var(--dark), 0.5)",
+    color: "rgb(var(--light))",
   },
   items: {
     transitionProperty: "transform,opacity",
@@ -92,7 +97,7 @@ export const Menu: FC<{ children?: undefined; open?: boolean }> = ({
       <div className={cx(styles.items, !open && styles.itemsClosed)}>
         {menu.map(([href, title]) => (
           <Link href={href} key={title}>
-            <a className={styles.link} tabIndex={open ? 0 : -1}>
+            <a className={cx(styles.link, useRouter().pathname.startsWith(href) && styles.linkActive)} tabIndex={open ? 0 : -1}>
               {title}
             </a>
           </Link>

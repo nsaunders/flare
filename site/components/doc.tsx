@@ -2,10 +2,10 @@ import { css } from "demitasse";
 import { FC } from "react";
 
 export const styles = /*#__PURE__*/ css({
-  paddingTop: 8,
-  paddingRight: 16,
-  paddingBottom: 8,
-  paddingLeft: 16,
+  paddingTop: 16,
+  paddingRight: 32,
+  paddingBottom: 16,
+  paddingLeft: 32,
   fontFamily: "Lato",
   fontSize: 16,
   "& > h1:first-child": {

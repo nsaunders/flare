@@ -11,7 +11,7 @@ export const styles = /*#__PURE__*/ css({
     top: 0,
     right: 0,
     left: 0,
-    height: 52,
+    height: 78,
     padding: 2,
     display: "flex",
     justifyContent: "center",

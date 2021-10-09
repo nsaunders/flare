@@ -66,7 +66,7 @@ export default function App({
           </nav>
           <div className="content">
             <Imprint
-              headerHeight={hideHeader ? -52 : 52}
+              headerHeight={hideHeader ? -78 : 78}
               transition={transitions}
             >
               <div className="header" style={hideHeader ? { height: 0 } : {}}>
@@ -75,7 +75,7 @@ export default function App({
               </div>
               <div
                 className="main"
-                style={{ top: hideHeader ? 0 : 52 }}
+                style={{ top: hideHeader ? 0 : 78 }}
                 onScroll={({
                   currentTarget: { scrollTop },
                 }: UIEvent<HTMLElement>) => {
