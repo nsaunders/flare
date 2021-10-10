@@ -31,9 +31,15 @@ export const styles = /*#__PURE__*/ css({
     display: "block",
     color: "rgba(var(--light),0.5)",
     textDecoration: "none",
-    padding: 12,
+    paddingTop: 8,
+    paddingRight: 16,
+    paddingBottom: 8,
+    paddingLeft: 16,
     "&:focus": {
       textDecoration: "underline",
+    },
+    "&:first-child": {
+      marginTop: 8,
     },
   },
   linkActive: {
