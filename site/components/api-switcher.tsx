@@ -50,7 +50,7 @@ export const styles = /*#__PURE__*/ css({
     transitionDuration: "125ms",
     "&:not(:focus)": {
       textDecoration: "none",
-    }
+    },
   },
   itemSelected: {
     color: "rgb(var(--light))",
