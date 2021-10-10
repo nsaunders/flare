@@ -5,11 +5,8 @@ import APIDocLayout from "../../components/api-doc-layout";
 const APIOverview = (): JSX.Element => (
   <>
     <Head>
-      <title>API Overview</title>
-      <meta
-        name="description"
-        content="Overview of the Flare APIs"
-      />
+      <title>API</title>
+      <meta name="description" content="Overview of the Flare APIs" />
     </Head>
     <Markdown />
   </>

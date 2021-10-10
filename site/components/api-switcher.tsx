@@ -64,18 +64,18 @@ const APISwitcher: VFC<unknown> = () => {
     ["/flare", "flare"],
     ["/flare-core", "flare-core"],
   ];
-  const selected = (useRouter().pathname.match(/api\-docs(\/.+)/) || [null, ""])[1];
+  const selected = (useRouter().pathname.match(/api\-docs(\/.+)/) || [
+    null,
+    "",
+  ])[1];
   return (
     <div className={styles.container}>
       <div
-        className={cx(
-          styles.markerCommon,
-          {
-            [styles.markerLeft]: selected === "",
-            [styles.markerCenter]: selected === "/flare",
-            [styles.markerRight]: selected === "/flare-core",
-          },
-        )}
+        className={cx(styles.markerCommon, {
+          [styles.markerLeft]: selected === "",
+          [styles.markerCenter]: selected === "/flare",
+          [styles.markerRight]: selected === "/flare-core",
+        })}
       />
       {routes.map(([path, name]) => (
         <Link href={`/api-docs${path}`} key={name}>
