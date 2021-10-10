@@ -98,7 +98,13 @@ export const Menu: FC<{ children?: undefined; open?: boolean }> = ({
       <div className={cx(styles.items, !open && styles.itemsClosed)}>
         {menu.map(([href, title]) => (
           <Link href={href} key={title}>
-            <a className={cx(styles.link, pathname.startsWith(href) && styles.linkActive)} tabIndex={open ? 0 : -1}>
+            <a
+              className={cx(
+                styles.link,
+                pathname.startsWith(href) && styles.linkActive,
+              )}
+              tabIndex={open ? 0 : -1}
+            >
               {title}
             </a>
           </Link>
