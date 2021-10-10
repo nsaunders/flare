@@ -97,7 +97,7 @@ export const Install: FC<InstallProps> = ({ packageName }) => {
   return (
     <div
       className={cx(styles.container, active && styles.containerActive)}
-      onKeyDown={e => {
+      onKeyDown={(e) => {
         switch (e.key) {
           case "ArrowUp":
             if (packageManager === "yarn") {
