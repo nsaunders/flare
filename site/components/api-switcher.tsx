@@ -10,7 +10,7 @@ export const styles = /*#__PURE__*/ css({
     position: "relative",
     display: "inline-flex",
     width: "100%",
-    maxWidth: 400,
+    maxWidth: 500,
     fontFamily: "Lato",
     fontSize: 14,
     backgroundColor: "rgba(var(--light), 0.05)",
@@ -18,7 +18,7 @@ export const styles = /*#__PURE__*/ css({
   markerCommon: {
     position: "absolute",
     borderRadius: 3,
-    width: "calc(50% - 2px)",
+    width: "calc(100% / 3 - 2px)",
     top: 2,
     bottom: 2,
     backgroundColor: "rgba(var(--dark), 0.5)",
@@ -28,8 +28,11 @@ export const styles = /*#__PURE__*/ css({
   markerLeft: {
     left: 2,
   },
+  markerCenter: {
+    left: "calc(100% / 3 + 1px)",
+  },
   markerRight: {
-    left: "50%",
+    left: "calc(200% / 3)",
   },
   itemCommon: {
     cursor: "pointer",
@@ -56,26 +59,33 @@ export const styles = /*#__PURE__*/ css({
 });
 
 const APISwitcher: VFC<unknown> = () => {
-  const selected = useRouter().pathname.endsWith("/flare-core")
-    ? "flare-core"
-    : "flare";
+  const routes = [
+    ["", "Overview"],
+    ["/flare", "flare"],
+    ["/flare-core", "flare-core"],
+  ];
+  const selected = (useRouter().pathname.match(/api\-docs(\/.+)/) || [null, ""])[1];
   return (
     <div className={styles.container}>
       <div
         className={cx(
           styles.markerCommon,
-          selected === "flare" ? styles.markerLeft : styles.markerRight,
+          {
+            [styles.markerLeft]: selected === "",
+            [styles.markerCenter]: selected === "/flare",
+            [styles.markerRight]: selected === "/flare-core",
+          },
         )}
       />
-      {(["flare", "flare-core"] as const).map((api) => (
-        <Link href={`/api-docs/${api}`} key={api}>
+      {routes.map(([path, name]) => (
+        <Link href={`/api-docs${path}`} key={name}>
           <a
             className={cx(
               styles.itemCommon,
-              api === selected ? styles.itemSelected : styles.itemUnselected,
+              path === selected ? styles.itemSelected : styles.itemUnselected,
             )}
           >
-            {api}
+            {name}
           </a>
         </Link>
       ))}
