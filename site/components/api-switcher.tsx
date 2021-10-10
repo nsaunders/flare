@@ -42,13 +42,15 @@ export const styles = /*#__PURE__*/ css({
     border: "none",
     outline: "none",
     font: "inherit",
-    textDecoration: "none",
     zIndex: 1,
     flex: 1,
     textAlign: "center",
     padding: 8,
     transitionProperty: "color",
     transitionDuration: "125ms",
+    "&:not(:focus)": {
+      textDecoration: "none",
+    }
   },
   itemSelected: {
     color: "rgb(var(--light))",
