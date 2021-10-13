@@ -82,8 +82,8 @@ export default function App({
                   setScrollAmount(scrollTop);
                 }}
               >
-                {getLayout(
-                  <AnimatePresence exitBeforeEnter>
+                <AnimatePresence exitBeforeEnter>
+                  {getLayout(
                     <motion.main
                       key={router.asPath}
                       transition={{ duration: 0.5 }}
@@ -92,9 +92,9 @@ export default function App({
                       exit={{ opacity: 0 }}
                     >
                       <Component {...pageProps} />
-                    </motion.main>
-                  </AnimatePresence>,
-                )}
+                    </motion.main>,
+                  )}
+                </AnimatePresence>
               </div>
             </Imprint>
           </div>
