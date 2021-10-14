@@ -1,17 +1,14 @@
-import Head from "next/head";
 import Markdown from "flare/docs/README.md";
 import APIDocLayout from "../../components/api-doc-layout";
 import { Install } from "../../components/install";
+import { SmartHead } from "../../components/smart-head";
 
 const FlareAPI = (): JSX.Element => (
   <>
-    <Head>
-      <title>flare API</title>
-      <meta
-        name="description"
-        content="API documentation for the flare package"
-      />
-    </Head>
+    <SmartHead
+      title="flare API"
+      description="Learn the API for the flare package, which provides the basic building blocks for applicative-style UIs in TypeScript."
+    />
     <h1>flare</h1>
     <Install packageName="flare" />
     <Markdown />

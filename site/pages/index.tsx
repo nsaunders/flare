@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import type { NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { css } from "demitasse";
@@ -10,6 +9,7 @@ import { Install } from "../components/install";
 import { Item, Stack } from "../components/stack";
 import { Tagline } from "../components/tagline";
 import { ImprintZone } from "../components/imprint";
+import {SmartHead} from "../components/smart-head";
 
 export const styles = /*#__PURE__*/ css({
   page: {
@@ -55,13 +55,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Flare</title>
-        <meta
-          name="description"
-          content="Applicative-style UIs in TypeScript"
-        />
-      </Head>
+      <SmartHead description="Applicative-style UIs in TypeScript" />
       <div className={styles.page} ref={pageRef}>
         <Stack spacing={large ? 64 : 48} direction="column" alignItems="center">
           <Item>

@@ -9,12 +9,12 @@ import {
   slider,
   spinButton,
 } from "flare-core";
-import Head from "next/head";
 import { NextPage } from "next";
 import { pipe } from "fp-ts/lib/function";
 import { curry2 } from "fp-ts-std/Function";
 import { Doc } from "../components/doc";
 import { Example } from "../components/example";
+import {SmartHead} from "../components/smart-head";
 
 type SpecializedShapeProps =
   | { type: "circle"; radius: number }
@@ -265,13 +265,9 @@ runFlare("controls", "output", flare);`,
 
 const Examples: NextPage = () => (
   <>
-    <Head>
-      <title>Examples</title>
-      <meta
-        name="description"
-        content="Examples of applicative-style UIs built in TypeScript with Flare"
-      />
-    </Head>
+    <SmartHead
+      title="Examples"
+      description="See how Flare leverages applicative programming in TypeScript to build UIs with minimal code." />
     <Doc>
       <h1 style={{ marginBottom: 0 }}>Examples</h1>
       {examples.map((props, i) => (
