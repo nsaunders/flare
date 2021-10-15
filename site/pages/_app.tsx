@@ -26,7 +26,7 @@ export default function App({
   const [menu, setMenu] = useState(false);
   const [scrollAmount, setScrollAmount] = useState(0);
   const [transitions, setTransitions] = useState(true);
-  const hideHeader = scrollAmount > 8;
+  const hideHeader = scrollAmount > 16;
 
   useEffect(() => {
     setTransitions(false);
