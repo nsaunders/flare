@@ -1,0 +1,26 @@
+# Embedding in React
+
+The [`RunFlare`](https://flare.js.org/api-docs/flare-core#runflare) component
+provides the means to embed a Flare UI in a [React](https://reactjs.org)
+application.
+
+## Step 1: Flare UI
+
+The first step is to build the UI that produces some value of interest, i.e. a
+[`Flare<A>`](https://flare.js.org/api-docs/flare-core#flare). The `A` type
+argument will depend on the exact use case, but often (when the goal is to
+render some element in response to user inputs) it will be something like
+[`ReactNode`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/14f568cded146f89864a06da1884364bd4e6ced0/types/react/index.d.ts#L237).
+
+## Step 2: Handler
+
+The next requirement is a handler, which is a callback of type
+`(value: A) => void` invoked each time the UI produces a new value. Again, the
+type `A` will depend on use case (but it must match the output of the
+corresponding Flare). The handler can produce any side effect required, such as
+mutating state.
+
+## Step 3: `RunFlare`
+
+Finally, the `RunFlare` component is used to render the UI passed to its `flare`
+prop and invokes the callback passed to its `handler` prop on each change.
