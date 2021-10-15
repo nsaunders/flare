@@ -2,6 +2,9 @@ import { css } from "demitasse";
 import { FC } from "react";
 
 export const styles = /*#__PURE__*/ css({
+  maxWidth: 900,
+  marginRight: "auto",
+  marginLeft: "auto",
   paddingTop: 16,
   paddingRight: 32,
   paddingBottom: 16,
