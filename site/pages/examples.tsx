@@ -14,7 +14,7 @@ import { pipe } from "fp-ts/lib/function";
 import { curry2 } from "fp-ts-std/Function";
 import { Doc } from "../components/doc";
 import { Example } from "../components/example";
-import {SmartHead} from "../components/smart-head";
+import { SmartHead } from "../components/smart-head";
 
 type SpecializedShapeProps =
   | { type: "circle"; radius: number }
@@ -267,7 +267,8 @@ const Examples: NextPage = () => (
   <>
     <SmartHead
       title="Examples"
-      description="See how Flare leverages applicative programming in TypeScript to build UIs with minimal code." />
+      description="See how Flare leverages applicative programming in TypeScript to build UIs with minimal code."
+    />
     <Doc>
       <h1 style={{ marginBottom: 0 }}>Examples</h1>
       {examples.map((props, i) => (

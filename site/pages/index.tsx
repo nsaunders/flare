@@ -9,7 +9,7 @@ import { Install } from "../components/install";
 import { Item, Stack } from "../components/stack";
 import { Tagline } from "../components/tagline";
 import { ImprintZone } from "../components/imprint";
-import {SmartHead} from "../components/smart-head";
+import { SmartHead } from "../components/smart-head";
 
 export const styles = /*#__PURE__*/ css({
   page: {
