@@ -18,20 +18,20 @@ body {
   position: fixed;
 }
 
-.shell, .menu, .content, .header, .main {
+.shell, .menu, .content {
   position: absolute;
 }
 
-#__next, .shell, .content, .header, .menu {
+#__next, .shell, .content, .menu {
   right: 0;
   left: 0;
 }
 
-#__next, .shell, .menu, .content, .header {
+#__next, .shell, .menu, .content {
   top: 0;
 }
 
-#__next, .shell, .menu, .content, .main {
+#__next, .shell, .menu, .content {
   bottom: 0;
 }
 
@@ -52,6 +52,7 @@ body {
   right: calc(var(--menu-offset, 0) * -1);
   left: var(--menu-offset, 0);
   transition-property: left, right;
+  overflow-y: auto;
 }
 
 .menu, .content {
@@ -65,12 +66,4 @@ body {
   justify-content: space-between;
   padding-left: 20px;
   padding-right: 20px;
-  overflow: hidden;
-}
-
-.main {
-  top: 78px;
-  right: 0;
-  width: 100%;
-  overflow-y: auto;
 }

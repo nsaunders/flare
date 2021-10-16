@@ -26,7 +26,6 @@ export default function App({
   const [menu, setMenu] = useState(false);
   const [scrollAmount, setScrollAmount] = useState(0);
   const [transitions, setTransitions] = useState(true);
-  const hideHeader = scrollAmount > 16;
 
   useEffect(() => {
     setTransitions(false);
@@ -65,17 +64,13 @@ export default function App({
             <Menu open={menu} />
           </nav>
           <div className="content">
-            <Imprint
-              headerHeight={hideHeader ? -78 : 78}
-              transition={transitions}
-            >
-              <div className="header" style={hideHeader ? { height: 0 } : {}}>
+            <Imprint headerHeight={78} transition={transitions}>
+              <div className="header">
                 <MenuToggle setting={menu} onChange={setMenu} />
                 <ModeToggle />
               </div>
               <div
                 className="main"
-                style={{ top: hideHeader ? 0 : 78 }}
                 onScroll={({
                   currentTarget: { scrollTop },
                 }: UIEvent<HTMLElement>) => {

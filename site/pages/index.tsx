@@ -14,7 +14,7 @@ import { SmartHead } from "../components/smart-head";
 export const styles = /*#__PURE__*/ css({
   page: {
     position: "absolute",
-    top: 0,
+    top: 78,
     right: 0,
     bottom: 0,
     left: 0,
@@ -57,7 +57,12 @@ const Home: NextPage = () => {
     <>
       <SmartHead description="Applicative-style UIs in TypeScript" />
       <div className={styles.page} ref={pageRef}>
-        <Stack spacing={large ? 64 : 48} direction="column" alignItems="center">
+        <Stack
+          spacing={large ? 64 : 48}
+          direction="column"
+          alignItems="center"
+          style={{ position: "relative", top: -39 }}
+        >
           <Item>
             <Stack spacing={8} direction="column" alignItems="center">
               <Item>
