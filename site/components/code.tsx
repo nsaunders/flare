@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { css } from "demitasse";
 import { useHighlighter } from "./highlight";
 
@@ -41,6 +41,7 @@ export const Code = forwardRef<HTMLDivElement, { children: string }>(
         return match[0].length;
       })
       .reduce((a, b) => Math.min(a, b), Number.MAX_VALUE);
+
     const highlighted = useHighlighter(
       "typescript",
       code
@@ -48,13 +49,19 @@ export const Code = forwardRef<HTMLDivElement, { children: string }>(
         .map((x) => x.substring(mindent))
         .join("\n"),
     );
+
+    const [codeEl, setCodeEl] = useState<HTMLElement | null>(null);
+
+    useEffect(() => {
+      if (codeEl && highlighted) {
+        codeEl.innerHTML = highlighted.trim();
+      }
+    }, [codeEl, highlighted]);
+
     return (
       <div className={styles.surface} ref={ref}>
         <pre className={styles.pre}>
-          <code
-            dangerouslySetInnerHTML={{ __html: highlighted.trim() }}
-            className={styles.code}
-          />
+          <code ref={setCodeEl} className={styles.code} />
         </pre>
       </div>
     );
