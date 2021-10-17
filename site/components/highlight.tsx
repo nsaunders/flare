@@ -1,53 +1,32 @@
-import {
-  FC,
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import { FC, createContext, useContext, useEffect, useState } from "react";
 import hljsLib from "highlight.js/lib/core";
+import xml from "highlight.js/lib/languages/xml";
+import javascript from "highlight.js/lib/languages/javascript";
 import typescript from "highlight.js/lib/languages/typescript";
 import { HLJSApi } from "highlight.js";
 
-const availableLanguages = { typescript };
-type Language = keyof typeof availableLanguages;
-
-function reducer(
-  [hljs, registered]: [HLJSApi, Language[]],
-  language: Language,
-): [HLJSApi, Language[]] {
-  if (!registered.includes(language)) {
-    hljs.registerLanguage(language, availableLanguages[language]);
-    return [hljs, registered.concat(language)];
-  }
-  return [hljs, registered];
-}
-
-const HighlightContext = createContext<[HLJSApi, (language: Language) => void]>(
-  [
-    hljsLib,
-    () => {
-      /*noop*/
-    },
-  ],
+const availableLanguages = { xml, javascript, typescript };
+Object.entries(availableLanguages).forEach(([k, v]) =>
+  hljsLib.registerLanguage(k, v),
 );
 
+type Language = keyof typeof availableLanguages;
+
+const HighlightContext = createContext<HLJSApi>(hljsLib);
+
 export const Highlighter: FC<unknown> = ({ children }) => {
-  const [[hljs], register] = useReducer(reducer, [hljsLib, []]);
   return (
-    <HighlightContext.Provider value={[hljs, register]}>
+    <HighlightContext.Provider value={hljsLib}>
       {children}
     </HighlightContext.Provider>
   );
 };
 
 export const useHighlighter = (language: Language, code: string): string => {
-  const [hljs, register] = useContext(HighlightContext);
+  const hljs = useContext(HighlightContext);
   const [highlighted, setHighlighted] = useState(code);
   useEffect(() => {
-    register(language);
     setHighlighted(hljs.highlight(code, { language }).value);
-  }, [code, hljs, language, register]);
+  }, [code, hljs, language]);
   return highlighted;
 };

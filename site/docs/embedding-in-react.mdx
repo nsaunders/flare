@@ -21,7 +21,7 @@ produce the same kind of value that the callback accepts as input.
 This may be best understood by examining the prop types. Given a generic
 argument `A`, which can be any type:
 
-```
+```typescript
 type RunFlareProps<A> = {
   flare: Flare<A>;
   handler: (a: A) => void;
@@ -38,7 +38,7 @@ displaying some element as a function of user input, as shown on the
 [`ReactNode`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/14f568cded146f89864a06da1884364bd4e6ced0/types/react/index.d.ts#L237)
 (or a more restrictive subtype) may be substituted in place of `A`:
 
-```
+```typescript
 type RunFlareProps<ReactNode> = {
   flare: Flare<ReactNode>;
   handler: (a: ReactNode) => void;
@@ -58,7 +58,7 @@ state. Usually, the
 [`useState`](https://reactjs.org/docs/hooks-reference.html#usestate) hook is all
 that is required:
 
-```
+```jsx
 const [flareOutput, setFlareOutput] = useState<ReactNode>();
 
 // ...
@@ -69,4 +69,9 @@ const [flareOutput, setFlareOutput] = useState<ReactNode>();
 ```
 
 Finally, the `flareOutput` node can be rendered wherever it belongs in the
-component tree, e.g. `<div className="output">{flareOutput}</div>`.
+component tree, e.g.
+```jsx
+<div className="output">
+  {flareOutput}
+</div>
+```

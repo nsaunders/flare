@@ -24,46 +24,55 @@ export const styles = /*#__PURE__*/ css({
       "&property, &attr": {
         color: "rgba(var(--light), 0.7)",
       },
+      "&comment": {
+        color: "rgba(var(--light), 0.25)",
+      },
     },
   },
 });
 
-export const Code = forwardRef<HTMLDivElement, { children: string }>(
-  function Code({ children: code }, ref) {
-    const mindent = code
-      .split("\n")
-      .filter((line, i, { length }) => line.trim() || (i && i !== length - 1))
-      .map((x) => {
-        const match = x.match(/^\s+/);
-        if (!match) {
-          return 0;
-        }
-        return match[0].length;
-      })
-      .reduce((a, b) => Math.min(a, b), Number.MAX_VALUE);
-
-    const highlighted = useHighlighter(
-      "typescript",
-      code
-        .split("\n")
-        .map((x) => x.substring(mindent))
-        .join("\n"),
-    );
-
-    const [codeEl, setCodeEl] = useState<HTMLElement | null>(null);
-
-    useEffect(() => {
-      if (codeEl && highlighted) {
-        codeEl.innerHTML = highlighted.trim();
+export const Code = forwardRef<
+  HTMLDivElement,
+  { children: string; className?: string }
+>(function Code({ children: code, className }, ref) {
+  const mindent = code
+    .split("\n")
+    .filter((line, i, { length }) => line.trim() || (i && i !== length - 1))
+    .map((x) => {
+      const match = x.match(/^\s+/);
+      if (!match) {
+        return 0;
       }
-    }, [codeEl, highlighted]);
+      return match[0].length;
+    })
+    .reduce((a, b) => Math.min(a, b), Number.MAX_VALUE);
 
-    return (
-      <div className={styles.surface} ref={ref}>
-        <pre className={styles.pre}>
-          <code ref={setCodeEl} className={styles.code} />
-        </pre>
-      </div>
-    );
-  },
-);
+  const maybeLang = className && className.replace(/^language\-/, "");
+  const lang = ["javascript", "typescript", "jsx"].includes(maybeLang || "")
+    ? maybeLang
+    : "typescript";
+
+  const highlighted = useHighlighter(
+    lang === "javascript" ? "javascript" : "typescript",
+    code
+      .split("\n")
+      .map((x) => x.substring(mindent))
+      .join("\n"),
+  );
+
+  const [codeEl, setCodeEl] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (codeEl && highlighted) {
+      codeEl.innerHTML = highlighted.trim();
+    }
+  }, [codeEl, highlighted]);
+
+  return (
+    <div className={styles.surface} ref={ref}>
+      <pre className={styles.pre}>
+        <code ref={setCodeEl} className={styles.code} />
+      </pre>
+    </div>
+  );
+});
