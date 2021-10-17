@@ -1,5 +1,7 @@
 import { css } from "demitasse";
 import { FC } from "react";
+import { MDXProvider } from "@mdx-js/react";
+import { Code } from "./code";
 
 export const styles = /*#__PURE__*/ css({
   maxWidth: 900,
@@ -52,6 +54,14 @@ export const styles = /*#__PURE__*/ css({
   },
 });
 
+const mdxComponents = {
+  code: ({ children, ...restProps }: { children: unknown }) => (
+    <Code {...restProps}>{typeof children === "string" ? children : ""}</Code>
+  ),
+};
+
 export const Doc: FC<unknown> = ({ children }) => (
-  <div className={styles}>{children}</div>
+  <MDXProvider components={mdxComponents}>
+    <div className={styles}>{children}</div>
+  </MDXProvider>
 );
