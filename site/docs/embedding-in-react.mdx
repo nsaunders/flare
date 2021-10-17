@@ -2,25 +2,71 @@
 
 The [`RunFlare`](https://flare.js.org/api-docs/flare-core#runflare) component
 provides the means to embed a Flare UI in a [React](https://reactjs.org)
-application.
+application. This short guide explains how the `RunFlare` component works.
 
-## Step 1: Flare UI
+## Overview
 
-The first step is to build the UI that produces some value of interest, i.e. a
-[`Flare<A>`](https://flare.js.org/api-docs/flare-core#flare). The `A` type
-argument will depend on the exact use case, but often (when the goal is to
-render some element in response to user inputs) it will be something like
-[`ReactNode`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/14f568cded146f89864a06da1884364bd4e6ced0/types/react/index.d.ts#L237).
+The `RunFlare` component renders a Flare UI wherever it exists in the component
+tree and invokes a callback each time the value changes in response to user
+input.
 
-## Step 2: Handler
+The UI and callback are passed via `flare` and `handler` props, respectively.
 
-The next requirement is a handler, which is a callback of type
-`(value: A) => void` invoked each time the UI produces a new value. Again, the
-type `A` will depend on use case (but it must match the output of the
-corresponding Flare). The handler can produce any side effect required, such as
-mutating state.
+## Generic Implementation
 
-## Step 3: `RunFlare`
+`RunFlare` is a generic component, which allows it to work with any Flare UI
+regardless of the value it produces. The only constraint is that the UI must
+produce the same kind of value that the callback accepts as input.
 
-Finally, the `RunFlare` component is used to render the UI passed to its `flare`
-prop and invokes the callback passed to its `handler` prop on each change.
+This may be best understood by examining the prop types. Given a generic
+argument `A`, which can be any type:
+
+```
+type RunFlareProps<A> = {
+  flare: Flare<A>;
+  handler: (a: A) => void;
+  // ...
+};
+```
+
+## Common Use Case
+
+While the generic implementation of `RunFlare` supports a wide variety of use
+cases, it may be helpful to consider perhaps the most common use case of
+displaying some element as a function of user input, as shown on the
+[Examples](/examples) page. For this use case,
+[`ReactNode`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/14f568cded146f89864a06da1884364bd4e6ced0/types/react/index.d.ts#L237)
+(or a more restrictive subtype) may be substituted in place of `A`:
+
+```
+type RunFlareProps<ReactNode> = {
+  flare: Flare<ReactNode>;
+  handler: (a: ReactNode) => void;
+};
+```
+
+Thus, the UI passed to the `flare` prop must produce a type of value that is
+assignable to `ReactNode`. If it does not, then the
+[`map`](/api-docs/flare-core#map) function may offer a solution by providing the
+means to transform the value that the UI produces.
+
+Similarly, the `handler` prop callback must accept a `ReactNode` as input and
+produce a side effect.
+
+In this case, the side effect is that of mutating a `ReactNode` value held in
+state. Usually, the
+[`useState`](https://reactjs.org/docs/hooks-reference.html#usestate) hook is all
+that is required:
+
+```
+const [flareOutput, setFlareOutput] = useState<ReactNode>();
+
+// ...
+
+<RunFlare
+  flare={/*...*/}
+  handler={setFlareOutput} />
+```
+
+Finally, the `flareOutput` node can be rendered wherever it belongs in the
+component tree, e.g. `<div className="output">{flareOutput}</div>`.

@@ -36,7 +36,7 @@ export const Code = forwardRef<HTMLDivElement, { children: string }>(
       .map((x) => {
         const match = x.match(/^\s+/);
         if (!match) {
-          return Number.MAX_VALUE;
+          return 0;
         }
         return match[0].length;
       })
