@@ -9,5 +9,13 @@
   "rules": {
     "@next/next/no-html-link-for-pages": ["error", "site/pages"],
     "react/react-in-jsx-scope": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["extracted-styles.js", "styles.ts"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
 }

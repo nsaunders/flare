@@ -1,6 +1,6 @@
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef } from "react";
 import { css } from "demitasse";
-import { useHighlighter } from "./highlight";
+import SyntaxHighlighter from "react-syntax-highlighter/dist/cjs/prism";
 
 export const styles = /*#__PURE__*/ css({
   surface: {
@@ -8,24 +8,30 @@ export const styles = /*#__PURE__*/ css({
     borderRadius: 4,
     padding: 16,
     overflow: "auto",
-  },
-  pre: {
-    margin: 0,
+    "& > pre": {
+      margin: 0,
+    },
   },
   code: {
     fontFamily: "Courier Prime",
     fontSize: 14,
     lineHeight: "20px",
-    color: "rgba(var(--light), 0.5)",
-    "& .hljs-": {
-      "&title.function_, &title.class_, &number, &string": {
-        color: "rgba(var(--light), 0.9)",
+    color: "rgba(var(--light),0.5)",
+    "& .token": {
+      "&.function": {
+        color: "rgba(var(--light),0.7)",
       },
-      "&property, &attr": {
-        color: "rgba(var(--light), 0.7)",
+      "&.string,&.number": {
+        color: "rgba(var(--light),0.8)",
       },
-      "&comment": {
-        color: "rgba(var(--light), 0.25)",
+      "&.punctuation,&.operator,&.keyword": {
+        color: "rgba(var(--light),0.3)",
+      },
+      "&.attr,&.attr-name": {
+        color: "rgba(var(--light),0.6)",
+      },
+      "&.class-name,&.maybe-class-name": {
+        color: "rgba(var(--light),0.65)",
       },
     },
   },
@@ -52,27 +58,26 @@ export const Code = forwardRef<
     ? maybeLang
     : "typescript";
 
-  const highlighted = useHighlighter(
-    lang === "javascript" ? "javascript" : "typescript",
-    code
-      .split("\n")
-      .map((x) => x.substring(mindent))
-      .join("\n"),
-  );
-
-  const [codeEl, setCodeEl] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    if (codeEl && highlighted) {
-      codeEl.innerHTML = highlighted.trim();
-    }
-  }, [codeEl, highlighted]);
-
   return (
     <div className={styles.surface} ref={ref}>
-      <pre className={styles.pre}>
-        <code ref={setCodeEl} className={styles.code} />
-      </pre>
+      <SyntaxHighlighter
+        language={lang}
+        useInlineStyles={false}
+        codeTagProps={{ style: {}, className: styles.code }}
+      >
+        {code
+          .split("\n")
+          .reduce(
+            (xs: string[], x: string, i: number, lines: string[]) =>
+              x.trim() ||
+              (xs.length && lines.slice(i).filter((x) => x.trim()).length)
+                ? xs.concat(x)
+                : xs,
+            [],
+          )
+          .map((x) => x.substring(mindent))
+          .join("\n")}
+      </SyntaxHighlighter>
     </div>
   );
 });

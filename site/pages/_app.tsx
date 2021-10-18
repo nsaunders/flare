@@ -8,7 +8,6 @@ import { Imprint } from "../components/imprint";
 import { MenuToggle, Menu } from "../components/menu";
 import { ModeSetting, ModeToggle } from "../components/mode";
 import cx from "clsx";
-import { Highlighter } from "../components/highlight";
 import { NextPage } from "next";
 
 type Layout = {
@@ -52,49 +51,47 @@ export default function App({
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
-    <Highlighter>
-      <ModeSetting.Provider value={[mode, setMode]}>
-        <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-          <link rel="icon" type="image/png" href="/favicon.png" />
-        </Head>
-        <div className={cx("shell", menu && "menu-expanded")}>
-          <nav className="menu">
-            <Menu open={menu} />
-          </nav>
-          <div className="content">
-            <Imprint headerHeight={78} transition={transitions}>
-              <div className="header">
-                <MenuToggle setting={menu} onChange={setMenu} />
-                <ModeToggle />
-              </div>
-              <div
-                className="main"
-                onScroll={({
-                  currentTarget: { scrollTop },
-                }: UIEvent<HTMLElement>) => {
-                  setScrollAmount(scrollTop);
-                }}
-              >
-                <AnimatePresence exitBeforeEnter>
-                  {getLayout(
-                    <motion.main
-                      key={router.asPath}
-                      transition={{ duration: 0.5 }}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
-                      <Component {...pageProps} />
-                    </motion.main>,
-                  )}
-                </AnimatePresence>
-              </div>
-            </Imprint>
-          </div>
+    <ModeSetting.Provider value={[mode, setMode]}>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+      </Head>
+      <div className={cx("shell", menu && "menu-expanded")}>
+        <nav className="menu">
+          <Menu open={menu} />
+        </nav>
+        <div className="content">
+          <Imprint headerHeight={78} transition={transitions}>
+            <div className="header">
+              <MenuToggle setting={menu} onChange={setMenu} />
+              <ModeToggle />
+            </div>
+            <div
+              className="main"
+              onScroll={({
+                currentTarget: { scrollTop },
+              }: UIEvent<HTMLElement>) => {
+                setScrollAmount(scrollTop);
+              }}
+            >
+              <AnimatePresence exitBeforeEnter>
+                {getLayout(
+                  <motion.main
+                    key={router.asPath}
+                    transition={{ duration: 0.5 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <Component {...pageProps} />
+                  </motion.main>,
+                )}
+              </AnimatePresence>
+            </div>
+          </Imprint>
         </div>
-      </ModeSetting.Provider>
-    </Highlighter>
+      </div>
+    </ModeSetting.Provider>
   );
 }
