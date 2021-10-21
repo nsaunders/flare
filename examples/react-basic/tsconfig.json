@@ -1,0 +1,7 @@
+{
+  "rootDir": "src",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "jsx": "react"
+  }
+}
