@@ -67,7 +67,7 @@ const examples = [
     `,
     sandboxCode: `import { pipe } from "fp-ts/lib/function";
 import { curry2 } from "fp-ts-std/Function";
-import { ap, of, spinButton, runFlare } from "flare";
+import { ap, map, of, spinButton, runFlare } from "flare";
 
 const flare = pipe(
   of(curry2(Math.pow)),
@@ -75,7 +75,7 @@ const flare = pipe(
   ap(spinButton({ initial: 4, label: "Exponent" }))
 );
 
-runFlare("controls", "output", flare);`,
+runFlare("controls", "output", pipe(flare, map(x => x.toLocaleString())));`,
   },
   {
     title: "Adaptive controls",
