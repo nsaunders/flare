@@ -1,3 +1,8 @@
+import { Button } from "../components/button";
+import { GitHub } from "@material-ui/icons";
+import { CsbIcon as CodeSandbox } from "../components/csb-icon";
+import { Stack, Item } from "../components/stack";
+
 # Embedding in React
 
 The [`RunFlare`](https://flare.js.org/api-docs/flare-core#runflare) component
@@ -15,11 +20,10 @@ The UI and callback are passed via `flare` and `handler` props, respectively.
 ## Generic Implementation
 
 `RunFlare` is a generic component, which allows it to work with any Flare UI
-regardless of the value it produces. The only constraint is that the UI must
+regardless of the value produced. The only constraint is that the UI must
 produce the same kind of value that the callback accepts as input.
 
-This may be best understood by examining the prop types. Given a generic
-argument `A`, which can be any type:
+This may be best understood by examining the prop types:
 
 ```typescript
 type RunFlareProps<A> = {
@@ -70,8 +74,27 @@ const [flareOutput, setFlareOutput] = useState<ReactNode>();
 
 Finally, the `flareOutput` node can be rendered wherever it belongs in the
 component tree, e.g.
+
 ```jsx
 <div className="output">
   {flareOutput}
 </div>
 ```
+
+## Example
+
+A complete example of a Flare UI embedded inside of React is available on
+GitHub. You can launch it inside of CodeSandbox for a live demo.
+
+<Stack direction="row" spacing={16}>
+  <Item>
+    <Button as="a" href="https://codesandbox.io/s/github/nsaunders/flare/tree/master/examples/react-basic?file=/src/main.tsx" motif="basic" size="large" icon={CodeSandbox}>
+      Live Demo
+    </Button>
+  </Item>
+  <Item>
+    <Button as="a" href="https://github.com/nsaunders/flare/tree/master/examples/react-basic" motif="basic" size="large" icon={GitHub}>
+      Source
+    </Button>
+  </Item>
+</Stack>
