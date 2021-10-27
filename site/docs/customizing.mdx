@@ -1,0 +1,34 @@
+# Customizing
+
+Flare supports two approaches to customizing UI elements. One option is to use
+CSS to change the appearance of Flare's default views. The other option is to
+render entirely different HTML by plugging in custom React components.
+
+## CSS
+
+The CSS approach needs little explanation: Simply inspect your Flare UI to learn
+the HTML structure and add a style sheet to customize the appearance as needed.
+For some projects, it may even be appropriate to use a
+[classless CSS framework](https://github.com/dbohdan/classless-css).
+
+Note that the `flare` package only supports the CSS approach. For more advanced
+use cases, you will need to install `flare-core` instead and proceed to the next
+section.
+
+## Custom Components
+
+The [`RunFlare`](/api-docs/flare-core#runflare) component, available in the
+`flare-core` package, offers full control over how the Flare UI is rendered
+through its `components` prop, which allows you to override any of the following
+components:
+
+| Flare                                                 | Component                                     |
+| :---------------------------------------------------- | :-------------------------------------------- |
+| [checkbox](/api-docs/flare-core#checkbox-1)           | [Checkbox](/api-docs/flare-core#checkbox)     |
+| [comboBox](/api-docs/flare-core#combobox-1)           | [ComboBox](/api-docs/flare-core#combobox)     |
+| [radioGroup](/api-docs/flare-core#radiogroup-1)       | [RadioGroup](/api-docs/flare-core#radiogroup) |
+| [resizableList](/api-docs/flare-core#resizablelist-1) | [Button](/api-docs/flare-core#button), [ResizableList](/api-docs/flare-core#resizablelist), [ResizableListItem](/api-docs/flare-core#resizablelistitem) |
+| [slider](/api-docs/flare-core#slider-1)               | [Slider](/api-docs/flare-core#slider)         |
+| [spinButton](/api-docs/flare-core#spinbutton-1)       | [SpinButton](/api-docs/flare-core#spinbutton) |
+| [switch_](/api-docs/flare-core#switch_)               | [Switch](/api-docs/flare-core#switch)         |
+| [textBox](/api-docs/flare-core#textbox-1)             | [TextBox](/api-docs/flare-core#textbox)       |

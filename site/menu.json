@@ -1,6 +1,7 @@
 [
   ["/getting-started", "Getting Started"],
   ["/examples", "Examples"],
-  ["/api-docs", "API"],
-  ["/embedding-in-react", "Embedding in React"]
+  ["/embedding-in-react", "Embedding in React"],
+  ["/customizing", "Customizing"],
+  ["/api-docs", "API"]
 ]
