@@ -12,7 +12,7 @@
   },
   "overrides": [
     {
-      "files": ["extracted-styles.js", "styles.ts"],
+      "files": ["*.js", "styles.ts"],
       "rules": {
         "@typescript-eslint/no-var-requires": "off"
       }

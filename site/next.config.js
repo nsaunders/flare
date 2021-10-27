@@ -1,3 +1,4 @@
+const slug = require("./rehype-slug");
 const withMDX = require("@next/mdx");
 const {
   getGlobalCssLoader,
@@ -14,7 +15,7 @@ function withDemitasse(nextConfig = {}) {
       config.module.rules.push({
         test: /\/extracted-styles\.js$/,
         sideEffects: true,
-         use: dev
+        use: dev
           ? getGlobalCssLoader(
               {
                 assetPrefix: options.config.assetPrefix,
@@ -26,9 +27,9 @@ function withDemitasse(nextConfig = {}) {
                 isDevelopment: dev,
               },
               [],
-              []
+              [],
             )
-          : [MiniCssExtractPlugin.loader, 'css-loader'],
+          : [MiniCssExtractPlugin.loader, "css-loader"],
       });
 
       config.module.rules.push({
@@ -44,7 +45,7 @@ function withDemitasse(nextConfig = {}) {
             filename: "static/css/[contenthash].css",
             chunkFilename: "static/css/[contenthash].css",
             ignoreOrder: true,
-          })
+          }),
         );
       }
 
@@ -59,34 +60,36 @@ function withDemitasse(nextConfig = {}) {
   };
 }
 
-module.exports = withDemitasse(withMDX({ extension: /\.mdx?$/ })({
-  webpack: config => ({
-    ...config,
-    module: {
-      ...config.module,
-      rules: [
-        ...config.module.rules,
-        {
-          test: /README\.md$/,
-          use: [
-            {
-              loader: "string-replace-loader",
-              options: {
-                multiple: [
-                  {
-                    search: /^#\sflare(-core)?\s+/,
-                    replace: "",
-                  },
-                  {
-                    search: "README.md",
-                    replace: "",
-                  },
-                ],
+module.exports = withDemitasse(
+  withMDX({ extension: /\.mdx?$/, options: { rehypePlugins: [slug] } })({
+    webpack: (config) => ({
+      ...config,
+      module: {
+        ...config.module,
+        rules: [
+          ...config.module.rules,
+          {
+            test: /README\.md$/,
+            use: [
+              {
+                loader: "string-replace-loader",
+                options: {
+                  multiple: [
+                    {
+                      search: /^#\sflare(-core)?\s+/,
+                      replace: "",
+                    },
+                    {
+                      search: "README.md",
+                      replace: "",
+                    },
+                  ],
+                },
               },
-            },
-          ],
-        },
-      ],
-    },
+            ],
+          },
+        ],
+      },
+    }),
   }),
-}));
+);
