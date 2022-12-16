@@ -1,6 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm run precommit -C core
-pnpm run precommit -C main
-pnpm run precommit -C site
+pnpm --recursive --if-present run precommit

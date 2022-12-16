@@ -1,6 +1,7 @@
-require("@testing-library/jest-dom/extend-expect");
+import "@testing-library/jest-dom/extend-expect";
 
 import React from "react";
+import { fireEvent } from "@testing-library/dom";
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Flare, RunFlare } from ".";
@@ -42,8 +43,10 @@ describe("checkbox", () => {
     expect(handler).toHaveBeenCalledWith(initial);
   });
 
-  it("triggers handler on change", () => {
-    checkbox && userEvent.click(checkbox);
+  it("triggers handler on change", async () => {
+    if (checkbox) {
+      await userEvent.click(checkbox);
+    }
     expect(handler).toHaveBeenLastCalledWith(!initial);
   });
 });
@@ -80,10 +83,10 @@ describe("comboBox", () => {
     );
   });
 
-  it("triggers handler on change", () => {
+  it("triggers handler on change", async () => {
     const updated = "blue";
     if (comboBox) {
-      userEvent.selectOptions(comboBox, "blue");
+      await userEvent.selectOptions(comboBox, "blue");
     }
     expect(handler).toHaveBeenLastCalledWith(updated);
   });
@@ -118,13 +121,13 @@ describe("radioGroup", () => {
     expect(handler).toHaveBeenCalledWith(initial);
   });
 
-  it("triggers handler on change", () => {
+  it("triggers handler on change", async () => {
     const updated = options[(options.indexOf(initial) + 1) % options.length];
-    radios
-      .filter(({ value }) => value === updated)
-      .forEach((radio) => {
-        userEvent.click(radio);
-      });
+    await Promise.all(
+      radios
+        .filter(({ value }) => value === updated)
+        .map((radio) => userEvent.click(radio)),
+    );
     expect(handler).toHaveBeenLastCalledWith(updated);
   });
 });
@@ -159,11 +162,10 @@ describe("slider", () => {
       expect(handler).toHaveBeenCalledWith(initial);
     });
 
-    it("triggers handler on change", () => {
+    it("triggers handler on change", async () => {
       const updated = 75;
       if (control) {
-        userEvent.clear(control);
-        userEvent.type(control, updated.toString());
+        fireEvent.change(control, { target: { value: updated } });
       }
       expect(handler).toHaveBeenLastCalledWith(updated);
     });
@@ -218,19 +220,20 @@ describe("spinButton", () => {
       expect(handler).toHaveBeenCalledWith(initial);
     });
 
-    it("triggers handler on change", () => {
-      const updated = 10;
+    it("triggers handler on change", async () => {
+      const append = 1;
       if (control) {
-        userEvent.clear(control);
-        userEvent.type(control, updated.toString());
+        await userEvent.type(control, append.toString());
       }
-      expect(handler).toHaveBeenLastCalledWith(updated);
+      expect(handler).toHaveBeenLastCalledWith(
+        parseInt(initial.toString() + append.toString()),
+      );
     });
   });
 
   describe("given min", () => {
-    const initial = 5,
-      min = 0;
+    const initial = 10,
+      min = 2;
 
     let handler: MockHandler<number>, control: HTMLInputElement | undefined;
 
@@ -243,10 +246,9 @@ describe("spinButton", () => {
       expect(control?.min).toEqual(min.toString());
     });
 
-    it("rejects value less than min", () => {
+    it("rejects value less than min", async () => {
       if (control) {
-        userEvent.clear(control);
-        userEvent.type(control, (min - 1).toString());
+        await userEvent.type(control, "{backspace}");
       }
       expect(handler).toHaveBeenLastCalledWith(initial);
     });
@@ -267,10 +269,9 @@ describe("spinButton", () => {
       expect(control?.getAttribute("max")).toEqual(max.toString());
     });
 
-    it("rejects value greater than max", () => {
+    it("rejects value greater than max", async () => {
       if (control) {
-        userEvent.clear(control);
-        userEvent.type(control, (max + 1).toString());
+        await userEvent.type(control, (max + 1).toString());
       }
       expect(handler).toHaveBeenLastCalledWith(initial);
     });
@@ -308,8 +309,10 @@ describe("switch_", () => {
     expect(handler).toHaveBeenCalledWith(initial);
   });
 
-  it("triggers handler on change", () => {
-    switch_ && userEvent.click(switch_);
+  it("triggers handler on change", async () => {
+    if (switch_) {
+      await userEvent.click(switch_);
+    }
     expect(handler).toHaveBeenLastCalledWith(!initial);
   });
 });
@@ -339,10 +342,10 @@ describe("textBox", () => {
     expect(handler).toHaveBeenCalledWith(initial);
   });
 
-  it("triggers handler on change", () => {
+  it("triggers handler on change", async () => {
     const additional = "Bar";
     if (textBox) {
-      userEvent.type(textBox, additional);
+      await userEvent.type(textBox, additional);
     }
     expect(handler).toHaveBeenLastCalledWith(initial + additional);
   });
@@ -369,11 +372,11 @@ describe("map", () => {
     expect(handler).toHaveBeenCalledWith(f(initial));
   });
 
-  it("applies the specified function to changed values", () => {
+  it("applies the specified function to changed values", async () => {
     const additional = "!";
     const control = screen.getByRole("textbox");
     if (control) {
-      userEvent.type(control, additional);
+      await userEvent.type(control, additional);
     }
     expect(handler).toHaveBeenLastCalledWith(f(initial + additional));
   });
@@ -387,14 +390,13 @@ describe("ap", () => {
     expect(handler).toHaveBeenCalledWith(f(a));
   });
 
-  it("applies the specified function to changed values", () => {
+  it("applies the specified function to changed values", async () => {
     const f = (x: number) => x * x;
     const a = 8;
     const handler = runFlare(pipe(F.of(f), F.ap(F.spinButton({ initial: 0 }))));
     const control = screen.getByRole("spinbutton");
     if (control) {
-      userEvent.clear(control);
-      userEvent.type(control, a.toString());
+      await userEvent.type(control, a.toString());
     }
     expect(handler).toHaveBeenLastCalledWith(f(a));
   });
@@ -423,10 +425,10 @@ describe("chain", () => {
     );
   });
 
-  it("triggers changes", () => {
+  it("triggers changes", async () => {
     const checkbox = screen.getByRole("checkbox");
     if (checkbox) {
-      userEvent.click(checkbox);
+      await userEvent.click(checkbox);
     }
     expect(!!screen.queryByRole("textbox")).toEqual(!initial);
     expect(handler).toHaveBeenLastCalledWith(
@@ -504,9 +506,9 @@ describe("makeFlare", () => {
     expect(handler).toHaveBeenCalledWith(initial);
   });
 
-  it("triggers handler on change", () => {
+  it("triggers handler on change", async () => {
     if (control) {
-      userEvent.click(control);
+      await userEvent.click(control);
     }
     expect(handler).toHaveBeenLastCalledWith(!initial);
   });
@@ -539,11 +541,11 @@ describe("resizableList", () => {
       expect(handler).toHaveBeenCalledWith(initials);
     });
 
-    it("triggers handler on change", () => {
+    it("triggers handler on change", async () => {
       const change = "A";
       if (controls.length) {
-        userEvent.clear(controls[0]);
-        userEvent.type(controls[0], change);
+        await userEvent.clear(controls[0]);
+        await userEvent.type(controls[0], change);
       }
       expect(handler).toHaveBeenLastCalledWith(
         [change].concat(initials.slice(1)),
@@ -637,7 +639,7 @@ describe("resizableList", () => {
     const insertionPoint = 1;
     let handler: MockHandler<boolean[]>;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       handler = runFlare(
         F.resizableList({
           item: F.checkbox({ initial: itemInitial }),
@@ -646,7 +648,7 @@ describe("resizableList", () => {
       );
       const addButtons = screen.getAllByText("+");
       if (addButtons[insertionPoint]) {
-        userEvent.click(addButtons[insertionPoint]);
+        await userEvent.click(addButtons[insertionPoint]);
       }
     });
 
@@ -678,7 +680,7 @@ describe("resizableList", () => {
     const removalPoint = 1;
     let handler: MockHandler<boolean[]>;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       handler = runFlare(
         F.resizableList({
           item: F.checkbox({ initial: false }),
@@ -687,7 +689,7 @@ describe("resizableList", () => {
       );
       const removeButtons = screen.getAllByText("-");
       if (removeButtons[removalPoint]) {
-        userEvent.click(removeButtons[removalPoint]);
+        await userEvent.click(removeButtons[removalPoint]);
       }
     });
 
@@ -717,7 +719,7 @@ describe("resizableList", () => {
     const initials = [true, true, true];
     let handler: MockHandler<boolean[]>;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       handler = runFlare(
         F.resizableList({
           item: F.checkbox({ initial: itemInitial }),
@@ -726,7 +728,7 @@ describe("resizableList", () => {
       );
       const addButtons = screen.getAllByText("+");
       if (addButtons[addButtons.length - 1]) {
-        userEvent.click(addButtons[addButtons.length - 1]);
+        await userEvent.click(addButtons[addButtons.length - 1]);
       }
     });
 
