@@ -1,24 +1,33 @@
 /* eslint-env node */
 const fs = require("fs/promises");
+const path = require("path");
 
-const file = require.resolve("typedoc-plugin-markdown/dist/theme.js");
-const original = `const reflectionId = reflection.name.toLowerCase();`;
-const patchComment = `/* patched to resolve broken links */`;
-const replacement = `${patchComment}let reflectionId = reflection.name.toLowerCase();
-            const duplicateAnchors = container.children.filter(x => x.anchor === reflectionId).length;
-            if (duplicateAnchors) {
-                reflectionId += "-" + duplicateAnchors;
-            }`;
-
-async function main() {
+// https://github.com/rollup/plugins/pull/1374
+async function patchTerserPlugin() {
+  const file = path.resolve(
+    "node_modules",
+    "@rollup",
+    "plugin-terser",
+    "dist",
+    "es",
+    "index.js",
+  );
+  const original = "__filename";
+  const patchComment = "/* Patched to support ESM */";
+  const replacement = `${patchComment}fileURLToPath(import.meta.url)`;
+  const importCode = "import { fileURLToPath } from 'url';";
   const contents = await fs.readFile(file, "utf8");
-  if (contents.includes(patchComment)) {
-    return;
-  }
   if (!contents.includes(original)) {
     throw new Error(`Patching ${file} failed: Original code not found.`);
   }
-  await fs.writeFile(file, contents.replace(original, replacement));
+  await fs.writeFile(
+    file,
+    importCode + "\n" + contents.replace(original, replacement),
+  );
+}
+
+async function main() {
+  await patchTerserPlugin();
 }
 
 main().catch((err) => {

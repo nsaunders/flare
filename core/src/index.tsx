@@ -10,7 +10,9 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { css } from "demitasse";
+import { cssExport, cssRules } from "demitasse";
+
+const cssModuleId = "flare-core";
 
 /**
  * The basic building block of a Flare UI, capable of providing a value when
@@ -458,7 +460,7 @@ export type TextBox = ComponentType<TextBoxProps>;
 /** The React component used to render a button */
 const Button: Button = (props) => <button {...props} />;
 
-const fieldStyles = /*#__PURE__*/ css("field", {
+const [fieldCSS, fieldStyles] = /*#__PURE__*/ cssRules(cssModuleId, {
   container: {
     display: "block",
     "& + &": {
@@ -519,10 +521,13 @@ const ResizableList: ResizableList = ({ children, addButton }) => (
   </div>
 );
 
-const resizableListItemStyles = /*#__PURE__*/ css("resizable-list-item", {
-  display: "flex",
-  alignItems: "center",
-});
+const [resizableListItemCSS, resizableListItemStyles] = /*#__PURE__*/ cssRules(
+  cssModuleId,
+  {
+    display: "flex",
+    alignItems: "center",
+  },
+);
 
 const ResizableListItem: ResizableListItem = ({
   addButton,
@@ -1057,15 +1062,7 @@ export function resizableList<A>(options: {
 }
 
 /** @ignore */
-export const styles = [fieldStyles, resizableListItemStyles]
-  .reduce((xs: string[], x) => {
-    switch (typeof x) {
-      case "object":
-        return xs.concat(Object.values(x));
-      case "string":
-        return xs.concat(x);
-      default:
-        return xs;
-    }
-  }, [])
-  .join("\n");
+export const css = /*#__PURE__*/ cssExport(cssModuleId, [
+  ...fieldCSS,
+  ...resizableListItemCSS,
+]);

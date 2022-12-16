@@ -13,8 +13,6 @@ require("ts-node").register({
   },
 });
 
-require("demitasse").css = require("demitasse/extract").css;
-
 const outDir = path.join(__dirname, "css");
 
 const main = async () => {
@@ -26,11 +24,25 @@ const main = async () => {
 
   await fs.mkdir(outDir);
 
-  const { css } = await postcss([autoprefixer, cssnano]).process(
-    require("./src/styles.ts").default,
-    { from: undefined },
+  const css = Object.fromEntries(
+    await Promise.all(
+      Object.entries(require("./src/styles.ts").default).map(
+        async ([name, cssIn]) => {
+          const { css } = await postcss([autoprefixer, cssnano]).process(
+            cssIn,
+            { from: undefined },
+          );
+          return [name, css];
+        },
+      ),
+    ),
   );
-  await fs.writeFile(path.join(outDir, "flare-core.css"), css);
+
+  await Promise.all(
+    Object.entries(css).map(([name, css]) => {
+      return fs.writeFile(path.join(outDir, `${name}.css`), css);
+    }),
+  );
 
   console.log("Successfully wrote CSS.");
 };
