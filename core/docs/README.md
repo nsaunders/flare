@@ -2,7 +2,7 @@
 
 ## Table of contents
 
-### Type aliases
+### Type Aliases
 
 - [Button](#button)
 - [ButtonProps](#buttonprops)
@@ -49,7 +49,7 @@
 - [switch\_](#switch_)
 - [textBox](#textbox-1)
 
-## Type aliases
+## Type Aliases
 
 ### Button
 
@@ -59,7 +59,7 @@ The React component used to render a button
 
 #### Defined in
 
-[index.tsx:300](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L300)
+[index.tsx:302](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L302)
 
 ___
 
@@ -73,13 +73,13 @@ The props of the React component used to render a button
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `children` | `ReactNode` | The content of the button |
-| `disabled?` | `boolean` | Whether the button should be disabled  **`remarks`** For example, this is used in resizable lists when adding or removing an item would exceed the minimum or maximum allowed list length. |
-| `onClick` | () => `void` | - |
+| `children` | `ReactNode` | The content of the button * |
+| `disabled?` | `boolean` | Whether the button should be disabled **`Remarks`** For example, this is used in resizable lists when adding or removing an item would exceed the minimum or maximum allowed list length. |
+| `onClick` | () => `void` | The callback to invoke when the button is clicked * |
 
 #### Defined in
 
-[index.tsx:282](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L282)
+[index.tsx:284](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L284)
 
 ___
 
@@ -91,7 +91,7 @@ The React component used to render a checkbox
 
 #### Defined in
 
-[index.tsx:315](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L315)
+[index.tsx:317](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L317)
 
 ___
 
@@ -107,11 +107,11 @@ The props of the React component used to render a checkbox
 | :------ | :------ | :------ |
 | `checked` | `boolean` | Whether the checkbox is checked |
 | `label?` | `string` | The label to display next to the checkbox |
-| `onCheckedChange` | (`checked`: `boolean`) => `void` | - |
+| `onCheckedChange` | (`checked`: `boolean`) => `void` | The callback to invoke when the checked state changes |
 
 #### Defined in
 
-[index.tsx:303](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L303)
+[index.tsx:305](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L305)
 
 ___
 
@@ -123,7 +123,7 @@ The React component used to render a combo box
 
 #### Defined in
 
-[index.tsx:333](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L333)
+[index.tsx:335](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L335)
 
 ___
 
@@ -138,13 +138,13 @@ The props of the React component used to render a combo box
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `label?` | `string` | The label to display next to the combo box |
+| `onValueChange` | (`value`: `string`) => `void` | The callback to invoke when the selected value changes |
 | `options` | `string`[] | The list of available options |
 | `value` | `string` | The selected value |
-| `onValueChange` | (`value`: `string`) => `void` | - |
 
 #### Defined in
 
-[index.tsx:318](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L318)
+[index.tsx:320](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L320)
 
 ___
 
@@ -154,23 +154,20 @@ ___
 
 A React component
 
-**`remarks`**
+**`Remarks`**
+
 This varies from the `ComponentType` alias in the `@types/react` package in
 that it does not implicitly add a `children` prop.
 
-**`typeparam`** Component props
-
-**`internal`**
-
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `P` | `Record`<`string`, `unknown`\> |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `P` | `Record`<`string`, `unknown`\> | Component props |
 
 #### Defined in
 
-[index.tsx:277](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L277)
+[index.tsx:279](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L279)
 
 ___
 
@@ -180,7 +177,9 @@ ___
 
 The React components used to render various Flares
 
-**`remarks`** These can be customized through the `components` prop of the
+**`Remarks`**
+
+These can be customized through the `components` prop of the
 [RunFlare](#runflare) component.
 
 #### Type declaration
@@ -200,7 +199,7 @@ The React components used to render various Flares
 
 #### Defined in
 
-[index.tsx:647](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L647)
+[index.tsx:652](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L652)
 
 ___
 
@@ -211,24 +210,22 @@ ___
 The basic building block of a Flare UI, capable of providing a value when
 queried and invoking some upstream handler when the value changes
 
-**`typeparam`** The value the Flare produces
-
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Description |
+| :------ | :------ |
+| `A` | The value the Flare produces |
 
 #### Type declaration
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_tag` | ``"Flare"`` | Tags the object as a Flare.  **`internal`** |
-| `make` | () => { `render`: `VoidFunctionComponent`<`Object`\> ; `query`: () => `A`  } | - |
+| `_tag` | ``"Flare"`` | Tags the object as a Flare. |
+| `make` | () => { `query`: () => `A` ; `render`: `VoidFunctionComponent`<{ `onChange`: () => `void`  }\>  } | Initializes the Flare. |
 
 #### Defined in
 
-[index.tsx:21](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L21)
+[index.tsx:23](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L23)
 
 ___
 
@@ -240,7 +237,7 @@ The React component used to render a group of radio buttons
 
 #### Defined in
 
-[index.tsx:378](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L378)
+[index.tsx:380](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L380)
 
 ___
 
@@ -255,13 +252,13 @@ The props of the React component used to render a group of radio buttons
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `label?` | `string` | The label to display next to the group of radio buttons |
+| `onValueChange` | (`value`: `string`) => `void` | The callback to invoke when the selected value changes |
 | `options` | `string`[] | The list of available options |
 | `value` | `string` | The selected value |
-| `onValueChange` | (`value`: `string`) => `void` | - |
 
 #### Defined in
 
-[index.tsx:363](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L363)
+[index.tsx:365](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L365)
 
 ___
 
@@ -273,7 +270,7 @@ The React component used to render a resizable list
 
 #### Defined in
 
-[index.tsx:345](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L345)
+[index.tsx:347](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L347)
 
 ___
 
@@ -285,7 +282,7 @@ The React component used to render a resizable list item
 
 #### Defined in
 
-[index.tsx:360](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L360)
+[index.tsx:362](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L362)
 
 ___
 
@@ -305,7 +302,7 @@ The props of the React component used to render a resizable list item
 
 #### Defined in
 
-[index.tsx:348](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L348)
+[index.tsx:350](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L350)
 
 ___
 
@@ -324,7 +321,7 @@ The props of the React component used to render a resizable list
 
 #### Defined in
 
-[index.tsx:336](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L336)
+[index.tsx:338](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L338)
 
 ___
 
@@ -334,13 +331,11 @@ ___
 
 [RunFlare](#runflare) component props
 
-**`typeparam`** The value produced by the Flare
-
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Description |
+| :------ | :------ |
+| `A` | The value produced by the Flare |
 
 #### Type declaration
 
@@ -348,11 +343,11 @@ ___
 | :------ | :------ | :------ |
 | `components?` | `Partial`<[`Components`](#components)\> | Component overrides |
 | `flare` | [`Flare`](#flare)<`A`\> | The Flare to run |
-| `handler` | (`a`: `A`) => `void` | - |
+| `handler` | (`a`: `A`) => `void` | The procedure to run when the value changes |
 
 #### Defined in
 
-[index.tsx:699](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L699)
+[index.tsx:704](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L704)
 
 ___
 
@@ -364,7 +359,7 @@ The React component used to render a slider
 
 #### Defined in
 
-[index.tsx:402](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L402)
+[index.tsx:404](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L404)
 
 ___
 
@@ -381,13 +376,13 @@ The props of the React component used to render a slider
 | `label?` | `string` | The label to display next to the slider |
 | `max?` | `number` | The maximum value that can be selected |
 | `min?` | `number` | The minimum value that can be selected |
+| `onValueChange` | (`value`: `number`) => `void` | The callback to invoke when the selected value changes |
 | `step?` | `number` | The granularity of the selected value |
 | `value` | `number` | The selected value |
-| `onValueChange` | (`value`: `number`) => `void` | - |
 
 #### Defined in
 
-[index.tsx:381](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L381)
+[index.tsx:383](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L383)
 
 ___
 
@@ -399,7 +394,7 @@ The React component used to render a spin button
 
 #### Defined in
 
-[index.tsx:426](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L426)
+[index.tsx:428](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L428)
 
 ___
 
@@ -416,13 +411,13 @@ The props of the React component used to render a spin button
 | `label?` | `string` | The label to display next to the spin button |
 | `max?` | `number` | The maximum value that can be selected |
 | `min?` | `number` | The minimum value that can be selected |
+| `onValueChange` | (`value`: `number`) => `void` | The callback to invoke when the selected value changes |
 | `step?` | `number` | The granularity of the selected value |
 | `value` | `number` | The selected value |
-| `onValueChange` | (`value`: `number`) => `void` | - |
 
 #### Defined in
 
-[index.tsx:405](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L405)
+[index.tsx:407](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L407)
 
 ___
 
@@ -434,7 +429,7 @@ The React component used to render a switch
 
 #### Defined in
 
-[index.tsx:441](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L441)
+[index.tsx:443](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L443)
 
 ___
 
@@ -450,11 +445,11 @@ The props of the React component used to render a switch
 | :------ | :------ | :------ |
 | `checked` | `boolean` | Whether the switch is toggled on |
 | `label?` | `string` | The label to display next to the switch |
-| `onCheckedChange` | (`checked`: `boolean`) => `void` | - |
+| `onCheckedChange` | (`checked`: `boolean`) => `void` | The callback to invoke when the switch is toggled |
 
 #### Defined in
 
-[index.tsx:429](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L429)
+[index.tsx:431](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L431)
 
 ___
 
@@ -466,7 +461,7 @@ The React component used to render a text box
 
 #### Defined in
 
-[index.tsx:456](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L456)
+[index.tsx:458](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L458)
 
 ___
 
@@ -481,12 +476,12 @@ The props of the React component used to render a text box
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `label?` | `string` | The label to display next to the text box |
+| `onValueChange` | (`value`: `string`) => `void` | The callback to invoke when the value changes |
 | `value` | `string` | The value |
-| `onValueChange` | (`value`: `string`) => `void` | - |
 
 #### Defined in
 
-[index.tsx:444](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L444)
+[index.tsx:446](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L446)
 
 ___
 
@@ -496,22 +491,21 @@ ___
 
 A utility type that extracts the type parameter `A` from a `Flare<A>`
 
-**`remarks`**
+**`Remarks`**
+
 A `Flare<A>` produces values of type `A`. The `A` type can sometimes be
 useful, for example to annotate function parameters where TypeScript
 struggles to infer types.
 
-**`typeparam`** The `Flare<A>` from which to extract `A`
-
 #### Type parameters
 
-| Name |
-| :------ |
-| `F` |
+| Name | Description |
+| :------ | :------ |
+| `F` | The `Flare<A>` from which to extract `A` |
 
 #### Defined in
 
-[index.tsx:57](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L57)
+[index.tsx:59](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L59)
 
 ## Functions
 
@@ -539,13 +533,13 @@ A React component that renders the specified Flare.
 
 #### Defined in
 
-[index.tsx:713](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L713)
+[index.tsx:718](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L718)
 
 ___
 
 ### ap
 
-▸ **ap**<`A`, `B`\>(`fa`): (`fab`: [`Flare`](#flare)<`fn`\>) => [`Flare`](#flare)<`B`\>
+▸ **ap**<`A`, `B`\>(`fa`): (`fab`: [`Flare`](#flare)<(`a`: `A`) => `B`\>) => [`Flare`](#flare)<`B`\>
 
 Applies a function to a value within a `Flare` context.
 
@@ -570,23 +564,19 @@ A Flare that produces the result of the function application
 
 ▸ (`fab`): [`Flare`](#flare)<`B`\>
 
-Applies a function to a value within a `Flare` context.
-
 ##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `fab` | [`Flare`](#flare)<`fn`\> | The Flare that produces the function to apply |
+| Name | Type |
+| :------ | :------ |
+| `fab` | [`Flare`](#flare)<(`a`: `A`) => `B`\> |
 
 ##### Returns
 
 [`Flare`](#flare)<`B`\>
 
-A Flare that produces the result of the function application
-
 #### Defined in
 
-[index.tsx:70](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L70)
+[index.tsx:72](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L72)
 
 ___
 
@@ -617,29 +607,25 @@ The Flare resulting from the composition
 
 ▸ (`fa`): [`Flare`](#flare)<`B`\>
 
-Composes Flares in a sequence.
-
 ##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `fa` | [`Flare`](#flare)<`A`\> | The first Flare whose value determines the second |
+| Name | Type |
+| :------ | :------ |
+| `fa` | [`Flare`](#flare)<`A`\> |
 
 ##### Returns
 
 [`Flare`](#flare)<`B`\>
 
-The Flare resulting from the composition
-
 #### Defined in
 
-[index.tsx:104](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L104)
+[index.tsx:106](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L106)
 
 ___
 
 ### checkbox
 
-▸ `Const` **checkbox**(`options`): [`Flare`](#flare)<`boolean`\>
+▸ **checkbox**(`options`): [`Flare`](#flare)<`boolean`\>
 
 Creates a Flare that renders as a checkbox control.
 
@@ -659,7 +645,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:749](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L749)
+[index.tsx:242](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L242)
 
 ___
 
@@ -690,7 +676,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:768](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L768)
+[index.tsx:773](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L773)
 
 ___
 
@@ -701,7 +687,9 @@ ___
 Combines two Flares into one, producing the value from the original Flare
 that corresponds to the boolean expression provided.
 
-**`remarks`** This is typically used with [chain](#chain).
+**`Remarks`**
+
+This is typically used with [chain](#chain).
 
 #### Type parameters
 
@@ -726,25 +714,19 @@ second Flare
 
 ▸ (`cond`): [`Flare`](#flare)<`A` \| `B`\>
 
-Combines two Flares into one, producing the value from the original Flare
-that corresponds to the boolean expression provided.
-
 ##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `cond` | `boolean` | The boolean expression used to select either the first Flare (when `true`) or the second (when `false`) |
+| Name | Type |
+| :------ | :------ |
+| `cond` | `boolean` |
 
 ##### Returns
 
 [`Flare`](#flare)<`A` \| `B`\>
 
-The first Flare when the boolean expession is `true`; otherwise, the
-second Flare
-
 #### Defined in
 
-[index.tsx:191](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L191)
+[index.tsx:193](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L193)
 
 ___
 
@@ -754,11 +736,11 @@ ___
 
 Turns an ordinary React component into a function that produces a Flare.
 
-**`remarks`** This is primarily intended for internal use. Before creating custom
+**`Remarks`**
+
+This is primarily intended for internal use. Before creating custom
 Flares, consider using CSS to customize existing elements or using the
 `components` prop of [RunFlare](#runflare).
-
-**`experimental`**
 
 #### Type parameters
 
@@ -771,7 +753,7 @@ Flares, consider using CSS to customize existing elements or using the
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `Component` | (`props`: `Omit`<`O`, ``"initial"``\> & { `value`: `A` ; `onChange`: (`value`: `A`) => `void`  }) => `Element` | The React component to turn into a Flare |
+| `Component` | (`props`: `Omit`<`O`, ``"initial"``\> & { `onChange`: (`value`: `A`) => `void` ; `value`: `A`  }) => `Element` | The React component to turn into a Flare |
 
 #### Returns
 
@@ -793,7 +775,7 @@ A Flare that renders as the provided React component
 
 #### Defined in
 
-[index.tsx:235](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L235)
+[index.tsx:237](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L237)
 
 ___
 
@@ -824,23 +806,19 @@ A Flare that produces the result of the function application
 
 ▸ (`fa`): [`Flare`](#flare)<`B`\>
 
-Applies a function to a Flare to change its output.
-
 ##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `fa` | [`Flare`](#flare)<`A`\> | The original Flare |
+| Name | Type |
+| :------ | :------ |
+| `fa` | [`Flare`](#flare)<`A`\> |
 
 ##### Returns
 
 [`Flare`](#flare)<`B`\>
 
-A Flare that produces the result of the function application
-
 #### Defined in
 
-[index.tsx:142](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L142)
+[index.tsx:144](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L144)
 
 ___
 
@@ -851,7 +829,9 @@ ___
 Combines multiple Flares into one, producing the value from the original Flare
 that corresponds to the expression provided.
 
-**`remarks`** This is typically used with [chain](#chain).
+**`Remarks`**
+
+This is typically used with [chain](#chain).
 
 #### Type parameters
 
@@ -874,7 +854,7 @@ specified `key`
 
 #### Defined in
 
-[index.tsx:211](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L211)
+[index.tsx:213](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L213)
 
 ___
 
@@ -904,7 +884,7 @@ A Flare that produces the specified value `a`
 
 #### Defined in
 
-[index.tsx:164](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L164)
+[index.tsx:166](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L166)
 
 ___
 
@@ -935,7 +915,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:810](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L810)
+[index.tsx:815](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L815)
 
 ___
 
@@ -969,13 +949,13 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:983](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L983)
+[index.tsx:988](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L988)
 
 ___
 
 ### slider
 
-▸ `Const` **slider**(`options`): [`Flare`](#flare)<`number`\>
+▸ **slider**(`options`): [`Flare`](#flare)<`number`\>
 
 Creates a Flare that renders as a slider.
 
@@ -998,13 +978,13 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:853](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L853)
+[index.tsx:242](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L242)
 
 ___
 
 ### spinButton
 
-▸ `Const` **spinButton**(`options`): [`Flare`](#flare)<`number`\>
+▸ **spinButton**(`options`): [`Flare`](#flare)<`number`\>
 
 Creates a Flare that renders as a spin button.
 
@@ -1027,13 +1007,13 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:889](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L889)
+[index.tsx:242](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L242)
 
 ___
 
 ### switch\_
 
-▸ `Const` **switch_**(`options`): [`Flare`](#flare)<`boolean`\>
+▸ **switch_**(`options`): [`Flare`](#flare)<`boolean`\>
 
 Creates a Flare that renders as a switch.
 
@@ -1053,13 +1033,13 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:922](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L922)
+[index.tsx:242](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L242)
 
 ___
 
 ### textBox
 
-▸ `Const` **textBox**(`options`): [`Flare`](#flare)<`string`\>
+▸ **textBox**(`options`): [`Flare`](#flare)<`string`\>
 
 Creates a Flare that renders as a text box.
 
@@ -1080,4 +1060,4 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:939](https://github.com/nsaunders/flare/blob/6dffbfa/core/src/index.tsx#L939)
+[index.tsx:242](https://github.com/nsaunders/flare/blob/528cf19/core/src/index.tsx#L242)

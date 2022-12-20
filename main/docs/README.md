@@ -2,7 +2,7 @@
 
 ## Table of contents
 
-### Type aliases
+### Type Aliases
 
 - [Flare](#flare)
 - [Unflare](#unflare)
@@ -26,7 +26,7 @@
 - [switch\_](#switch_)
 - [textBox](#textbox)
 
-## Type aliases
+## Type Aliases
 
 ### Flare
 
@@ -35,20 +35,18 @@
 The basic building block of a Flare UI, capable of providing a value when
 queried and invoking some upstream handler when the value changes
 
-**`typeparam`** The value the Flare produces
-
 #### Type parameters
 
-| Name |
-| :------ |
-| `A` |
+| Name | Description |
+| :------ | :------ |
+| `A` | The value the Flare produces |
 
 #### Type declaration
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `_tag` | ``"Flare"`` | Tags the object as a Flare.  **`internal`** |
-| `make` | () => { `render`: `VoidFunctionComponent`<`Object`\> ; `query`: () => `A`  } | - |
+| `_tag` | ``"Flare"`` | Tags the object as a Flare. |
+| `make` | () => { `query`: () => `A` ; `render`: `VoidFunctionComponent`<{ `onChange`: () => `void`  }\>  } | Initializes the Flare. |
 
 ___
 
@@ -58,24 +56,23 @@ ___
 
 A utility type that extracts the type parameter `A` from a `Flare<A>`
 
-**`remarks`**
+**`Remarks`**
+
 A `Flare<A>` produces values of type `A`. The `A` type can sometimes be
 useful, for example to annotate function parameters where TypeScript
 struggles to infer types.
 
-**`typeparam`** The `Flare<A>` from which to extract `A`
-
 #### Type parameters
 
-| Name |
-| :------ |
-| `F` |
+| Name | Description |
+| :------ | :------ |
+| `F` | The `Flare<A>` from which to extract `A` |
 
 ## Functions
 
 ### ap
 
-▸ **ap**<`A`, `B`\>(`fa`): (`fab`: [`Flare`](#flare)<`fn`\>) => [`Flare`](#flare)<`B`\>
+▸ **ap**<`A`, `B`\>(`fa`): (`fab`: [`Flare`](#flare)<(`a`: `A`) => `B`\>) => [`Flare`](#flare)<`B`\>
 
 Applies a function to a value within a `Flare` context.
 
@@ -100,19 +97,15 @@ A Flare that produces the result of the function application
 
 ▸ (`fab`): [`Flare`](#flare)<`B`\>
 
-Applies a function to a value within a `Flare` context.
-
 ##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `fab` | [`Flare`](#flare)<`fn`\> | The Flare that produces the function to apply |
+| Name | Type |
+| :------ | :------ |
+| `fab` | [`Flare`](#flare)<(`a`: `A`) => `B`\> |
 
 ##### Returns
 
 [`Flare`](#flare)<`B`\>
-
-A Flare that produces the result of the function application
 
 ___
 
@@ -143,25 +136,21 @@ The Flare resulting from the composition
 
 ▸ (`fa`): [`Flare`](#flare)<`B`\>
 
-Composes Flares in a sequence.
-
 ##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `fa` | [`Flare`](#flare)<`A`\> | The first Flare whose value determines the second |
+| Name | Type |
+| :------ | :------ |
+| `fa` | [`Flare`](#flare)<`A`\> |
 
 ##### Returns
 
 [`Flare`](#flare)<`B`\>
 
-The Flare resulting from the composition
-
 ___
 
 ### checkbox
 
-▸ `Const` **checkbox**(`options`): [`Flare`](#flare)<`boolean`\>
+▸ **checkbox**(`options`): [`Flare`](#flare)<`boolean`\>
 
 Creates a Flare that renders as a checkbox control.
 
@@ -215,7 +204,9 @@ ___
 Combines two Flares into one, producing the value from the original Flare
 that corresponds to the boolean expression provided.
 
-**`remarks`** This is typically used with [chain](#chain).
+**`Remarks`**
+
+This is typically used with [chain](#chain).
 
 #### Type parameters
 
@@ -240,21 +231,15 @@ second Flare
 
 ▸ (`cond`): [`Flare`](#flare)<`A` \| `B`\>
 
-Combines two Flares into one, producing the value from the original Flare
-that corresponds to the boolean expression provided.
-
 ##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `cond` | `boolean` | The boolean expression used to select either the first Flare (when `true`) or the second (when `false`) |
+| Name | Type |
+| :------ | :------ |
+| `cond` | `boolean` |
 
 ##### Returns
 
 [`Flare`](#flare)<`A` \| `B`\>
-
-The first Flare when the boolean expession is `true`; otherwise, the
-second Flare
 
 ___
 
@@ -285,19 +270,15 @@ A Flare that produces the result of the function application
 
 ▸ (`fa`): [`Flare`](#flare)<`B`\>
 
-Applies a function to a Flare to change its output.
-
 ##### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `fa` | [`Flare`](#flare)<`A`\> | The original Flare |
+| Name | Type |
+| :------ | :------ |
+| `fa` | [`Flare`](#flare)<`A`\> |
 
 ##### Returns
 
 [`Flare`](#flare)<`B`\>
-
-A Flare that produces the result of the function application
 
 ___
 
@@ -308,7 +289,9 @@ ___
 Combines multiple Flares into one, producing the value from the original Flare
 that corresponds to the expression provided.
 
-**`remarks`** This is typically used with [chain](#chain).
+**`Remarks`**
+
+This is typically used with [chain](#chain).
 
 #### Type parameters
 
@@ -462,7 +445,7 @@ ___
 
 ### slider
 
-▸ `Const` **slider**(`options`): [`Flare`](#flare)<`number`\>
+▸ **slider**(`options`): [`Flare`](#flare)<`number`\>
 
 Creates a Flare that renders as a slider.
 
@@ -487,7 +470,7 @@ ___
 
 ### spinButton
 
-▸ `Const` **spinButton**(`options`): [`Flare`](#flare)<`number`\>
+▸ **spinButton**(`options`): [`Flare`](#flare)<`number`\>
 
 Creates a Flare that renders as a spin button.
 
@@ -512,7 +495,7 @@ ___
 
 ### switch\_
 
-▸ `Const` **switch_**(`options`): [`Flare`](#flare)<`boolean`\>
+▸ **switch_**(`options`): [`Flare`](#flare)<`boolean`\>
 
 Creates a Flare that renders as a switch.
 
@@ -534,7 +517,7 @@ ___
 
 ### textBox
 
-▸ `Const` **textBox**(`options`): [`Flare`](#flare)<`string`\>
+▸ **textBox**(`options`): [`Flare`](#flare)<`string`\>
 
 Creates a Flare that renders as a text box.
 
