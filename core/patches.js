@@ -18,7 +18,7 @@ async function patchTerserPlugin() {
   const importCode = "import { fileURLToPath } from 'url';";
   const contents = await fs.readFile(file, "utf8");
   if (!contents.includes(original)) {
-    throw new Error(`Patching ${file} failed: Original code not found.`);
+    console.warn(`Patching ${file} failed: Original code not found.`);
   }
   await fs.writeFile(
     file,
