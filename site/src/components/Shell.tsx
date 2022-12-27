@@ -176,9 +176,17 @@ function Intro({
       </Logo>
       <Description>Applicative-style UIs in TypeScript</Description>
       <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
-        <Button motif="primary" size="large">
-          Get started
-        </Button>
+        <Link legacyBehavior href="/getting-started">
+          <Button
+            motif="primary"
+            size="large"
+            grow
+            as="a"
+            style={{ cursor: "pointer" }}
+          >
+            Get started
+          </Button>
+        </Link>
         <Install packageName="flare" />
       </div>
     </IntroWrap>
