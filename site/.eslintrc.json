@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "flare-react",
+    "flare-typescript",
+    "flare-react-typescript",
+    "flare-prettier"
+  ],
+  "rules": {
+    "@next/next/no-html-link-for-pages": ["error", "src/pages"],
+    "react/react-in-jsx-scope": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.js", "styles.ts"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
+}
