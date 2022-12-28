@@ -48,13 +48,17 @@ const MenuLinkContent = styled.a<{ active: boolean }>`
   display: inline-block;
   padding: 8px 16px;
   cursor: ${({ active }) => (active ? "default" : "pointer")};
+  outline: none;
+  &:focus {
+    text-decoration: ${({ active }) => (active ? "none" : "underline")};
+  }
 `;
 
 function MenuLink({ href, children }: { href: string; children: string }) {
   const { pathname } = useRouter();
   return (
     <Link legacyBehavior href={href}>
-      <MenuLinkContent active={pathname.startsWith(href)}>
+      <MenuLinkContent href="" active={pathname.startsWith(href)}>
         {children}
       </MenuLinkContent>
     </Link>
