@@ -219,6 +219,24 @@ export default function Shell({ children }: { children?: ReactNode }) {
     };
   }, [menuOpen, toggleMenu, router]);
 
+  const [logoTop, setLogoTop] = useState(0);
+
+  useEffect(() => {
+    const listener = () => {
+      setLogoTop(
+        (isDefaultRoute
+          ? introLogoMarker
+          : headingLogoMarker
+        )?.getBoundingClientRect()?.top || 0,
+      );
+    };
+    listener();
+    window.addEventListener("resize", listener);
+    return () => {
+      window.removeEventListener("resize", listener);
+    };
+  }, [isDefaultRoute, introLogoMarker, headingLogoMarker]);
+
   return (
     <Layout>
       <MenuDrawer open={menuOpen}>
@@ -241,11 +259,7 @@ export default function Shell({ children }: { children?: ReactNode }) {
           style={{
             textAlign: "center",
             position: "absolute",
-            top:
-              (isDefaultRoute
-                ? introLogoMarker
-                : headingLogoMarker
-              )?.getBoundingClientRect?.()?.top || 0,
+            top: logoTop,
             right: 64,
             left: 64,
             transitionProperty: "top,font-size",
