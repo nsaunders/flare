@@ -101,7 +101,11 @@ const TextWrap = styled.div<TextWrapProps>`
   ${({ size }) => `
     padding-top: ${size === "medium" ? 5 : 7}px;
     padding-bottom: ${size === "medium" ? 5 : 7}px;
-  `}/* :not(:first-child) { margin-left: 8px } TODO */
+
+    .icon ~ & {
+      margin-left: 8px;
+    }
+  `}
 `;
 
 type Icon = FC<{ size?: "small" | "medium" }>;
@@ -126,7 +130,7 @@ export default function Button({
   ...restProps
 }: ButtonProps) {
   const iconContent = Icon && (
-    <IconWrap size={size}>
+    <IconWrap className="icon" size={size}>
       <Icon size="small" />
     </IconWrap>
   );

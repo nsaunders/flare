@@ -1,0 +1,36 @@
+import Link from "next/link";
+import Button from "../components/Button";
+import Doc from "../components/Doc";
+import Install from "../components/Install";
+import LaunchIcon from "../components/LaunchIcon";
+import SmartHead from "../components/SmartHead";
+
+export const meta = {
+  title: "Getting Started",
+  description: "Start building applicative-style UIs in TypeScript using Flare.",
+};
+
+# Getting Started
+
+## Browser
+
+Each live demo featured on the [Examples](/examples) page can be used as the
+starting point for a [CodeSandbox](https://codesandbox.io/) project, allowing
+you to experiment with Flare directly in the web browser. Click on the pencil
+icon next to a demo to get started.
+
+<Link href="/examples" legacyBehavior>
+  <Button as="a" href="" motif="basic" size="large" icon={LaunchIcon}>Examples</Button>
+</Link>
+
+-----
+
+## Local Installation
+
+Install Flare using your choice of NPM, Yarn, or an equivalent package manager.
+
+<Install packageName="flare" />
+
+export default ({ children }) => (
+  <Doc {...meta}>{children}</Doc>
+);

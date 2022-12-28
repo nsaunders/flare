@@ -11,10 +11,14 @@
   "devDependencies": {
     "@fontsource/courier-prime": "^4.5.9",
     "@fontsource/gruppo": "^4.5.9",
+    "@mdx-js/loader": "^2.2.1",
+    "@mdx-js/react": "^2.2.1",
+    "@next/mdx": "^13.1.1",
     "@tsconfig/next": "^1.0.4",
     "@types/node": "^18.11.15",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
+    "@types/react-syntax-highlighter": "^15.5.5",
     "@types/styled-components": "^5.1.26",
     "eslint": "^8.29.0",
     "eslint-config-flare-prettier": "workspace:*",
@@ -36,8 +40,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
+    "react-syntax-highlighter": "^15.5.0",
     "styled-components": "^5.3.6",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0"
   },
   "dependencies": {
     "@fontsource/lato": "^4.5.10"
