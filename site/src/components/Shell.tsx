@@ -16,6 +16,7 @@ const Layout = styled.div`
 `;
 
 const MainColumn = styled.div`
+  overflow-y: auto;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -136,7 +137,6 @@ function AppBarContent({
 }
 
 const Main = styled.div`
-  overflow-y: auto;
   flex: 1;
   position: relative;
 `;
