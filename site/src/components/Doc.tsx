@@ -46,6 +46,7 @@ const ContentWrap = styled.div`
   }
   & table th,
   & table td {
+    text-align: start;
     padding-top: 2px;
     padding-right: 8px;
     padding-bottom: 2px;
@@ -64,7 +65,7 @@ const mdxComponents: Exclude<
   undefined
 > = {
   code({ children, ref, ...restProps }) {
-    if (typeof children === "string") {
+    if (typeof children === "string" && children.includes("\n")) {
       return (
         <Code ref={ref as Ref<HTMLDivElement>} {...restProps}>
           {children}

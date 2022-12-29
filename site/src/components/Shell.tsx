@@ -78,6 +78,15 @@ function Menu() {
         <li>
           <MenuLink href="/examples">Examples</MenuLink>
         </li>
+        <li>
+          <MenuLink href="/embedding-in-react">Embedding in React</MenuLink>
+        </li>
+        <li>
+          <MenuLink href="/customizing">Customizing</MenuLink>
+        </li>
+        <li>
+          <MenuLink href="https://github.com/nsaunders/flare">GitHub</MenuLink>
+        </li>
       </ul>
     </nav>
   );

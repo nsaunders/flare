@@ -1,3 +1,6 @@
+import mkWithMDX from "@next/mdx";
+import remarkGFM from "remark-gfm";
+
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
@@ -5,12 +8,12 @@ const nextConfig = {
   swcMinify: true,
 };
 
-const withMDX = require("@next/mdx")({
+const withMDX = mkWithMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [],
+    remarkPlugins: [ remarkGFM ],
     rehypePlugins: [],
   },
 });
 
-module.exports = withMDX(nextConfig);
+export default withMDX(nextConfig);
