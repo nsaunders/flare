@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ReactNode, useEffect, useMemo, useReducer, useState } from "react";
+import {
+  ComponentProps,
+  ReactNode,
+  forwardRef,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from "react";
 import styled, { useTheme } from "styled-components";
 import Button from "./Button";
 import Install from "./Install";
@@ -190,15 +198,17 @@ function Intro({
       <Description>Applicative-style UIs in TypeScript</Description>
       <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
         <Link legacyBehavior href="/getting-started">
-          <Button
-            motif="primary"
-            size="large"
-            grow
-            as="a"
-            style={{ cursor: "pointer" }}
-          >
-            Get started
-          </Button>
+          <a style={{ textDecoration: "none" }}>
+            <Button
+              as="div"
+              motif="primary"
+              size="large"
+              grow
+              style={{ cursor: "pointer" }}
+            >
+              Get started
+            </Button>
+          </a>
         </Link>
         <Install packageName="flare" />
       </div>

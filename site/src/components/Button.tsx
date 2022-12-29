@@ -13,11 +13,11 @@ const ButtonContainer = styled.button<ButtonContainerProps>`
   justify-content: center;
   appearance: none;
   outline: none;
-  text-decoration: none;
   margin: 0;
   border-radius: 4px;
   font-family: "Lato";
   line-height: 1;
+  text-decoration: none;
   background: ${({ theme: { bg } }) => bg()};
   color: ${({ theme: { fg } }) => fg()};
   padding-top: 0;
