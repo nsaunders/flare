@@ -1,5 +1,5 @@
 import { Ref, forwardRef } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
+import SyntaxHighlighter from "react-syntax-highlighter/dist/cjs/prism";
 import styled from "styled-components";
 
 const Surface = styled.div`
@@ -56,11 +56,12 @@ const Code = forwardRef<HTMLElement, { children: string; className?: string }>(
       : "typescript";
 
     return (
-      <Surface ref={ref}>
+      <Surface ref={ref as Ref<HTMLDivElement>}>
         <SyntaxHighlighter
           language={lang}
           useInlineStyles={false}
           CodeTag={InnerCode}
+          codeTagProps={{ style: {} }}
         >
           {code
             .split("\n")
