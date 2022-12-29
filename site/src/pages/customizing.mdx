@@ -1,3 +1,4 @@
+import CodeSandboxExample from "../components/CodeSandboxExample";
 import Doc from "../components/Doc";
 import SmartHead from "../components/SmartHead";
 
@@ -74,6 +75,13 @@ function App() {
 
 Note that, as demonstrated above, components must be defined outside of the
 render function that instantiates `RunFlare` to avoid rendering issues.
+
+## Example
+
+A complete example of a Flare UI rendered using custom components is available
+on GitHub. You can also click the button below to launch it in CodeSandbox.
+
+<CodeSandboxExample id="custom-components" />
 
 export default ({ children }) => (
   <Doc {...meta}>{children}</Doc>
