@@ -1,16 +1,14 @@
 {
   "extends": "@tsconfig/next",
   "compilerOptions": {
-    "strict": true,
-    "jsx": "preserve"
+    "target": "es2015",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/public/*": ["./public/*"]
+    },
+    "resolveJsonModule": true
   },
-  "include": [
-    "mdx.d.ts",
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

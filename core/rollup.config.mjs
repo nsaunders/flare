@@ -1,5 +1,4 @@
 import commonjs from "@rollup/plugin-commonjs";
-import resolve from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
 import terser from "@rollup/plugin-terser";
 import pkg from "./package.json" assert { type: "json" };
@@ -19,7 +18,6 @@ export default {
   external: ["react"],
   plugins: [
     commonjs(),
-    resolve({ include: "node_modules/demitasse/**" }),
     typescript({ sourceMap: true, target: "es5" }),
   ],
   output: [

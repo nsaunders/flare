@@ -10,9 +10,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { cssExport, cssRules } from "demitasse";
-
-const cssModuleId = "flare-core";
 
 /**
  * The basic building block of a Flare UI, capable of providing a value when
@@ -460,24 +457,32 @@ export type TextBox = ComponentType<TextBoxProps>;
 /** The React component used to render a button */
 const Button: Button = (props) => <button {...props} />;
 
-const [fieldCSS, fieldStyles] = /*#__PURE__*/ cssRules(cssModuleId, {
-  container: {
-    display: "block",
-    "& + &": {
-      marginTop: 8,
-    },
-  },
-  label: {
-    display: "inline-block",
-    minWidth: 150,
-    "&:empty": {
-      display: "none",
-    },
-  },
-  value: {
-    display: "inline-block",
-  },
-});
+const fieldCSS = `
+  .flare-field__container {
+    display: block;
+  }
+  .flare-field__container + .flare-field__container {
+    margin-top: 8px;
+  }
+
+  .flare-field__label {
+    display: inline-block;
+    min-width: 150px;
+  }
+  .flare-field__label:empty {
+    display: none;
+  }
+
+  .flare-field__value {
+    display: inline-block;
+  }
+`;
+
+const fieldStyles = {
+  container: "flare-field__container",
+  label: "flare-field__label",
+  value: "flare-field__value",
+};
 
 const Checkbox: Checkbox = ({ label, checked, onCheckedChange }) => (
   <label className={fieldStyles.container}>
@@ -521,13 +526,14 @@ const ResizableList: ResizableList = ({ children, addButton }) => (
   </div>
 );
 
-const [resizableListItemCSS, resizableListItemStyles] = /*#__PURE__*/ cssRules(
-  cssModuleId,
-  {
-    display: "flex",
-    alignItems: "center",
-  },
-);
+const resizableListItemCSS = `
+  .flare-resizable-list-item {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const resizableListItemStyles = "flare-resizable-list-item";
 
 const ResizableListItem: ResizableListItem = ({
   addButton,
@@ -1062,7 +1068,7 @@ export function resizableList<A>(options: {
 }
 
 /** @ignore */
-export const css = /*#__PURE__*/ cssExport(cssModuleId, [
-  ...fieldCSS,
-  ...resizableListItemCSS,
-]);
+export const css = `
+  ${fieldCSS}
+  ${resizableListItemCSS}
+`;

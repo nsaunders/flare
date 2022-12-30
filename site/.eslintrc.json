@@ -7,7 +7,7 @@
     "flare-prettier"
   ],
   "rules": {
-    "@next/next/no-html-link-for-pages": ["error", "site/pages"],
+    "@next/next/no-html-link-for-pages": ["error", "src/pages"],
     "react/react-in-jsx-scope": "off"
   },
   "overrides": [

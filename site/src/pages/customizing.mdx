@@ -1,0 +1,88 @@
+import CodeSandboxExample from "../components/CodeSandboxExample";
+import Doc from "../components/Doc";
+import SmartHead from "../components/SmartHead";
+
+export const meta = {
+  title: "Customizing",
+  description: "Give your Flare UI a custom look and feel.",
+};
+
+# Customizing
+
+Flare supports two approaches to customizing UI elements. One option is to use
+CSS to change the appearance of Flare's default markup. The other option is to
+render entirely different HTML by plugging in custom React components.
+
+## CSS
+
+When customization requirements are minimal, the CSS approach may be sufficient.
+First, it is recommended to import the included CSS file (under
+`./node_modules/flare/css/flare.css` or
+`./node_modules/flare-core/css/flare-core.css`). From there, a
+[classless CSS framework](https://github.com/dbohdan/classless-css) may be a
+good option. Otherwise, you can inspect the HTML structure of the rendered Flare
+UI and add your own custom CSS as needed.
+
+Note that the `flare` package only supports the CSS approach. For more advanced
+use cases, you will need to install `flare-core` instead and proceed to the next
+section.
+
+## Custom Components
+
+The [`RunFlare`](/api-docs/flare-core#runflare) component, available in the
+`flare-core` package, offers full control over how the Flare UI is rendered
+through its `components` prop, which allows any of the following components to
+be overridden:
+
+| Component                                                   | Used in Flare                                         |
+| ----------------------------------------------------------- | ----------------------------------------------------- |
+| [Button](/api-docs/flare-core#button)                       | [resizableList](/api-docs/flare-core#resizablelist-1) |
+| [Checkbox](/api-docs/flare-core#checkbox)                   | [checkbox](/api-docs/flare-core#checkbox-1)           |
+| [ComboBox](/api-docs/flare-core#combobox)                   | [comboBox](/api-docs/flare-core#combobox-1)           |
+| [RadioGroup](/api-docs/flare-core#radiogroup)               | [radioGroup](/api-docs/flare-core#radiogroup-1)       |
+| [ResizableList](/api-docs/flare-core#resizablelist)         | [resizableList](/api-docs/flare-core#resizablelist-1) |
+| [ResizableListItem](/api-docs/flare-core#resizablelistitem) | [resizableList](/api-docs/flare-core#resizablelist-1) |
+| [Slider](/api-docs/flare-core#slider)                       | [slider](/api-docs/flare-core#slider-1)               |
+| [SpinButton](/api-docs/flare-core#spinbutton)               | [spinButton](/api-docs/flare-core#spinbutton-1)       |
+| [Switch](/api-docs/flare-core#switch)                       | [switch_](/api-docs/flare-core#switch_)               |
+| [TextBox](/api-docs/flare-core#textbox)                     | [textBox](/api-docs/flare-core#textbox-1)             |
+
+The `components` prop accepts a record optionally containing any number of these
+components. For example, the `TextBox` component could be overridden as follows:
+
+```typescript
+const components = {
+  TextBox: ({ label, value, onValueChange }) => (
+    <label>
+      {label}
+      <input
+        type="text"
+        value={value}
+        onChange={e => onValueChange(e.target.value)} />
+    </label>
+  )
+};
+
+function App() {
+  return (
+    <RunFlare
+      flare={/* ... */}
+      handler={/* ... */}
+      components={components} />
+  );
+}
+```
+
+Note that, as demonstrated above, components must be defined outside of the
+render function that instantiates `RunFlare` to avoid rendering issues.
+
+## Example
+
+A complete example of a Flare UI rendered using custom components is available
+on GitHub. You can also click the button below to launch it in CodeSandbox.
+
+<CodeSandboxExample id="custom-components" />
+
+export default ({ children }) => (
+  <Doc {...meta}>{children}</Doc>
+);
