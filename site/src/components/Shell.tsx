@@ -46,7 +46,7 @@ const MenuDrawer = styled.div<{ open?: boolean }>`
   transition-duration: 250ms;
 `;
 
-const MenuLinkContent = styled.a<{ active: boolean }>`
+const MenuLinkContent = styled.a<{ active?: boolean }>`
   width: 100%;
   font-family: "Lato";
   font-size: 16px;
@@ -93,7 +93,9 @@ function Menu() {
           <MenuLink href="/customizing">Customizing</MenuLink>
         </li>
         <li>
-          <MenuLink href="https://github.com/nsaunders/flare">GitHub</MenuLink>
+          <MenuLinkContent href="https://github.com/nsaunders/flare">
+            GitHub
+          </MenuLinkContent>
         </li>
       </ul>
     </nav>
