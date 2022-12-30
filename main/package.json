@@ -1,6 +1,6 @@
 {
   "name": "flare",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Applicative-style UIs",
   "main": "cjs/index.js",
   "module": "esm/index.js",
@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/nsaunders/flare#readme",
   "dependencies": {
-    "flare-core": "workspace:0.2.1",
+    "flare-core": "workspace:0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

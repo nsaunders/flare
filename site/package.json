@@ -1,6 +1,6 @@
 {
   "name": "site",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -30,8 +30,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "flare": "workspace:0.2.1",
-    "flare-core": "workspace:0.2.1",
+    "flare": "workspace:0.3.0",
+    "flare-core": "workspace:0.3.0",
     "fp-ts": "^2.13.1",
     "fp-ts-std": "^0.15.1",
     "framer-motion": "^8.0.2",
