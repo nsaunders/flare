@@ -1,0 +1,26 @@
+# API
+
+Flare is offered in two packages. Both provide the same support for building
+[applicative](https://en.wikipedia.org/wiki/Applicative_functor)-style user
+interfaces as shown on the [Examples](/examples) page; however, they differ in
+how these UIs are rendered. [flare](/api-docs/flare) offers a more
+narrowly-focused API surface, while [flare-core](/api-docs/flare-core) provides
+greater flexibility.
+
+## flare
+
+This package re-exports a subset of flare-core and is the best choice for use
+cases with minimal customization requirements. The
+[`runFlare`](/api-docs/flare#runflare) or
+[`runFlareWith`](/api-docs/flare#runflarewith) procedures can be used to render
+the UI. CSS is the recommended approach to customizing the appearance of various
+UI elements.
+
+## flare-core
+
+The flare-core package provides applicative UI building blocks along with
+additional APIs that allow the rendered markup to be customized. The
+[`RunFlare`](/api-docs/flare-core#runflare)
+[React](https://reactjs.org/) component can be used to render the UI, with its
+`components` prop allowing various elements to be overridden using custom React
+components.

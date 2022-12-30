@@ -93,6 +93,9 @@ function Menu() {
           <MenuLink href="/customizing">Customizing</MenuLink>
         </li>
         <li>
+          <MenuLink href="/api-docs">API</MenuLink>
+        </li>
+        <li>
           <MenuLinkContent href="https://github.com/nsaunders/flare">
             GitHub
           </MenuLinkContent>
