@@ -1,4 +1,3 @@
-import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import terser from "@rollup/plugin-terser";
 import pkg from "./package.json" assert { type: "json" };
@@ -17,7 +16,6 @@ export default {
   input: "./src/index.tsx",
   external: ["react"],
   plugins: [
-    commonjs(),
     typescript({ sourceMap: true, target: "es5" }),
   ],
   output: [
@@ -25,7 +23,7 @@ export default {
     {
       ...umd,
       file: umd.file.replace(/\.js$/, ".min.js"),
-      plugins: [terser()],
+      plugins: [], //[terser()],
     },
   ],
 };

@@ -9,7 +9,6 @@
   "style": "css/flare-core.css",
   "scripts": {
     "docs": "typedoc src/index.tsx && replace '\\(README\\.md#' '(#' docs/README.md",
-    "postinstall": "node patches.js",
     "precommit": "lint-staged",
     "prepublishOnly": "node -e \"['cjs', 'css', 'esm', 'types'].forEach(x => {try{require('fs').rmSync(x, { recursive: true })}catch(_){}})\" && node css && tsc --project tsconfig.types.json && tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && rollup -c",
     "test": "jest"
@@ -34,7 +33,6 @@
   },
   "homepage": "https://github.com/nsaunders/flare#readme",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-terser": "^0.2.1",
     "@rollup/plugin-typescript": "^10.0.1",
     "@testing-library/dom": "^8.19.1",
