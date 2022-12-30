@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import type { ReactElement } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
 import Mode from "@/components/Mode";
@@ -36,22 +37,29 @@ export default function App({ Component, pageProps }: AppProps & Layout) {
   const { asPath: key } = useRouter();
 
   return (
-    <Mode>
-      <Shell>
-        <AnimatePresence initial={false} mode="wait">
-          {getLayout(
-            <motion.div
-              key={key}
-              variants={motionVariants}
-              initial="out"
-              animate="in"
-              exit="out"
-            >
-              <Component {...pageProps} />
-            </motion.div>,
-          )}
-        </AnimatePresence>
-      </Shell>
-    </Mode>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+      </Head>
+      <Mode>
+        <Shell>
+          <AnimatePresence initial={false} mode="wait">
+            {getLayout(
+              <motion.div
+                key={key}
+                variants={motionVariants}
+                initial="out"
+                animate="in"
+                exit="out"
+              >
+                <Component {...pageProps} />
+              </motion.div>,
+            )}
+          </AnimatePresence>
+        </Shell>
+      </Mode>
+    </>
   );
 }
