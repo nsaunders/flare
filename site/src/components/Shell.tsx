@@ -1,14 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {
-  ComponentProps,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useMemo,
-  useReducer,
-  useState,
-} from "react";
+import { ReactNode, useEffect, useMemo, useReducer, useState } from "react";
 import styled, { useTheme } from "styled-components";
 import Button from "./Button";
 import Install from "./Install";

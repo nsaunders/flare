@@ -1,3 +1,4 @@
-.next
-node_modules
-tsconfig.tsbuildinfo
+/.next
+/node_modules
+/out
+/tsconfig.tsbuildinfo

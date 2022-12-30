@@ -61,7 +61,7 @@ const Input: <E extends ElementType = typeof defaultElement>(
   E extends ElementType = typeof defaultElement,
 >({ className, ...restProps }: InputProps<E>, ref: typeof restProps.ref) {
   return (
-    <Wrap>
+    <Wrap className={className}>
       <Control as={defaultElement} {...restProps} ref={ref} />
       {restProps.as === "select" && <Arrow />}
     </Wrap>

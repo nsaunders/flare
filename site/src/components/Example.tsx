@@ -420,12 +420,13 @@ function useMeasure(): [
     el && setRect(el.getBoundingClientRect());
   }, [el]);
 
+  const windowType = typeof window;
   const resizeObserver = useMemo(() => {
-    if (typeof window === "undefined") {
+    if (windowType === "undefined") {
       return null;
     }
     return new ResizeObserver(update);
-  }, [typeof window, update]);
+  }, [windowType, update]);
 
   useEffect(() => {
     if (resizeObserver && el) {
