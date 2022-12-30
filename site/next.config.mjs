@@ -1,4 +1,5 @@
 import mkWithMDX from "@next/mdx";
+import rehypeSlug from "rehype-slug";
 import remarkGFM from "remark-gfm";
 
 /** @type {import("next").NextConfig} */
@@ -11,8 +12,8 @@ const nextConfig = {
 const withMDX = mkWithMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [ remarkGFM ],
-    rehypePlugins: [],
+    rehypePlugins: [rehypeSlug],
+    remarkPlugins: [remarkGFM],
   },
 });
 
