@@ -2,6 +2,8 @@ name: version
 
 on:
   push:
+    branches:
+      - master
     paths:
       - package.json
 
