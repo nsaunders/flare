@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "eslint-config-flare-typescript",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "index.json",
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.30.0",

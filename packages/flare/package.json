@@ -1,6 +1,6 @@
 {
   "name": "flare",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Applicative-style UIs",
   "main": "cjs/index.js",
   "module": "esm/index.js",
@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/nsaunders/flare#readme",
   "dependencies": {
-    "flare-core": "^0.3.0"
+    "flare-core": "^0.3.1"
   },
   "peerDependencies": {
     "react": "^18.2.0",
@@ -50,13 +50,13 @@
     "@typescript-eslint/parser": "^5.47.1",
     "cpy-cli": "^4.2.0",
     "eslint": "^8.30.0",
-    "eslint-config-flare-prettier": "^0.3.0",
-    "eslint-config-flare-typescript": "^0.3.0",
+    "eslint-config-flare-prettier": "^0.3.1",
+    "eslint-config-flare-typescript": "^0.3.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "lint-staged": "^13.1.0",
     "prettier": "^2.8.1",
-    "prettier-config-flare": "^0.3.0",
+    "prettier-config-flare": "^0.3.1",
     "replace": "^1.2.2",
     "rollup": "^3.9.0",
     "tslib": "^2.4.1",
