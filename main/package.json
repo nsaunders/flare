@@ -33,7 +33,9 @@
   },
   "homepage": "https://github.com/nsaunders/flare#readme",
   "dependencies": {
-    "flare-core": "workspace:0.3.0",
+    "flare-core": "workspace:0.3.0"
+  },
+  "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

@@ -63,6 +63,7 @@
     "postcss": "^8.4.20",
     "prettier": "^2.8.1",
     "prettier-config-flare": "workspace:*",
+    "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "replace": "^1.2.2",
     "rollup": "^3.9.0",
@@ -73,7 +74,7 @@
     "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "~4.9.4"
   },
-  "dependencies": {
+  "peerDependencies": {
     "react": "^18.2.0"
   }
 }
