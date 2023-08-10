@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm --recursive --if-present run precommit
+npm --workspaces --if-present run precommit

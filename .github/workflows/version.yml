@@ -1,57 +1,44 @@
 name: version
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - package.json
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Value passed to npm-version command"
+        required: true
+        default: "prerelease"
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+          - premajor
+          - preminor
+          - prepatch
+          - prerelease
 
 jobs:
-  update:
+  bump:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-      - id: check
-        name: check
-        run: NEW_VERSION=$(git diff -U0 HEAD~ -- package.json | grep -Po "(?<=\+\s{2}\"version\"\:\s\")([^\"]+)"); echo "::set-output name=new_version::$NEW_VERSION"
-      - if: steps.check.outputs.new_version != ''
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - if: steps.check.outputs.new_version != ''
-        uses: pnpm/action-setup@v2
-        with:
-          version: 6.2.1
-      - if: steps.check.outputs.new_version != ''
-        name: sync
-        run: node ./scripts/version
-      - if: steps.check.outputs.new_version != ''
-        name: lockfile
-        run: pnpm install --no-prefer-frozen-lockfile -r
-      - if: steps.check.outputs.new_version != ''
-        id: commit
-        name: commit
-        uses: EndBug/add-and-commit@v7
+      - uses: actions/checkout@v3
+      - id: root
+        run: echo "version=$(npm version ${{inputs.bump}} --preid=alpha --git-tag-version=false --tag-version-prefix='')" >> $GITHUB_OUTPUT
+      - run: npm version ${{steps.root.outputs.version}} --workspaces --git-tag-version=false
+      - id: commit
+        uses: EndBug/add-and-commit@v9
         with:
           author_name: GitHub Actions
           author_email: 41898282+github-actions[bot]@users.noreply.github.com
-          message: Sync version number ${{steps.check.outputs.new_version}}.
-      - if: steps.check.outputs.new_version != ''
-        id: sha
-        name: sha
-        run: COMMIT_SHA=$(git rev-parse ${{steps.commit.outputs.commit_sha}}); echo "::set-output name=commit_sha::$COMMIT_SHA"
-      - if: steps.check.outputs.new_version != ''
-        name: tag
-        uses: actions/github-script@v3
+          message: Version bump v${{steps.root.outputs.version}}
+      - uses: actions/github-script@v3
         with:
-          github-token: ${{ github.token }}
+          github-token: ${{github.token}}
           script: |
-            github.git.createRef({
+            await github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/v${{steps.check.outputs.new_version}}",
-              sha: "${{steps.sha.outputs.commit_sha}}"
+              ref: "refs/tags/v${{steps.root.outputs.version}}",
+              sha: "${{steps.commit.outputs.commit_long_sha}}"
             })

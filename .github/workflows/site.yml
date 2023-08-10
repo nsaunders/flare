@@ -13,19 +13,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 6.2.1
+      - uses: actions/checkout@v3
       - name: install dependencies
-        run: pnpm install -C
+        run: npm ci
       - name: build core
-        run: pnpm run prepublishOnly -C core
+        run: npm run prepublishOnly --workspace=core
       - name: build site
-        run: pnpm run build -C site
+        run: npm run build --workspace=site
       - name: publish
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/master'

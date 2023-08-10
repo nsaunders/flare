@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "eslint-config-flare-react",
-  "version": "0.0.0",
+  "version": "0.3.0",
   "main": "index.json",
   "peerDependencies": {
     "eslint": "^7.32.0",
