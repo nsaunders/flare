@@ -10,7 +10,8 @@
   },
   "workspaces": [
     "configs/*",
-    "packages/*",
+    "packages/flare-core",
+    "packages/flare",
     "apps/*"
   ]
 }
