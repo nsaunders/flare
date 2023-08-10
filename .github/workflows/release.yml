@@ -31,9 +31,6 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run prepublishOnly --workspaces --if-present
-
-      - name: publish
-        run: npm publish --workspaces
+      - run: npm publish --workspace=packages/flare-core --workspace=packages/flare
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
