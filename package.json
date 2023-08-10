@@ -9,10 +9,8 @@
     "husky": "^6.0.0"
   },
   "workspaces": [
-    "apps/*",
-    "packages/eslint-*",
-    "packages/prettier-*",
-    "packages/flare-core",
-    "packages/flare"
+    "configs/*",
+    "packages/*",
+    "apps/*"
   ]
 }
