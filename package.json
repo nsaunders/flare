@@ -1,5 +1,6 @@
 {
   "private": true,
+  "name": "flare-root",
   "version": "0.3.0",
   "scripts": {
     "prepare": "husky install"
@@ -8,13 +9,7 @@
     "husky": "^6.0.0"
   },
   "workspaces": [
-    "eslint-config-flare-prettier",
-    "eslint-config-flare-react",
-    "eslint-config-flare-react-typescript",
-    "eslint-config-flare-typescript",
-    "core",
-    "main",
-    "prettier-config-flare",
-    "site"
+    "apps/*",
+    "packages/*"
   ]
 }

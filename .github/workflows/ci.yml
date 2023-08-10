@@ -1,4 +1,4 @@
-name: CI
+namer: CI
 
 on: [push, pull_request]
 
@@ -25,22 +25,32 @@ jobs:
         continue-on-error: true
         run: npm list
 
-      - run: npm ci
+      - run: npm install
 
       - run: npm run prepublishOnly --workspaces --if-present
 
       - run: npm test --workspaces --if-present
 
       - name: rebuild core docs
-        run: npm run docs --workspace=core
+        run: npm run docs --workspace=packages/flare-core
 
       - name: rebuild main docs
-        run: npm run docs --workspace=main
+        run: npm run docs --workspace=packages/flare
 
-      - name: commit
+      - name: commit docs
         if: ${{ github.event_name != 'pull_request' }}
         uses: EndBug/add-and-commit@v9
         with:
           author_name: GitHub Actions
           author_email: 41898282+github-actions[bot]@users.noreply.github.com
           message: Update docs
+
+      - name: build site
+        run: npm run build --workspace=apps/site
+
+      - name: publish
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/master'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./apps/site/out
