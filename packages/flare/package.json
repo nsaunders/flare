@@ -11,7 +11,7 @@
     "docs": "typedoc src/index.ts && replace '\\(README\\.md#' '(#' docs/README.md",
     "postversion": "npm install flare-core@^$npm_package_version && npm install -D eslint-config-flare-prettier@^$npm_package_version eslint-config-flare-typescript@^$npm_package_version prettier-config-flare@^$npm_package_version",
     "precommit": "lint-staged",
-    "prepublishOnly": "node -e \"['cjs', 'css', 'esm', 'types'].forEach(x => {try{require('fs').rmSync(x, { recursive: true })}catch(_){}})\" && tsc --project tsconfig.types.json && tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && rollup -c && cpy --flat node_modules/flare-core/css/flare-core.css css --rename=flare.css",
+    "prepublishOnly": "node -e \"['cjs', 'css', 'esm', 'types'].forEach(x => {try{require('fs').rmSync(x, { recursive: true })}catch(_){}})\" && tsc --project tsconfig.types.json && tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && rollup -c && cpy --flat $(node -e 'console.log(path.dirname(require.resolve(\"flare-core/package.json\")))')/css/flare-core.css css --rename=flare.css",
     "test": "echo \"You should add some tests.\""
   },
   "repository": {
