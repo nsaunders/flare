@@ -59,7 +59,7 @@ The React component used to render a button
 
 #### Defined in
 
-[index.tsx:299](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L299)
+[index.tsx:299](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L299)
 
 ___
 
@@ -79,7 +79,7 @@ The props of the React component used to render a button
 
 #### Defined in
 
-[index.tsx:281](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L281)
+[index.tsx:281](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L281)
 
 ___
 
@@ -91,7 +91,7 @@ The React component used to render a checkbox
 
 #### Defined in
 
-[index.tsx:314](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L314)
+[index.tsx:314](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L314)
 
 ___
 
@@ -111,7 +111,7 @@ The props of the React component used to render a checkbox
 
 #### Defined in
 
-[index.tsx:302](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L302)
+[index.tsx:302](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L302)
 
 ___
 
@@ -123,7 +123,7 @@ The React component used to render a combo box
 
 #### Defined in
 
-[index.tsx:332](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L332)
+[index.tsx:332](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L332)
 
 ___
 
@@ -144,7 +144,7 @@ The props of the React component used to render a combo box
 
 #### Defined in
 
-[index.tsx:317](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L317)
+[index.tsx:317](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L317)
 
 ___
 
@@ -167,7 +167,7 @@ that it does not implicitly add a `children` prop.
 
 #### Defined in
 
-[index.tsx:276](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L276)
+[index.tsx:276](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L276)
 
 ___
 
@@ -199,7 +199,7 @@ These can be customized through the `components` prop of the
 
 #### Defined in
 
-[index.tsx:658](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L658)
+[index.tsx:658](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L658)
 
 ___
 
@@ -225,7 +225,7 @@ queried and invoking some upstream handler when the value changes
 
 #### Defined in
 
-[index.tsx:20](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L20)
+[index.tsx:20](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L20)
 
 ___
 
@@ -237,7 +237,7 @@ The React component used to render a group of radio buttons
 
 #### Defined in
 
-[index.tsx:377](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L377)
+[index.tsx:377](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L377)
 
 ___
 
@@ -258,7 +258,7 @@ The props of the React component used to render a group of radio buttons
 
 #### Defined in
 
-[index.tsx:362](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L362)
+[index.tsx:362](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L362)
 
 ___
 
@@ -270,7 +270,7 @@ The React component used to render a resizable list
 
 #### Defined in
 
-[index.tsx:344](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L344)
+[index.tsx:344](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L344)
 
 ___
 
@@ -282,7 +282,7 @@ The React component used to render a resizable list item
 
 #### Defined in
 
-[index.tsx:359](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L359)
+[index.tsx:359](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L359)
 
 ___
 
@@ -302,7 +302,7 @@ The props of the React component used to render a resizable list item
 
 #### Defined in
 
-[index.tsx:347](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L347)
+[index.tsx:347](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L347)
 
 ___
 
@@ -321,7 +321,7 @@ The props of the React component used to render a resizable list
 
 #### Defined in
 
-[index.tsx:335](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L335)
+[index.tsx:335](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L335)
 
 ___
 
@@ -347,7 +347,7 @@ ___
 
 #### Defined in
 
-[index.tsx:710](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L710)
+[index.tsx:710](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L710)
 
 ___
 
@@ -359,7 +359,7 @@ The React component used to render a slider
 
 #### Defined in
 
-[index.tsx:401](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L401)
+[index.tsx:401](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L401)
 
 ___
 
@@ -382,7 +382,7 @@ The props of the React component used to render a slider
 
 #### Defined in
 
-[index.tsx:380](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L380)
+[index.tsx:380](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L380)
 
 ___
 
@@ -394,7 +394,7 @@ The React component used to render a spin button
 
 #### Defined in
 
-[index.tsx:425](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L425)
+[index.tsx:425](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L425)
 
 ___
 
@@ -417,7 +417,7 @@ The props of the React component used to render a spin button
 
 #### Defined in
 
-[index.tsx:404](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L404)
+[index.tsx:404](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L404)
 
 ___
 
@@ -429,7 +429,7 @@ The React component used to render a switch
 
 #### Defined in
 
-[index.tsx:440](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L440)
+[index.tsx:440](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L440)
 
 ___
 
@@ -449,7 +449,7 @@ The props of the React component used to render a switch
 
 #### Defined in
 
-[index.tsx:428](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L428)
+[index.tsx:428](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L428)
 
 ___
 
@@ -461,7 +461,7 @@ The React component used to render a text box
 
 #### Defined in
 
-[index.tsx:455](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L455)
+[index.tsx:455](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L455)
 
 ___
 
@@ -481,7 +481,7 @@ The props of the React component used to render a text box
 
 #### Defined in
 
-[index.tsx:443](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L443)
+[index.tsx:443](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L443)
 
 ___
 
@@ -505,7 +505,7 @@ struggles to infer types.
 
 #### Defined in
 
-[index.tsx:56](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L56)
+[index.tsx:56](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L56)
 
 ## Functions
 
@@ -533,7 +533,7 @@ A React component that renders the specified Flare.
 
 #### Defined in
 
-[index.tsx:724](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L724)
+[index.tsx:724](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L724)
 
 ___
 
@@ -576,7 +576,7 @@ A Flare that produces the result of the function application
 
 #### Defined in
 
-[index.tsx:69](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L69)
+[index.tsx:69](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L69)
 
 ___
 
@@ -619,7 +619,7 @@ The Flare resulting from the composition
 
 #### Defined in
 
-[index.tsx:103](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L103)
+[index.tsx:103](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L103)
 
 ___
 
@@ -645,7 +645,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:239](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L239)
+[index.tsx:239](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L239)
 
 ___
 
@@ -676,7 +676,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:779](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L779)
+[index.tsx:779](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L779)
 
 ___
 
@@ -726,7 +726,7 @@ This is typically used with [chain](#chain).
 
 #### Defined in
 
-[index.tsx:190](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L190)
+[index.tsx:190](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L190)
 
 ___
 
@@ -775,7 +775,7 @@ Flares, consider using CSS to customize existing elements or using the
 
 #### Defined in
 
-[index.tsx:234](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L234)
+[index.tsx:234](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L234)
 
 ___
 
@@ -818,7 +818,7 @@ A Flare that produces the result of the function application
 
 #### Defined in
 
-[index.tsx:141](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L141)
+[index.tsx:141](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L141)
 
 ___
 
@@ -854,7 +854,7 @@ This is typically used with [chain](#chain).
 
 #### Defined in
 
-[index.tsx:210](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L210)
+[index.tsx:210](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L210)
 
 ___
 
@@ -884,7 +884,7 @@ A Flare that produces the specified value `a`
 
 #### Defined in
 
-[index.tsx:163](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L163)
+[index.tsx:163](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L163)
 
 ___
 
@@ -915,7 +915,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:821](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L821)
+[index.tsx:821](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L821)
 
 ___
 
@@ -949,7 +949,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:994](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L994)
+[index.tsx:994](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L994)
 
 ___
 
@@ -978,7 +978,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:239](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L239)
+[index.tsx:239](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L239)
 
 ___
 
@@ -1007,7 +1007,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:239](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L239)
+[index.tsx:239](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L239)
 
 ___
 
@@ -1033,7 +1033,7 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:239](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L239)
+[index.tsx:239](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L239)
 
 ___
 
@@ -1060,4 +1060,4 @@ The Flare that was created
 
 #### Defined in
 
-[index.tsx:239](https://github.com/nsaunders/flare/blob/789bc7e/packages/flare-core/src/index.tsx#L239)
+[index.tsx:239](https://github.com/nsaunders/flare/blob/b2a1a8c/packages/flare-core/src/index.tsx#L239)
