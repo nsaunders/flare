@@ -204,10 +204,6 @@ ___
 Combines two Flares into one, producing the value from the original Flare
 that corresponds to the boolean expression provided.
 
-**`Remarks`**
-
-This is typically used with [chain](#chain).
-
 #### Type parameters
 
 | Name | Description |
@@ -240,6 +236,10 @@ second Flare
 ##### Returns
 
 [`Flare`](#flare)<`A` \| `B`\>
+
+**`Remarks`**
+
+This is typically used with [chain](#chain).
 
 ___
 
@@ -289,10 +289,6 @@ ___
 Combines multiple Flares into one, producing the value from the original Flare
 that corresponds to the expression provided.
 
-**`Remarks`**
-
-This is typically used with [chain](#chain).
-
 #### Type parameters
 
 | Name | Description |
@@ -311,6 +307,10 @@ This is typically used with [chain](#chain).
 
 A function that returns the Flare from the `map` corresponding to the
 specified `key`
+
+**`Remarks`**
+
+This is typically used with [chain](#chain).
 
 ___
 
