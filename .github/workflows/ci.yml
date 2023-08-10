@@ -27,7 +27,9 @@ jobs:
 
       - run: npm install
 
-      - run: npm run prepublishOnly --workspaces --if-present
+      - run: npm run prepublishOnly --workspace flare-core --if-present
+
+      - run: npm run prepublishOnly --workspace flare --if-present
 
       - run: npm test --workspaces --if-present
 
